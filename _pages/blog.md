@@ -7,14 +7,12 @@ pagination:
   enabled: true
   collection: posts
   permalink: /page/:num/
-  per_page: 10
+  per_page: 20
   sort_field: date
   sort_reverse: true
   trail:
     before: 1 # The number of links before the current page
     after: 3 # The number of links after the current page
-
-published: false
 ---
 
 {% assign blog_name_size = site.blog_name | size %}
