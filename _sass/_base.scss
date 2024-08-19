@@ -599,21 +599,6 @@ footer.sticky-bottom {
   }
 }
 
-.post-content {
-    img {
-        max-width: 100%;
-    }
-}
-
-.footnotes::before {
-    content: "";
-    border: 1px solid var(--global-divider-color);
-    margin-bottom: 1rem;
-    border-top-style: none;
-    border-top-color: currentcolor;
-    display: block;
-}
-
 .pagination {
   .page-item {
     .page-link {
@@ -1349,4 +1334,26 @@ ninja-keys::part(ninja-input-wrapper) {
         height: 2rem;
         fill: var(--global-text-color);
     }
+}
+
+// Fix image being too large
+.post-content {
+    img {
+        max-width: 100%;
+    }
+}
+
+// Add a separator before footnotes
+.footnotes::before {
+    content: "";
+    border: 1px solid var(--global-divider-color);
+    margin-bottom: 1rem;
+    border-top-style: none;
+    border-top-color: currentcolor;
+    display: block;
+}
+
+// Fix url going output of the screen
+blockquote {
+    word-break: break-all;
 }
