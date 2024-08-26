@@ -15,7 +15,7 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
 
-I am a MEng Computer Science student at [UCL](https://www.ucl.ac.uk/). My research interests include systems and security.
+I am an MEng Computer Science student at [UCL](https://www.ucl.ac.uk/) and was a B.S. CS exchange student at [Georgia Tech](https://www.gatech.edu/). My research interests include systems and security.
 
 Specifically, I am deeply interested in studying how systems work from the bottom up, and how secure systems can be constructed for the benefit of all.
 
