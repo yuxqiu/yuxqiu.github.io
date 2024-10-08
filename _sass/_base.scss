@@ -1364,8 +1364,3 @@ ninja-keys::part(ninja-input-wrapper) {
     border-top-color: currentcolor;
     display: block;
 }
-
-// Fix url going output of the screen
-blockquote {
-    word-break: break-all;
-}

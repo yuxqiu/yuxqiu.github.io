@@ -62,8 +62,8 @@ For an object to be safely shared across different threads (visibility), it need
       2. If one of them are volatile, they can still be reordered (as the writes to another variable is not a visible side effect)
       3. If two of them are volatile, the order must be respected based on sequence-before rules
 
-[^reordering-1]: https://jenkov.com/tutorials/java-concurrency/volatile.html "Java Volatile Keyword"
-[^reordering-2]: https://en.cppreference.com/w/cpp/language/cv "cv (const and volatile) type qualifiers"
+[^reordering-1]: [Java Volatile Keyword](https://jenkov.com/tutorials/java-concurrency/volatile.html)
+[^reordering-2]: [cv (const and volatile) type qualifiers](https://en.cppreference.com/w/cpp/language/cv)
 
 ## Execution
 
@@ -75,9 +75,9 @@ For an object to be safely shared across different threads (visibility), it need
    1. as-if rule permits optimization. Those guarantees are the guarantees of C++ Abstract Machine.
 
 
-[^execution-1]: https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/package-summary.html#MemoryVisibility "Package java.util.concurrent: Memory Consistency Properties"
-[^execution-2]: https://stackoverflow.com/a/32492873 "JLS happens before"
-[^execution-3]: https://en.cppreference.com/w/cpp/language/as_if#Explanation "Order of evaluation: \"Sequenced before\" rules"
+[^execution-1]: [Package java.util.concurrent: Memory Consistency Properties](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/package-summary.html#MemoryVisibility)
+[^execution-2]: [JLS happens before](https://stackoverflow.com/a/32492873)
+[^execution-3]: [Order of evaluation: \"Sequenced before\" rules](https://en.cppreference.com/w/cpp/language/as_if#Explanation)
 
 
 ### Execution with multiple threads
@@ -90,7 +90,7 @@ For an object to be safely shared across different threads (visibility), it need
    4. See [guarantees not provided by volatile](https://wiki.sei.cmu.edu/confluence/display/c/CON02-C.+Do+not+use+volatile+as+a+synchronization+primitive) for more details
 
 
-[^execution-4]: https://en.cppreference.com/w/cpp/atomic/memory_order#Relationship_with_volatile "std::memory_order: Relationship with volatile"
+[^execution-4]: [std::memory_order: Relationship with volatile](https://en.cppreference.com/w/cpp/atomic/memory_order#Relationship_with_volatile)
 
 
 ## More resources

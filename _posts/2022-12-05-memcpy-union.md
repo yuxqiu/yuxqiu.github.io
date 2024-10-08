@@ -111,12 +111,12 @@ However, this is the time we need to directly refer to the `memcpy`. The C++ sta
 - Plus all the things stated by C standard (My Point)
   - Based on "[library.c]"
 
-[^1]: https://en.cppreference.com/w/cpp/string/byte/memcpy "std::memcpy"
+[^1]: [std::memcpy](https://en.cppreference.com/w/cpp/string/byte/memcpy)
 
 
 So far, it looks like we have solid grounds to use `memcpy` in C++ as long as we are manipulating Trivially Copyable Types. However, some people mention about the trap, claiming that it's undefined behavior if we try to access the value based on the type that has trap representation. So, they believe it's not safe to copy from a type `T` to a type `U` unless `U` is of narrow character types or `U == T` (given that the destination has enough size for the src). [^2]
 
-[^2]: https://stackoverflow.com/questions/51300626/is-stdmemcpy-between-different-trivially-copyable-types-undefined-behavior/ "Is std::memcpy between different trivially copyable types undefined behavior?"
+[^2]: [Is std::memcpy between different trivially copyable types undefined behavior?](https://stackoverflow.com/questions/51300626/is-stdmemcpy-between-different-trivially-copyable-types-undefined-behavior/)
 
 
 However, my point is `memcpy` is noy affected by the existence of trap representation because as the standard explicitly stated in `std::memcpy`: "both objects (the src and dest pointers) are reinterpreted as arrays of unsigned char." Since we are not accessing the object of Type `U` via the type `U` itself, we are in the safe realm.
