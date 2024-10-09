@@ -1331,6 +1331,10 @@ ninja-keys::part(ninja-input-wrapper) {
     color: var(--global-text-color);
 }
 
+/*****************************************************************************
+* Custom
+*****************************************************************************/
+
 // SVG icon
 .wh1 {
     .icon {
@@ -1355,6 +1359,11 @@ ninja-keys::part(ninja-input-wrapper) {
     }
 }
 
+// Fix word-break in footnotes
+.footnotes {
+    word-break: break-word;
+}
+
 // Add a separator before footnotes
 .footnotes::before {
     content: "";
@@ -1363,4 +1372,36 @@ ninja-keys::part(ninja-input-wrapper) {
     border-top-style: none;
     border-top-color: currentcolor;
     display: block;
+}
+
+// Adjust post font size
+.post {
+    font-size: 1.2em;
+
+    h2 {
+        font-size: 1.4em;
+    }
+
+    h3 {
+        font-size: 1.1em;
+        font-style: italic;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+}
+
+// Fix Mathjax overflow
+.post mjx-container {
+    display: inline-grid;
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-width: 100%;
 }
