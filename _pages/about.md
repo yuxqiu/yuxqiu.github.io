@@ -19,8 +19,13 @@ I am an MEng Computer Science student at [UCL](https://www.ucl.ac.uk/) and was a
 
 Specifically, I am deeply interested in studying how systems work from the bottom up, and how secure systems can be constructed for the benefit of all.
 
-In addition to my interest in computer science, I enjoy reading books (fiction, essays, poetry, travel literature, sociology, and basically anything I find interesting), watching movies/TV shows (romances, thrillers, documentaries, dramas, animations), and travelling (13/195 countries in the world, 14/50 states in the US, 16/34 provinces in China).
+In addition, I enjoy reading books (fiction, essays, poetry, travel literature, sociology, and basically anything I find interesting), watching movies/TV shows (romances, thrillers, documentaries, dramas, animations), travelling (13/195 countries in the world) and hacking (passionate about technology and working hard on it, contributing to open source projects, etc.).
 
-<!-- Countries: cn, sg, jp, us, uk, do, ch, fr, it, va, es, th, my  -->
-<!-- USA: ny, mn, nd, ga, pa, nv, az, ut, il, co, md, la, fl, ma -->
-<!-- China: bj, fj, gd, gx, gz, hk, hn, js, jx, qh, sc, sh, sn, xj, xz, zj -->
+<!-- Why don't read something about hacker culture -->
+<!-- I like this blog: https://endler.dev/2024/follow-the-hackers/#defining-hacker -->
+
+<!-- Places I've been (sry, I've only included China, the US and the UK as they are countries I've lived in) -->
+<!-- Countries: cn, sg, jp, us, uk, do, ch, fr, it, va, es, th, my (in chronological order)  -->
+<!-- China: bj, fj, gd, gx, gz, hk, hn, js, jx, qh, sc, sh, sn, xj, xz, zj (in chronological order) -->
+<!-- USA: ny, mn, nd, ga, pa, nv, az, ut, il, co, md, la, fl, ma (in chronological order) -->
+<!-- UK: England, Scotland (in chronological order) -->
