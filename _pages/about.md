@@ -19,10 +19,7 @@ I am an MEng Computer Science student at [UCL](https://www.ucl.ac.uk/) and was a
 
 Specifically, I am deeply interested in studying how systems work from the bottom up, and how secure systems can be constructed for the benefit of all.
 
-In addition, I enjoy reading books (fiction, essays, poetry, travel literature, sociology, and basically anything I find interesting), watching movies/TV shows (romances, thrillers, documentaries, dramas, animations), travelling (13/195 countries in the world) and hacking (passionate about technology and working hard on it, contributing to open source projects, etc.).
-
-<!-- Why don't read something about hacker culture -->
-<!-- I like this blog: https://endler.dev/2024/follow-the-hackers/#defining-hacker -->
+In addition, I enjoy reading books (fiction, essays, poetry, travel literature, sociology, and basically anything I find interesting), watching movies/TV shows (romances, thrillers, documentaries, dramas, animations), travelling (13/195 countries) and tinkering (contributing to open source projects, fixing some random Linux problems, etc.).
 
 <!-- Places I've been (sry, I've only included China, the US and the UK as they are countries I've lived in) -->
 <!-- Countries: cn, sg, jp, us, uk, do, ch, fr, it, va, es, th, my (in chronological order)  -->
