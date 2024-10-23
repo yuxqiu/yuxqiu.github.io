@@ -15,9 +15,9 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
 
-I am an MEng Computer Science student at [UCL](https://www.ucl.ac.uk/) and was a B.S. CS exchange student at [Georgia Tech](https://www.gatech.edu/). My research interests include systems and security.
+I am an MEng Computer Science student at [UCL](https://www.ucl.ac.uk/) and was a B.S. CS exchange student at [Georgia Tech](https://www.gatech.edu/). My research interests are in applied cryptography, system and security.
 
-Specifically, I am deeply interested in studying how systems work from the bottom up, and how secure systems can be constructed for the benefit of all.
+Specifically, I am deeply interested in studying how different systems and protocols work from the bottom up and how to design secure systems and protocols for the benefit of all.
 
 In addition, I enjoy reading books (fiction, essays, poetry, travel literature, sociology, and basically anything I find interesting), watching movies/TV shows (romances, thrillers, documentaries, dramas, animations), travelling (13/195 countries) and tinkering (contributing to open source projects, fixing some random Linux problems, etc.).
 
