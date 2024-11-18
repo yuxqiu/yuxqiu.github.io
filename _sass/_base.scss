@@ -31,10 +31,6 @@ table {
         font-size: 1rem;
         padding: 1px 1rem 1px 0;
     }
-
-    th {
-        font-weight: bold;
-    }
 }
 
 a,
@@ -1404,4 +1400,14 @@ ninja-keys::part(ninja-input-wrapper) {
     overflow-x: auto;
     overflow-y: hidden;
     max-width: 100%;
+}
+
+// Adjust strong font weight
+strong {
+    font-weight: bold;
+}
+
+// Override BootStrap setting
+table {
+    color: var(--global-text-color) !important;
 }
