@@ -22,7 +22,7 @@ In addition, I enjoy reading books (fiction, essays, poetry, travel literature, 
 **I am currently looking for 25 Fall PhD positions!**
 
 <!-- Places I've been (I've only included China, the US and the UK as they are countries I've lived in) -->
-<!-- Countries: cn, sg, jp, us, uk, do, ch, fr, it, va, es, th, my (in chronological order)  -->
+<!-- Countries: cn, sg, jp, us, uk, do, ch, fr, it, va, es, th, my, is, no, fi, se, dk (in chronological order)  -->
 <!-- China: bj, fj, gd, gx, gz, hk, hn, js, jx, qh, sc, sh, sn, xj, xz, zj (in chronological order) -->
 <!-- USA: ny, mn, nd, ga, pa, nv, az, ut, il, co, md, la, fl, ma (in chronological order) -->
 <!-- UK: England, Scotland (in chronological order) -->
