@@ -5,7 +5,6 @@ date: 2023-01-13 18:20:23
 tags: ["cpp", "concurrency"]
 
 toc: true
-mathjax: false
 featured: false
 ---
 

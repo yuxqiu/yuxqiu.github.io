@@ -5,7 +5,6 @@ date: 2022-12-05 09:05:17
 tags: ["cpp"]
 
 toc: true
-mathjax: false
 featured: false
 ---
 

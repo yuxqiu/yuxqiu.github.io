@@ -5,7 +5,6 @@ date: 2021-04-04 14:45:48
 tags: ['Opinion']
 
 toc: true
-mathjax: false
 featured: false
 published: false
 ---

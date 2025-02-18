@@ -5,7 +5,6 @@ date: 2023-02-27 14:47:52
 tags: ["Python"]
 
 toc: true
-mathjax: false
 featured: false
 published: false
 ---

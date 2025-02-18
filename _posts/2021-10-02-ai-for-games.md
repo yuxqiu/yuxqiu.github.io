@@ -4,7 +4,6 @@ title: 'AI-For-Games'
 date: 2021-10-02 12:11:15
 tags: ['Open Source']
 
-mathjax: false
 featured: false
 published: false
 ---

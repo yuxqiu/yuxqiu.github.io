@@ -5,7 +5,6 @@ date: 2022-12-08 20:39:06
 tags: ["concurrency", "cpp", "java"]
 
 toc: true
-mathjax: false
 featured: false
 ---
 

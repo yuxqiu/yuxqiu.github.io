@@ -1394,14 +1394,6 @@ ninja-keys::part(ninja-input-wrapper) {
     }
 }
 
-// Fix Mathjax overflow
-.post mjx-container {
-    display: inline-grid;
-    overflow-x: auto;
-    overflow-y: hidden;
-    max-width: 100%;
-}
-
 // Adjust strong font weight
 strong {
     font-weight: bold;

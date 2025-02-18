@@ -5,7 +5,6 @@ date: 2021-04-12 21:27:06
 tags: ['Book']
 
 toc: true
-mathjax: false
 featured: false
 published: false
 ---

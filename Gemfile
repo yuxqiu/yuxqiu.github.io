@@ -21,6 +21,7 @@ group :jekyll_plugins do
     gem 'mini_racer'
     gem 'unicode_utils'
     gem 'jekyll-fontawesome-svg', path: "_local/jekyll-fontawesome-svg"
+    gem 'kramdown-math-katex'
 end
 group :other_plugins do
     gem 'css_parser'
