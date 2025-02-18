@@ -62,10 +62,6 @@ blockquote {
     padding: 1em;
     font-size: 1.2rem;
 
-    p {
-        margin-bottom: 0;
-    }
-
     /* Tips, warnings, and dangers blockquotes */
     &.block-tip {
         border-color: var(--global-tip-block);
