@@ -157,4 +157,9 @@
     integrity="{{ site.third_party_libraries.katex.integrity.css }}"
     crossorigin="anonymous"
   >
+  <link
+    defer
+    rel="stylesheet"
+    href="{{ '/assets/css/katex-override.css' | relative_url | bust_file_cache }}"
+  >
 {% endif %}
