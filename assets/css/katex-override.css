@@ -1,6 +1,5 @@
 /* Fix katex overflow */
 .post .katex-display {
-    display: inline-grid;
     overflow-x: auto;
     overflow-y: hidden;
     max-width: 100%;
