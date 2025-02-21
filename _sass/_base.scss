@@ -74,7 +74,8 @@ blockquote {
         em,
         li,
         p,
-        strong {
+        strong,
+        span {
             color: var(--global-tip-block-text);
         }
 
@@ -95,7 +96,8 @@ blockquote {
         em,
         li,
         p,
-        strong {
+        strong,
+        span {
             color: var(--global-warning-block-text);
         }
 
@@ -116,7 +118,8 @@ blockquote {
         em,
         li,
         p,
-        strong {
+        strong,
+        span {
             color: var(--global-danger-block-text);
         }
 
