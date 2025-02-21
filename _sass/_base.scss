@@ -1412,3 +1412,9 @@ figure {
     text-align: center;
     flex-direction: column;
 }
+
+// Proof end
+.proof-end::after {
+    content: "□";
+    float: right;
+}
