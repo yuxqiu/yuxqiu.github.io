@@ -62,6 +62,10 @@ blockquote {
     padding: 1em;
     font-size: 1.2rem;
 
+    *:last-child {
+        margin-bottom: 0;
+    }
+
     /* Tips, warnings, and dangers blockquotes */
     &.block-tip {
         border-color: var(--global-tip-block);
@@ -154,9 +158,9 @@ ul.task-list input[type="checkbox"] {
 // Caption
 
 .caption {
+    color: gray;
     font-size: 0.875rem;
     margin-top: 0.75rem;
-    margin-bottom: 1.5rem;
     text-align: center;
 }
 
@@ -1398,4 +1402,13 @@ strong {
 // Override BootStrap setting
 table {
     color: var(--global-text-color) !important;
+}
+
+// Figure center
+figure {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
 }
