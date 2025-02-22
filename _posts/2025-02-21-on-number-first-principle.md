@@ -92,4 +92,47 @@ So, it suffices for us to show that there exists $$x', y'$$ such that $$x' > 0, 
 Note that $$ma + (-a)m = 0$$. So, there exists some natural number $$z$$ such that $$x' = x+zm > 0$$ and $$y' = y - za < 0$$ such that $$(x+zm)a + (y-za)m = xa + ym + zma - zam = xa + ym = \text{gcd}(a, m)$$.
 {: .proof-end }
 
+## Latin square + associativity = group
+
+> Identity row and column, Latin square + associativity = group, pdf 20/92
+
+$$
+\begin{array}{c|ccc}
+\circ & A & B & C \\
+\hline
+A & B & A & C \\
+B & A & C & B \\
+C & C & B & A
+\end{array}
+$$
+
+A 3x3 latin square.
+{: .caption}
+
+
+**Prove: Associative operation with unique solutions implies that the identity element is the same for all elements.** Another equivalent expression is: [latin square](https://en.wikipedia.org/wiki/Latin_square) + associative operation implies a group.
+
+Note:
+- The proof in the article is already very good. Here, I aim at simplifying it a bit.
+- The uniqueness of solution results in a latin square is proven previously in the article.
+
+Without loss of generality, we prove that the left identity element is the same for all elements.
+
+---
+
+Let's first prove the following lemma:
+
+> The left identity element of each element is idempotent.
+{: .block-tip }
+
+Consider a left arbitrary element $$D$$. By definition of latin square, $$\exists E, E \cdot D = D$$. By applying $$E$$ on both side, we get $$E \cdot (E \cdot D) = E \cdot D$$. By associativity, $$E \cdot (E \cdot D) = (E \cdot E) \cdot D = E \cdot D = D$$. By uniqueness of the solution for $$X \cdot D = D$$, $$E \cdot E = E$$.
+{: .proof-end }
+
+---
+
+Now, let's prove the left identity element of all elements is the same.
+
+Consider a left identity element $$E$$ of $$D$$, and another arbitrary element $$F$$. By assumption, $$E \cdot X = F$$ has a unique solution. By idempotency, it follows that $$E \cdot X = (E \cdot E) \cdot X$$. By associativity, $$(E \cdot E) \cdot X = E \cdot (E \cdot X) = F$$. Plug in the value of $$E \cdot X$$, we get $$E \cdot F = F$$. So, $$E$$ is a left identity of $$F$$.
+{: .proof-end }
+
 ## To be continued.
