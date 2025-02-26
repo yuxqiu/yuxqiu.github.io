@@ -36,8 +36,8 @@
     {% endif %}
 {% endcomment %}
 
-<footer class="sticky-bottom" role="contentinfo">
-  {% if page.layout == 'post' %}
+{% if page.layout == 'post' %}
+  <footer class="sticky-bottom" role="contentinfo">
     <div class="caption post-version">
       &copy; {{ site.time | date: '%Y' }} <a href="/">{{ site.first_name }} {{ site.last_name }}</a>
 
@@ -51,8 +51,8 @@
         {% endif %}
       {% endif %}
     </div>
-  {% endif %}
-</footer>
+  </footer>
+{% endif %}
 
 {% comment %}
 Generate SVG for FontAwesome
