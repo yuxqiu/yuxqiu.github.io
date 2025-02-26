@@ -244,6 +244,7 @@ plugins:
   - jekyll-toc
   - jekyll-twitter-plugin
   - jemoji
+  - jekyll-last-commit
 
 # Sitemap settings
 defaults:
@@ -351,6 +352,12 @@ external_links:
   rel: external nofollow noopener
   target: _blank
   exclude:
+
+# -----------------------------------------------------------------------------
+# Jekyll Last Commit
+# -----------------------------------------------------------------------------
+show_version: true
+commit_viewer: "https://github.com/yuxqiu/yuxqiu.github.io/commit/"
 
 # -----------------------------------------------------------------------------
 # Responsive WebP Images

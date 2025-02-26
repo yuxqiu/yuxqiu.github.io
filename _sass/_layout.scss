@@ -3,7 +3,7 @@
  ******************************************************************************/
 
 body {
-    padding-bottom: 70px;
+    padding-bottom: 50px;
     color: var(--global-text-color);
     background-color: var(--global-bg-color);
 
@@ -20,11 +20,6 @@ body {
 body.fixed-top-nav {
     // Add some padding for the nav-bar.
     padding-top: 56px;
-}
-
-body.sticky-bottom-footer {
-    // Remove padding below footer.
-    padding-bottom: 0;
 }
 
 .container {

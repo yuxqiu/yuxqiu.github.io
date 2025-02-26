@@ -22,6 +22,7 @@ group :jekyll_plugins do
     gem 'unicode_utils'
     gem 'jekyll-fontawesome-svg', path: "_local/jekyll-fontawesome-svg"
     gem 'kramdown-math-katex'
+    gem "jekyll-last-commit"
 end
 group :other_plugins do
     gem 'css_parser'

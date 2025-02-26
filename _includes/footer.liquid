@@ -40,3 +40,18 @@
 Generate SVG for FontAwesome
 {% endcomment %}
 {% fa_svg_generate %}
+
+{% comment %}
+Show version tag at footer
+{% endcomment %}
+{% if site.show_version %}
+{% if page.layout == 'post' %}
+  <div class="caption post-version">
+    v{{ page.last_modified_at | date: '%y-%m-%d' }}
+
+    {% if site.commit_viewer %}
+      | <a href="{{ site.commit_viewer }}{{ page.last_commit.sha}}">{{ page.last_commit.sha | slice: 0, 7 }}</a>
+    {% endif %}
+  </div>
+{% endif %}
+{% endif %}

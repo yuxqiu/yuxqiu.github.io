@@ -11,6 +11,8 @@
         "mathjax",
         "nlogn",
         "Shamir",
-        "textcolor"
+        "textcolor",
+        "Unlinkability",
+        "Vandermonde"
     ]
 }

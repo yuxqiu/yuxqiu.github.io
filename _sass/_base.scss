@@ -25,6 +25,7 @@ hr {
 }
 
 table {
+
     td,
     th {
         font-size: 1rem;
@@ -1428,4 +1429,16 @@ figure {
     align-items: center;
     text-align: center;
     flex-direction: column;
+}
+
+// Post version
+.post-version {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
+    a {
+        color: inherit;
+        text-decoration: underline;
+    }
 }
