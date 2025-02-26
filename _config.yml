@@ -350,6 +350,7 @@ commit_viewer: "https://github.com/yuxqiu/yuxqiu.github.io/commit/"
 
 # -----------------------------------------------------------------------------
 # Jekyll SEO Tag
+# - need to sync the social links with social integrations
 # -----------------------------------------------------------------------------
 webmaster_verifications:
   google: "OyP7PF7v8xjEbPqbdYaMosljunIcAOjdw_C6-TtA8f0"
@@ -367,9 +368,10 @@ social:
 
 # -----------------------------------------------------------------------------
 # Jekyll OG Image
+# - need to delete/regenerate og image when the title of blog changes
 # -----------------------------------------------------------------------------
 og_image:
-  output_dir: "assets/images/og"
+  output_dir: "assets/img/og"
   domain: "yuxqiu.github.io"
   border_bottom:
     width: 20
