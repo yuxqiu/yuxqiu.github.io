@@ -68,7 +68,8 @@ blockquote {
     word-wrap: break-word;
     overflow-wrap: break-word;
 
-    *:last-child {
+    > :last-child,
+    > :last-child *:last-child {
         margin-bottom: 0;
     }
 
