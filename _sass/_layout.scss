@@ -22,6 +22,11 @@ body.fixed-top-nav {
     padding-top: 56px;
 }
 
+body.sticky-bottom-footer {
+    // Remove padding below footer.
+    padding-bottom: 0;
+}
+
 .container {
     max-width: $max-content-width;
 }

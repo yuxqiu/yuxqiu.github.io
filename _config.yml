@@ -44,7 +44,7 @@ rss_icon: true
 # -----------------------------------------------------------------------------
 
 navbar_fixed: true
-footer_fixed: false
+footer_fixed: true
 search_enabled: false
 socials_in_search: false
 bib_search: false

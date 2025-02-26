@@ -36,22 +36,25 @@
     {% endif %}
 {% endcomment %}
 
+<footer class="sticky-bottom" role="contentinfo">
+  {% if page.layout == 'post' %}
+    <div class="caption post-version">
+      &copy; {{ site.time | date: '%Y' }} <a href="/">{{ site.first_name }} {{ site.last_name }}</a>
+
+      {% if site.show_version %}
+      <br>
+
+      v{{ page.last_modified_at | date: '%y-%m-%d' }}
+
+        {% if site.commit_viewer %}
+          | <a href="{{ site.commit_viewer }}{{ page.last_commit.sha}}">{{ page.last_commit.sha | slice: 0, 7 }}</a>
+        {% endif %}
+      {% endif %}
+    </div>
+  {% endif %}
+</footer>
+
 {% comment %}
 Generate SVG for FontAwesome
 {% endcomment %}
 {% fa_svg_generate %}
-
-{% comment %}
-Show version tag at footer
-{% endcomment %}
-{% if site.show_version %}
-{% if page.layout == 'post' %}
-  <div class="caption post-version">
-    v{{ page.last_modified_at | date: '%y-%m-%d' }}
-
-    {% if site.commit_viewer %}
-      | <a href="{{ site.commit_viewer }}{{ page.last_commit.sha}}">{{ page.last_commit.sha | slice: 0, 7 }}</a>
-    {% endif %}
-  </div>
-{% endif %}
-{% endif %}
