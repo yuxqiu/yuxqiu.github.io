@@ -36,7 +36,7 @@
     {% endif %}
 {% endcomment %}
 
-{% if page.layout == 'post' %}
+{% if site.footer_fixed and page.layout == 'post' %}
   <footer class="sticky-bottom" role="contentinfo">
     <div class="caption post-version">
       &copy; {{ site.time | date: '%Y' }} <a href="/">{{ site.first_name }} {{ site.last_name }}</a>
