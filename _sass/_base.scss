@@ -1448,3 +1448,11 @@ figure {
         text-decoration: underline;
     }
 }
+
+// Prevent list overflow
+ol,
+ul,
+dl {
+    max-width: 100%;
+    overflow-wrap: break-word;
+}
