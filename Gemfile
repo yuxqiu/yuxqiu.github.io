@@ -25,6 +25,7 @@ group :jekyll_plugins do
     gem "jekyll-last-commit"
     gem 'jekyll-loading-lazy'
     gem 'jekyll-seo-tag'
+    gem 'jekyll-og-image'
 end
 group :other_plugins do
     gem 'css_parser'

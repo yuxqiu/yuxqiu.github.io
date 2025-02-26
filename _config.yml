@@ -233,6 +233,7 @@ plugins:
   - jekyll-last-commit
   - jekyll-loading-lazy
   - jekyll-seo-tag
+  - jekyll-og-image
 
 # Sitemap settings
 defaults:
@@ -363,6 +364,17 @@ social:
     - https://scholar.google.com/citations?user=2yCp7woAAAAJ
     - https://www.linkedin.com/in/yuxiang-qiu-4b243b266
     - https://x.com/yuxqiu
+
+# -----------------------------------------------------------------------------
+# Jekyll OG Image
+# -----------------------------------------------------------------------------
+og_image:
+  output_dir: "assets/images/og"
+  domain: "yuxqiu.github.io"
+  border_bottom:
+    width: 20
+    fill:
+      - "#4285F4"
 
 # -----------------------------------------------------------------------------
 # Responsive WebP Images
