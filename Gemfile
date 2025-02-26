@@ -23,6 +23,8 @@ group :jekyll_plugins do
     gem 'jekyll-fontawesome-svg', path: "_local/jekyll-fontawesome-svg"
     gem 'kramdown-math-katex'
     gem "jekyll-last-commit"
+    gem 'jekyll-loading-lazy'
+    gem 'jekyll-seo-tag'
 end
 group :other_plugins do
     gem 'css_parser'

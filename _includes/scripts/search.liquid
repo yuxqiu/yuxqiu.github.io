@@ -269,14 +269,14 @@
             },
           },
         {%- endif -%}
-        {%- if site.x_username -%}
+        {%- if site.twitter.username -%}
           {
             id: 'socials-x',
             title: 'X',
             description: 'Twitter',
             section: 'Socials',
             handler: () => {
-              window.open("https://twitter.com/{{ site.x_username }}", "_blank");
+              window.open("https://twitter.com/{{ site.twitter.username }}", "_blank");
             },
           },
         {%- endif -%}

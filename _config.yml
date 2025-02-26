@@ -4,10 +4,10 @@
 
 title: Yuxiang Qiu # the website title (if blank, full name will be used instead)
 first_name: Yuxiang
-middle_name: ""
+middle_name:
 last_name: Qiu
 email: yuxqiu@proton.me
-description: "Yuxiang Qiu"
+description: "Yuxiang Qiu's Blog"
 footer_text:
 keywords: # add your own keywords or leave empty
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
@@ -55,15 +55,6 @@ max_width: 930px
 # TODO: add layout settings (single page vs. multi-page)
 
 # -----------------------------------------------------------------------------
-# Open Graph & Schema.org
-# -----------------------------------------------------------------------------
-# Display links to the page with a preview object on social media.
-# see https://schema.org/docs/faq.html for more information
-serve_og_meta: false # Include Open Graph meta tags in the HTML head
-serve_schema_org: false # Include Schema.org in the HTML head
-og_image: # The site-wide (default for all links) Open Graph preview image
-
-# -----------------------------------------------------------------------------
 # Social integration
 # -----------------------------------------------------------------------------
 
@@ -92,7 +83,7 @@ pinterest_id: # your pinterest id
 publons_id: # your ID on Publons
 quora_username: # your Quora username
 research_gate_profile: # your profile on ResearchGate
-scholar_userid: # your Google Scholar ID
+scholar_userid: 2yCp7woAAAAJ # your Google Scholar ID
 scopus_id: # your profile on Scopus
 semanticscholar_id: # your Semantic Scholar ID
 spotify_id: # your spotify id
@@ -104,7 +95,6 @@ whatsapp_number: # your WhatsApp number (full phone number in international form
 wikidata_id: # your wikidata id
 wikipedia_id: # your wikipedia id (Case sensitive)
 work_url: # work page URL
-x_username: yuxqiu
 youtube_id: # your youtube channel id (youtube.com/@<youtube_id>)
 zotero_username: # your zotero username
 
@@ -119,10 +109,6 @@ contact_note:
 google_analytics: # your Google Analytics measurement ID (format: G-XXXXXXXXXX)
 cronitor_analytics: # cronitor RUM analytics site ID (format: XXXXXXXXX)
 pirsch_analytics: # your Pirsch analytics site ID (length 32 characters)
-
-# For Google Search Console, see https://support.google.com/webmasters/answer/9008080?hl=en#meta_tag_verification&zippy=%2Chtml-tag
-google_site_verification: "OyP7PF7v8xjEbPqbdYaMosljunIcAOjdw_C6-TtA8f0" # your google-site-verification ID (Google Search Console)
-bing_site_verification: "231286930EDC7A744F88D1D05B1BD04A" # out your bing-site-verification ID (Bing Webmaster)
 
 # -----------------------------------------------------------------------------
 # Blog
@@ -245,6 +231,8 @@ plugins:
   - jekyll-twitter-plugin
   - jemoji
   - jekyll-last-commit
+  - jekyll-loading-lazy
+  - jekyll-seo-tag
 
 # Sitemap settings
 defaults:
@@ -360,6 +348,23 @@ show_version: true
 commit_viewer: "https://github.com/yuxqiu/yuxqiu.github.io/commit/"
 
 # -----------------------------------------------------------------------------
+# Jekyll SEO Tag
+# -----------------------------------------------------------------------------
+webmaster_verifications:
+  google: "OyP7PF7v8xjEbPqbdYaMosljunIcAOjdw_C6-TtA8f0"
+  bing: "231286930EDC7A744F88D1D05B1BD04A" # out your bing-site-verification ID (Bing Webmaster)
+
+twitter:
+  username: yuxqiu
+
+social:
+  links:
+    - https://github.com/yuxqiu
+    - https://scholar.google.com/citations?user=2yCp7woAAAAJ
+    - https://www.linkedin.com/in/yuxiang-qiu-4b243b266
+    - https://x.com/yuxqiu
+
+# -----------------------------------------------------------------------------
 # Responsive WebP Images
 # -----------------------------------------------------------------------------
 
@@ -382,14 +387,6 @@ imagemagick:
   output_formats:
     webp: "-quality 85"
 
-# Lazy loading images
-#   If you enable lazy loading, all images will add the loading="lazy" attribute.
-#   This will make your site load faster, but it may not be supported in all browsers.
-#   You can also set loading="" to other values for specific images to override the default behavior.
-#   Options: "auto", "eager", "lazy"
-#   See https://web.dev/browser-level-image-lazy-loading/ for more information.
-lazy_loading_images: true # enables lazy loading of images (recommended)
-
 # -----------------------------------------------------------------------------
 # Optional Features
 # -----------------------------------------------------------------------------
@@ -397,8 +394,6 @@ lazy_loading_images: true # enables lazy loading of images (recommended)
 enable_google_analytics: false # enables google analytics
 enable_cronitor_analytics: false # enables cronitor RUM analytics
 enable_pirsch_analytics: false # enables Pirsch analytics (https://pirsch.io/)
-enable_google_verification: true # enables google site verification
-enable_bing_verification: true # enables bing site verification
 enable_math: true # enables math (using katex)
 enable_masonry: false # enables automatic project cards arrangement
 enable_tooltips: false # enables automatic tooltip links generated for each section titles on pages and posts
