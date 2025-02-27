@@ -1,76 +1,77 @@
 {% assign img_path = include.path | remove: '.jpg' | remove: '.jpeg' | remove: '.png' | remove: '.tiff' | remove: '.gif' %}
 
-<figure
-  {% if include.slot %}
-    slot="{{ include.slot }}"
-  {% endif %}
->
-  <picture>
-    <!-- Auto scaling with imagemagick -->
-    <!--
-      See https://www.debugbear.com/blog/responsive-images#w-descriptors-and-the-sizes-attribute and
-      https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
-    -->
-    {% if site.imagemagick.enabled %}
-      <source
-        class="responsive-img-srcset"
-        srcset="{% for i in site.imagemagick.widths %}{{ img_path | relative_url }}-{{ i }}.webp {{i}}w,{% endfor %}"
-        {% if include.sizes %}
-          sizes="{{include.sizes}}"
-        {% else %}
-          sizes="(max-width: 600px) 100vw, (max-width: 1200px) 80vw, 50vw"
-        {% endif %}
-        type="image/webp"
-      >
-    {% endif %}
-    <img
-      src="{% if include.cache_bust %}{{ include.path | relative_url | bust_file_cache }}{% else %}{{ include.path | relative_url }}{% endif %}"
-      {% if include.class %}
-        class="{{ include.class }}"
-      {% endif %}
-      {% if include.width %}
-        width="{{ include.width }}"
-      {% else %}
-        width="100%"
-      {% endif %}
-      {% if include.height %}
-        height="{{ include.height }}"
-      {% else %}
-        height="auto"
-      {% endif %}
-      {% if include['min-width'] or include['min-height'] or include['max-width'] or include['max-height'] %}
-        style="
-          {% if include['min-width'] %}
-            min-width: {{ include.min-width }};
-          {% endif %}
-          {% if include['min-height'] %}
-            min-height: {{ include.min-height }};
-          {% endif %}
-          {% if include['max-width'] %}
-            max-width: {{ include.max-width }};
-          {% endif %}
-          {% if include['max-height'] %}
-            max-height: {{ include.max-height }};
-          {% endif %}
-        "
-      {% endif %}
-      {% if include.alt %}
-        alt="{{ include.alt }}"
-      {% endif %}
-      {% if include.title %}
-        title="{{ include.title }}"
-      {% endif %}
-      {% if include.zoomable %}
-        data-zoomable
-      {% endif %}
-      {% if include.loading %}
-        loading="{{ include.loading }}"
-      {% endif %}
-      onerror="this.onerror=null; $('.responsive-img-srcset').remove();"
-    >
-  </picture>
+{% assign indent = include.indent | default: '' %}
 
-  {% if include.caption %}
-    <figcaption class="caption">{{ include.caption }}</figcaption>
-  {% endif %}
-</figure>
+{{ indent }}<figure
+{{ indent }}  {% if include.slot %}
+{{ indent }}    slot="{{ include.slot }}"
+{{ indent }}  {% endif %}
+{{ indent }}>
+{{ indent }}  <picture>
+{{ indent }}    <!-- Auto scaling with imagemagick -->
+{{ indent }}    <!--
+{{ indent }}      See https://www.debugbear.com/blog/responsive-images#w-descriptors-and-the-sizes-attribute and
+{{ indent }}      https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
+{{ indent }}    -->
+{{ indent }}    {% if site.imagemagick.enabled %}
+{{ indent }}      <source
+{{ indent }}        class="responsive-img-srcset"
+{{ indent }}        srcset="{% for i in site.imagemagick.widths %}{{ img_path | relative_url }}-{{ i }}.webp {{i}}w,{% endfor %}"
+{{ indent }}        {% if include.sizes %}
+{{ indent }}          sizes="{{include.sizes}}"
+{{ indent }}        {% else %}
+{{ indent }}          sizes="(max-width: 600px) 100vw, (max-width: 1200px) 80vw, 50vw"
+{{ indent }}        {% endif %}
+{{ indent }}        type="image/webp"
+{{ indent }}      >
+{{ indent }}    {% endif %}
+{{ indent }}    <img
+{{ indent }}      src="{% if include.cache_bust %}{{ include.path | relative_url | bust_file_cache }}{% else %}{{ include.path | relative_url }}{% endif %}"
+{{ indent }}      {% if include.class %}
+{{ indent }}        class="{{ include.class }}"
+{{ indent }}      {% endif %}
+{{ indent }}      {% if include.width %}
+{{ indent }}        width="{{ include.width }}"
+{{ indent }}      {% else %}
+{{ indent }}        width="100%"
+{{ indent }}      {% endif %}
+{{ indent }}      {% if include.height %}
+{{ indent }}        height="{{ include.height }}"
+{{ indent }}      {% else %}
+{{ indent }}        height="auto"
+{{ indent }}      {% endif %}
+{{ indent }}      {% if include['min-width'] or include['min-height'] or include['max-width'] or include['max-height'] %}
+{{ indent }}        style="
+{{ indent }}          {% if include['min-width'] %}
+{{ indent }}            min-width: {{ include.min-width }};
+{{ indent }}          {% endif %}
+{{ indent }}          {% if include['min-height'] %}
+{{ indent }}            min-height: {{ include.min-height }};
+{{ indent }}          {% endif %}
+{{ indent }}          {% if include['max-width'] %}
+{{ indent }}            max-width: {{ include.max-width }};
+{{ indent }}          {% endif %}
+{{ indent }}          {% if include['max-height'] %}
+{{ indent }}            max-height: {{ include.max-height }};
+{{ indent }}          {% endif %}
+{{ indent }}        "
+{{ indent }}      {% endif %}
+{{ indent }}      {% if include.alt %}
+{{ indent }}        alt="{{ include.alt }}"
+{{ indent }}      {% endif %}
+{{ indent }}      {% if include.title %}
+{{ indent }}        title="{{ include.title }}"
+{{ indent }}      {% endif %}
+{{ indent }}      {% if include.zoomable %}
+{{ indent }}        data-zoomable
+{{ indent }}      {% endif %}
+{{ indent }}      {% if include.loading %}
+{{ indent }}        loading="{{ include.loading }}"
+{{ indent }}      {% endif %}
+{{ indent }}    >
+{{ indent }}  </picture>
+
+{{ indent }}  {% if include.caption %}
+{{ indent }}    <figcaption class="caption">{{ include.caption }}</figcaption>
+{{ indent }}  {% endif %}
+{{ indent }}</figure>
