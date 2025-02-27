@@ -56,7 +56,7 @@
 {{ indent }}          {% endif %}
 {{ indent }}        "
 {{ indent }}      {% endif %}
-{{ indent }}      {% if include.alt %}
+{{ indent }}      {% if include.alt and include.alt != "" %}
 {{ indent }}        alt="{{ include.alt }}"
 {{ indent }}      {% endif %}
 {{ indent }}      {% if include.title %}
@@ -71,7 +71,7 @@
 {{ indent }}    >
 {{ indent }}  </picture>
 
-{{ indent }}  {% if include.caption %}
+{{ indent }}  {% if include.caption and include.caption != "" %}
 {{ indent }}    <figcaption class="caption">{{ include.caption }}</figcaption>
 {{ indent }}  {% endif %}
 {{ indent }}</figure>
