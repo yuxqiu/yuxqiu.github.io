@@ -24,6 +24,7 @@ Usually, allocated spaces are on the caller's stack. But this varies across ABI.
     1. The famous diagram illustrates their differences
 
         ![](/assets/img/blog/2022/10/1667134809024.png)
+
 2. Since C++17, we need to understand the differences between these two to understand how the standard enforces its rule of optimization (namely copy elision)
     1. Before C++17, some optimizations are not guaranteed, but most compilers will do them (implementation-defined).
     2. First thing to notice, the value category is about expressions instead of types (See C++ Abstract Machine)
