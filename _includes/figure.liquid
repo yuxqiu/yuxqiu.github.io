@@ -18,7 +18,7 @@
         {% if include.sizes %}
           sizes="{{include.sizes}}"
         {% else %}
-          sizes="95vw"
+          sizes="(max-width: 600px) 100vw, (max-width: 1200px) 80vw, 50vw"
         {% endif %}
         type="image/webp"
       >
