@@ -60,10 +60,23 @@ jobs:
           valueFile: "_config.yml"
           propertyPath: "giscus.repo"
           value: ${{ github.repository }}
-      - name: Install and Build 🔧
+      - name: Install Dependencies
         run: |
           sudo apt-get update && sudo apt-get install -y imagemagick libvips
           pip3 install --upgrade jupyter
+      - name: Configure ImageMagick Policy
+        run: |
+          sudo tee /etc/ImageMagick-6/policy.xml > /dev/null <<EOL
+          <policymap>
+            <policy domain="resource" name="memory" value="2GiB"/>
+            <policy domain="resource" name="map" value="4GiB"/>
+            <policy domain="resource" name="width" value="16KP"/>
+            <policy domain="resource" name="height" value="16KP"/>
+            <policy domain="resource" name="disk" value="10GiB"/>
+          </policymap>
+          EOL
+      - name: Build 🔧
+        run: |
           export JEKYLL_ENV=production
           bundle exec jekyll build
       - name: Purge unused CSS 🧹
