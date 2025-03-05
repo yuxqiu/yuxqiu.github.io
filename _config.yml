@@ -399,7 +399,7 @@ imagemagick:
     - ".tiff"
     - ".gif"
   output_formats:
-    webp: "-quality 85"
+    webp: "-quality 85 -coalesce"
 
 # -----------------------------------------------------------------------------
 # Optional Features
