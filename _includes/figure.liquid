@@ -20,7 +20,7 @@
 {{ indent }}        {% if include.sizes %}
 {{ indent }}          sizes="{{include.sizes}}"
 {{ indent }}        {% else %}
-{{ indent }}          sizes="(max-width: 600px) 100vw, (max-width: 1200px) 80vw, 50vw"
+{{ indent }}          sizes="(max-width: 600px) 100vw, (max-width: 1200px) 80vw, 66vw"
 {{ indent }}        {% endif %}
 {{ indent }}        type="image/webp"
 {{ indent }}      >
@@ -72,6 +72,6 @@
 {{ indent }}  </picture>
 
 {{ indent }}  {% if include.caption and include.caption != "" %}
-{{ indent }}    <figcaption class="caption">{{ include.caption }}</figcaption>
+{{ indent }}    <figcaption class="caption">{{ include.caption | markdownify }}</figcaption>
 {{ indent }}  {% endif %}
 {{ indent }}</figure>
