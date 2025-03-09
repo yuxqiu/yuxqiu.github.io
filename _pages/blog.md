@@ -55,9 +55,8 @@ pagination:
 
 {% endif %}
 
-  <!-- <ul class="post-list"> -->
+<div class="post-list">
   <table class="table table-sm table-borderless">
-
     {% if page.pagination.enabled %}
       {% assign postlist = paginator.posts %}
     {% else %}
@@ -83,9 +82,8 @@ pagination:
         </td>
         </tr>
     {% endfor %}
-    </table>
-
-  </ul>
+  </table>
+</div>
 
 {% if page.pagination.enabled %}
 {% include pagination.liquid %}
