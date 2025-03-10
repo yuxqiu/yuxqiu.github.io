@@ -1,0 +1,56 @@
+// Set font family
+body {
+    font-family: system-ui, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, sans-serif;
+}
+
+// Responsive font size
+html {
+    font-size: 16px;
+}
+
+.container {
+    font-size: 1.2em;
+}
+
+@media (max-width: 800px) {
+    html {
+        font-size: 14px;
+    }
+
+    .container {
+        font-size: 1.3em;
+    }
+}
+
+.post {
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.4em;
+    }
+
+    h3 {
+        font-size: 1.1em;
+        text-decoration: underline;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+}
+
+.bibliography {
+    font-size: 0.9em;
+}
+
+.navbar {
+    font-size: 0.85em;
+}

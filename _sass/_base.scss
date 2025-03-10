@@ -190,7 +190,7 @@ ul.task-list input[type="checkbox"] {
 
 // About - Bio
 #bio {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: var(--global-text-color);
 }
 
@@ -414,7 +414,7 @@ footer.fixed-bottom {
 
 footer.sticky-bottom {
     border-top: 1px solid var(--global-divider-color);
-    padding-top: 40px;
+    padding-top: 20px;
     padding-bottom: 40px;
     font-size: 0.875rem;
 
@@ -513,7 +513,7 @@ footer.sticky-bottom {
 
         td,
         th {
-            font-size: 1rem;
+            font-size: 0.9em;
         }
     }
 
@@ -1270,30 +1270,6 @@ ninja-keys::part(ninja-input-wrapper) {
     border-top-style: none;
     border-top-color: currentcolor;
     display: block;
-}
-
-// Adjust post font size
-.post {
-    font-size: 1.2em;
-
-    h2 {
-        font-size: 1.4em;
-    }
-
-    h3 {
-        font-size: 1.1em;
-        text-decoration: underline;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        margin-top: 2rem;
-        margin-bottom: 1rem;
-    }
 }
 
 // Adjust strong font weight
