@@ -1325,6 +1325,12 @@ figure {
         color: inherit;
         text-decoration: underline;
     }
+
+    @media print {
+        position: static;
+        transform: none;
+        text-align: center;
+    }
 }
 
 // Prevent list overflow
