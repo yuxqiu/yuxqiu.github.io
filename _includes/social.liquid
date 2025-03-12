@@ -124,10 +124,3 @@
 {% if site.rss_icon %}
   <a href="{{ site.baseurl }}/feed.xml" title="RSS Feed"><i class="wh2">{% fa_svg fas.fa-square-rss %}</i></a>
 {% endif %}
-{% if site.wechat_qr %}
-  <a id="WeChatBtn" title="WeChat"><i class="wh2">{% fa_svg fab.fa-weixin %}</i></a>
-  <div id="WeChatMod" class="wechat-modal">
-    <img src="{{ site.wechat_qr | prepend: 'assets/img/' | relative_url }}" alt="WeChat QR" id="WeChatQR">
-  </div>
-  {% include scripts/wechatModal.liquid %}
-{% endif %}
