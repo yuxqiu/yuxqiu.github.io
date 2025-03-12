@@ -255,116 +255,142 @@ ul.task-list input[type="checkbox"] {
     opacity: 0.95;
 }
 
+/* Dropdown menu styling */
 .navbar .dropdown-menu {
     background-color: var(--global-bg-color);
     border: 1px solid var(--global-divider-color);
+}
 
-    a:not(.active) {
-        color: var(--global-text-color);
-    }
+.navbar .dropdown-menu a:not(.active) {
+    color: var(--global-text-color);
+}
 
-    a:hover {
-        color: var(--global-hover-color);
-    }
+.navbar .dropdown-menu a:hover {
+    color: var(--global-hover-color);
+}
 
-    .dropdown-divider {
-        border-top: 1px solid var(--global-divider-color) !important;
-    }
+.navbar .dropdown-menu .dropdown-divider {
+    border-top: 1px solid var(--global-divider-color) !important;
 }
 
 .dropdown-item {
     color: var(--global-text-color);
-
-    &:hover {
-        color: var(--global-hover-color);
-        background-color: var(--global-bg-color);
-    }
 }
 
-.navbar.navbar-light {
-    a {
-        &:hover {
-            text-decoration: none;
-        }
-    }
-
-    .navbar-brand {
-        color: var(--global-text-color);
-    }
-
-    .navbar-nav .nav-item .nav-link {
-        color: var(--global-text-color);
-
-        &:hover {
-            color: var(--global-hover-color);
-        }
-    }
-
-    .navbar-nav .nav-item.active>.nav-link {
-        background-color: inherit;
-        font-weight: bolder;
-        color: var(--global-theme-color);
-
-        &:hover {
-            color: var(--global-hover-color);
-        }
-    }
+.dropdown-item:hover {
+    color: var(--global-hover-color);
+    background-color: var(--global-bg-color);
 }
 
+/* Navbar light theme styling */
+.navbar.navbar-light a:hover {
+    text-decoration: none;
+}
+
+.navbar.navbar-light .navbar-brand {
+    color: var(--global-text-color);
+}
+
+.navbar.navbar-light .navbar-nav .nav-item .nav-link {
+    color: var(--global-text-color);
+}
+
+.navbar.navbar-light .navbar-nav .nav-item .nav-link:hover {
+    color: var(--global-hover-color);
+}
+
+.navbar.navbar-light .navbar-nav .nav-item.active>.nav-link {
+    background-color: inherit;
+    font-weight: bolder;
+    color: var(--global-theme-color);
+}
+
+.navbar.navbar-light .navbar-nav .nav-item.active>.nav-link:hover {
+    color: var(--global-hover-color);
+}
+
+/* CSS-only Navbar Toggler (mobile) styling */
 .navbar-toggler {
-    .icon-bar {
+    display: inline-block;
+}
+
+.navbar-toggler .icon-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: var(--global-text-color);
+    border-radius: 1px;
+    margin-bottom: 4px;
+    transition: all 0.2s;
+}
+
+.navbar-toggler .top-bar {
+    transform: rotate(45deg);
+    transform-origin: 10% 10%;
+}
+
+.navbar-toggler .middle-bar {
+    opacity: 0;
+}
+
+.navbar-toggler .bottom-bar {
+    transform: rotate(-45deg);
+    transform-origin: 10% 90%;
+}
+
+/* Hide the mobile nav menu by default on small screens */
+@media (max-width: 576px) {
+    #navbarNav {
+        display: none;
+    }
+
+    .navbar-toggler-checkbox:checked~#navbarNav {
         display: block;
-        width: 22px;
-        height: 2px;
-        background-color: var(--global-text-color);
-        border-radius: 1px;
-        margin-bottom: 4px;
-        transition: all 0.2s;
-    }
-
-    .top-bar {
-        transform: rotate(45deg);
-        transform-origin: 10% 10%;
-    }
-
-    .middle-bar {
-        opacity: 0;
-    }
-
-    .bottom-bar {
-        transform: rotate(-45deg);
-        transform-origin: 10% 90%;
     }
 }
 
-.navbar-toggler.collapsed {
-    .top-bar {
-        transform: rotate(0);
-    }
-
-    .middle-bar {
-        opacity: 1;
-    }
-
-    .bottom-bar {
-        transform: rotate(0);
-    }
-}
-
+/* Light toggle button styling */
 #light-toggle {
     padding: 0;
     border: 0;
     background-color: inherit;
     color: var(--global-text-color);
+}
 
-    &:hover {
-        color: var(--global-hover-color);
-    }
+#light-toggle:hover {
+    color: var(--global-hover-color);
+}
 
-    svg {
-        width: 1.8rem;
-        height: 1.8rem;
-    }
+#light-toggle svg {
+    width: 1.8rem;
+    height: 1.8rem;
+}
+
+/* CSS-only Dropdown Toggle styling */
+/* Hide dropdown menus by default */
+.dropdown-menu {
+    display: none;
+}
+
+/* Show dropdown menu when its checkbox is checked */
+.dropdown-checkbox:checked+label+.dropdown-menu {
+    display: block;
+}
+
+/* Ensure the dropdown toggle (label) shows a pointer cursor */
+.nav-link.dropdown-toggle {
+    cursor: pointer;
+}
+
+/* Toggler icon - always shows 3 bars */
+.navbar-toggler .icon-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: var(--global-text-color);
+    border-radius: 1px;
+    margin: 4px 0;
+    transition: none;
 }
 
 // Social (bottom)
