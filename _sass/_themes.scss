@@ -145,3 +145,7 @@ html[data-theme-setting="light"] {
         display: block;
     }
 }
+
+@view-transition {
+    navigation: auto;
+}
