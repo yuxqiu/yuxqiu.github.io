@@ -187,7 +187,7 @@ Do notice that there is a very interesting trick about taking `Signature` as a t
 
 ## The final code
 
-The final implementation looks like this:
+The final implementation is shown below. You can also find it on [Github](https://github.com/yuxqiu/garden/tree/main/2023-02-05-threadpool).
 
 ```c++
 #include <condition_variable>
