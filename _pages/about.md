@@ -19,7 +19,7 @@ I am an MEng Computer Science student at [UCL](https://www.ucl.ac.uk/) and was a
 
 In addition, I enjoy reading books (fiction, essays, poetry, travel literature, sociology, and basically anything I find interesting), watching movies/TV shows (romances, thrillers, documentaries, dramas, animations), traveling and tinkering (contributing to open source projects, fixing some random Linux problems, etc.).
 
-**I am currently looking for 25 Fall PhD positions!**
+**I am currently looking for PhD positions!**
 
 <!-- Places I've been (I've only included China, the US and the UK as they are countries I've lived in) -->
 <!-- Countries: cn, sg, jp, us, uk, do, ch, fr, it, va, es, th, my, is, no, fi, se, dk (in chronological order)  -->
