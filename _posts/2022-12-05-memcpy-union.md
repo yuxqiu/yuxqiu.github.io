@@ -106,14 +106,14 @@ So, what does the standard say about memcpy exactly? The standard mentions `std:
 Here, the standard lists two ways that are perfectly defined: we can copy to buffers of narrow character type and restore the object, or we can directly copy into another object of the same type. Some people believe that based on "[defns.undefined]", other uses of `memcpy` are not properly defined.
 
 However, this is the time we need to directly refer to the `memcpy`. The C++ standard states that
-- If the objects are potentially-overlapping or not TriviallyCopyable, the behavior of `memcpy` is not specified and may be undefined. [^1]
+- If the objects are potentially-overlapping or not TriviallyCopyable, the behavior of `memcpy` is not specified and may be undefined.[^1]
 - Plus all the things stated by C standard (My Point)
   - Based on "[library.c]"
 
 [^1]: [std::memcpy](https://en.cppreference.com/w/cpp/string/byte/memcpy)
 
 
-So far, it looks like we have solid grounds to use `memcpy` in C++ as long as we are manipulating Trivially Copyable Types. However, some people mention about the trap, claiming that it's undefined behavior if we try to access the value based on the type that has trap representation. So, they believe it's not safe to copy from a type `T` to a type `U` unless `U` is of narrow character types or `U == T` (given that the destination has enough size for the src). [^2]
+So far, it looks like we have solid grounds to use `memcpy` in C++ as long as we are manipulating Trivially Copyable Types. However, some people mention about the trap, claiming that it's undefined behavior if we try to access the value based on the type that has trap representation. So, they believe it's not safe to copy from a type `T` to a type `U` unless `U` is of narrow character types or `U == T` (given that the destination has enough size for the src).[^2]
 
 [^2]: [Is std::memcpy between different trivially copyable types undefined behavior?](https://stackoverflow.com/questions/51300626/is-stdmemcpy-between-different-trivially-copyable-types-undefined-behavior/)
 
