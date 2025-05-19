@@ -1,8 +1,9 @@
 ---
 layout: default
 permalink: /blog/
-title: blog
+title: Blog
 nav: true
+
 pagination:
   enabled: true
   collection: posts
@@ -17,7 +18,7 @@ pagination:
 
 {% assign blog_name_size = site.blog_name | size %}
 {% if blog_name_size > 0 %}
-    <h1 class="post-title">{{ site.blog_name }}</h1>
+<h1 class="post-title">{{ site.blog_name }}</h1>
 {% endif %}
 
 

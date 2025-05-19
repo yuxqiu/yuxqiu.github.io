@@ -440,6 +440,7 @@ footer.sticky-bottom {
     padding-top: 20px;
     padding-bottom: 40px;
     font-size: 0.875rem;
+    flex-shrink: 0;
 
     .container {
         text-align: center;
@@ -719,27 +720,6 @@ footer.sticky-bottom {
                         color: var(--global-text-color);
                         border-bottom: 1px dashed var(--global-text-color);
                     }
-                }
-            }
-
-            .links {
-                a.btn {
-                    color: var(--global-text-color);
-                    border: 1px solid var(--global-text-color);
-                    padding-left: 1rem;
-                    padding-right: 1rem;
-                    padding-top: 0.25rem;
-                    padding-bottom: 0.25rem;
-                    margin-left: 0;
-
-                    &:hover {
-                        color: var(--global-theme-color);
-                        border-color: var(--global-theme-color);
-                    }
-                }
-
-                a.award.btn {
-                    border-color: var(--global-highlight-color);
                 }
             }
 
@@ -1339,4 +1319,26 @@ ul,
 dl {
     max-width: 100%;
     overflow-wrap: break-word;
+}
+
+// Button in Bibliography and Writings
+.links {
+    a.btn {
+        color: var(--global-text-color);
+        border: 1px solid var(--global-text-color);
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+        margin-left: 0;
+
+        &:hover {
+            color: var(--global-theme-color);
+            border-color: var(--global-theme-color);
+        }
+    }
+
+    a.award.btn {
+        border-color: var(--global-highlight-color);
+    }
 }

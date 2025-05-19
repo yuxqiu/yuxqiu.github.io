@@ -6,6 +6,10 @@ body {
     padding-bottom: 20px;
     color: var(--global-text-color);
     background-color: var(--global-bg-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* Ensures body takes at least full viewport height */
 
     h1,
     h2,

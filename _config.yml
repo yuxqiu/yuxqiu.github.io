@@ -153,6 +153,9 @@ collections:
   projects:
     output: true
     permalink: /:collection/:title/
+  writings:
+    output: true
+    permalink: /writings/:title/
 
 announcements:
   enabled: false

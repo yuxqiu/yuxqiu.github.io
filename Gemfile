@@ -10,7 +10,7 @@ group :jekyll_plugins do
     gem 'jekyll-jupyter-notebook'
     gem 'jekyll-link-attributes'
     gem 'jekyll-minifier'
-    gem 'jekyll-paginate-v2'
+    gem 'jekyll-paginate-v2', github: 'sverrirs/jekyll-paginate-v2'
     gem 'jekyll-regex-replace'
     gem 'jekyll-scholar'
     gem 'jekyll-sitemap'
@@ -26,6 +26,7 @@ group :jekyll_plugins do
     gem 'jekyll-loading-lazy'
     gem 'jekyll-seo-tag'
     gem 'jekyll-og-image'
+    gem 'observer'
 end
 group :other_plugins do
     gem 'css_parser'

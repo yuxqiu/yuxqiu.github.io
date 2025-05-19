@@ -1,7 +1,9 @@
 {
     "cSpell.words": [
+        "arkworks",
         "Bézout’s",
         "bruteforce",
+        "deletability",
         "distinguisher",
         "Eytzinger",
         "finetuned",
@@ -12,10 +14,12 @@
         "Leetcode",
         "logn",
         "mathjax",
+        "Merkle",
         "nlogn",
         "Shamir",
         "textcolor",
         "Unlinkability",
-        "Vandermonde"
+        "Vandermonde",
+        "Yuxiang"
     ]
 }
