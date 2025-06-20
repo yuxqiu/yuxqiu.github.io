@@ -19,7 +19,7 @@ Hiya! I am an MEng Computer Science student at [UCL](https://www.ucl.ac.uk/) and
 
 In my free time, I enjoy reading [books](/witsky), watching movies, tinkering with some [open source projects](https://github.com/yuxqiu), and most importantly, traveling.
 
-**I am currently looking for PhD positions!**
+**I am currently looking for RA positions!**
 
 <!-- Places I've been (I've only included China, the US and the UK as they are countries I've lived in) -->
 <!-- Countries: cn, sg, jp, us, uk, do, ch, fr, it, va, es, th, my, is, no, fi, se, dk (in chronological order)  -->
