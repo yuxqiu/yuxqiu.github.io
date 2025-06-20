@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Shared Secrets
-permalink: /writings/
+title: SS
+permalink: /ss/
 nav: true
 nav_order: 2
 

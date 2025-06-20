@@ -15,9 +15,9 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
 
-I am an MEng Computer Science student at [UCL](https://www.ucl.ac.uk/) and was a B.S. CS exchange student at [Georgia Tech](https://www.gatech.edu/). My research interests are in applied cryptography, system and security.
+Hiya! I am an MEng Computer Science student at [UCL](https://www.ucl.ac.uk/) and was a B.S. CS exchange student at [Georgia Tech](https://www.gatech.edu/). My research interests are in applied cryptography, system and security.
 
-In addition, I enjoy reading books (fiction, essays, poetry, travel literature, sociology, and basically anything I find interesting), watching movies/TV shows (romances, thrillers, documentaries, dramas, animations), traveling and tinkering (contributing to open source projects, fixing some random Linux problems, etc.).
+In my free time, I enjoy reading [books](/witsky), watching movies, tinkering with some [open source projects](https://github.com/yuxqiu), and most importantly, traveling.
 
 **I am currently looking for PhD positions!**
 
