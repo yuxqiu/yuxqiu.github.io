@@ -12,6 +12,10 @@ katex: true
     <a href="/assets/pdf/writings/2025/trustless-efficient-light-client.pdf" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">PDF</a>
 </div>
 
+## TL;DR
+
+We leveraged folding-based SNARKs to design an efficient light-client protocol and introduced a novel data structure, the Levelled Merkle Forest (LMF), which enables variable-length Merkle proofs. We also addressed a critical bug in `EmulatedFpVar` in `arkworks`. Evaluation shows that LMF performs comparably to standard Merkle trees while producing smaller proof sizes, though the practicality of the scheme is currently constrained by the large memory requirements for proving pairings.
+
 ## Abstract
 
 Light clients play a crucial role in blockchain ecosystems by enabling devices with limited computational resources to participate in on-chain activities. However, achieving full security typically requires downloading data that scales linearly with the blockchain's size. This poses a major scalability challenge as blockchains grow, ultimately undermining the very utility of light clients.
