@@ -21,12 +21,12 @@ group :jekyll_plugins do
     gem 'mini_racer'
     gem 'unicode_utils'
     gem 'jekyll-fontawesome-svg', path: "_local/jekyll-fontawesome-svg"
-    gem 'kramdown-math-katex'
     gem "jekyll-last-commit"
     gem 'jekyll-loading-lazy'
     gem 'jekyll-seo-tag'
     gem 'jekyll-og-image'
     gem 'observer'
+    gem "jektex", path: "_local/jektex"
 end
 group :other_plugins do
     gem 'css_parser'

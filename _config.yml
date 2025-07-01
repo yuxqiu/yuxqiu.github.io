@@ -183,7 +183,6 @@ kramdown:
     block:
       line_numbers: false
       start_line: 1
-  math_engine: katex
 
 # Includes & excludes
 include: ["_pages"]
@@ -223,6 +222,7 @@ plugins:
   - jekyll-loading-lazy
   - jekyll-seo-tag
   - jekyll-og-image
+  - jektex
 
 # Sitemap settings
 defaults:
@@ -389,6 +389,16 @@ imagemagick:
     - ".gif"
   output_formats:
     webp: "-quality 85"
+
+# -----------------------------------------------------------------------------
+# jektex
+# -----------------------------------------------------------------------------
+
+jektex:
+  ignore: ["*.xml"]
+  silent: false
+  macros:
+    - ["\\C", "\\mathbb{C}"]
 
 # -----------------------------------------------------------------------------
 # Optional Features
