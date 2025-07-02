@@ -26,7 +26,8 @@ group :jekyll_plugins do
     gem 'jekyll-seo-tag'
     gem 'jekyll-og-image'
     gem 'observer'
-    gem "jektex", path: "_local/jektex"
+    gem 'jektex', path: "_local/jektex"
+    gem 'ostruct'
 end
 group :other_plugins do
     gem 'css_parser'
