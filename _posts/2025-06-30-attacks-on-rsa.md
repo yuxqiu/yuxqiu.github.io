@@ -215,7 +215,7 @@ Now, consider the case \( t' = t_{\text{max}} - 1 \). There are two cases to ana
 Thus, regardless of \( \tp \) and \( \tq \), we have:
 
 $$
-\Pr\left[\gcd\left(g^{k'} - 1, N\right) \text{ is a factor of } N\right] \geq \frac{1}{2}.
+\Pr\left[\gcd\left(g^{k'} - 1, N\right) \text{ is a factor of } N\right] = \frac{1}{2}.
 $$
 
 Therefore,
