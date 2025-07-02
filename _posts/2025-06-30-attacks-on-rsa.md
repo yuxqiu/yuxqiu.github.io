@@ -8,7 +8,7 @@ featured: false
 katex: true
 katex_macros:
   "\\tp": "\\textcolor{orange}{t_p}"
-  "\\tq": "\\textcolor{blue}{t_q}"
+  "\\tq": "\\textcolor{teal}{t_q}"
 ---
 
 > **tl;dr**: I discuss the issues related to small exponents, how to improve the success rate of an attack on RSA, how the square root relates to the hardness of the RSA problem, and its connection with Shor's algorithm. Many of the materials discussed below are thanks to the lecture notes and coursework that I have taken in [Introduction to Cryptography](https://www.ucl.ac.uk/module-catalogue/modules/introduction-to-cryptography-COMP0025).
