@@ -2,7 +2,7 @@
 layout: post
 title: "On First Hackathon"
 date: 2023-02-27 14:47:52
-tags: ["Python"]
+tags: ["python"]
 
 toc: true
 featured: false
