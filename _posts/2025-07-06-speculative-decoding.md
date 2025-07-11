@@ -60,7 +60,8 @@ It turns out we can expand this probability formula as follows:
 
 \[
 \begin{align*}
-P(\text{guess rejected}, x = x') &= P(\text{guess rejected}, x = x', q(x = x_1)) + \dots + P(\text{guess rejected}, x = x', q(x = x_n))\\
+&\quad P(\text{guess rejected}, x = x')\\
+&= P(\text{guess rejected}, x = x', q(x = x_1)) + \dots + P(\text{guess rejected}, x = x', q(x = x_n))\\
 &= \sum_i P(\text{guess rejected}, x = x', q(x = x_i))
 \end{align*}
 \]
@@ -77,7 +78,8 @@ Thus, we can complete the equation:
 
 \[
 \begin{align*}
-\sum_i P(\text{guess rejected}, x = x', q(x = x_i)) &= \sum_i q(x_i) \left(1 - \min\left(1, \frac{p(x_i)}{q(x_i)}\right)\right) p'(x')\\
+&\quad \sum_i P(\text{guess rejected}, x = x', q(x = x_i))\\
+&= \sum_i q(x_i) \left(1 - \min\left(1, \frac{p(x_i)}{q(x_i)}\right)\right) p'(x')\\
 &= p'(x') \left(1 - \sum_i q(x_i) \min\left(1, \frac{p(x_i)}{q(x_i)}\right)\right)\\
 &= (1 - \beta) p'(x')
 \end{align*}
