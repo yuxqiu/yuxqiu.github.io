@@ -87,6 +87,7 @@ pagination:
 </div>
 
 {% if page.pagination.enabled %}
+<br>
 {% include pagination.liquid %}
 {% endif %}
 

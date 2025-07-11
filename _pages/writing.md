@@ -58,6 +58,7 @@ This space features my unpublished writings as well as presentations I’ve crea
 </div>
 
 {% if page.pagination.enabled %}
+<br>
 {% include pagination.liquid %}
 {% endif %}
 
