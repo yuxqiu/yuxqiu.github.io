@@ -17,7 +17,7 @@ social: true # includes social icons at the bottom of the page
 
 Hiya! I am an MEng Computer Science student at [UCL](https://www.ucl.ac.uk/) and was a B.S. CS exchange student at [Georgia Tech](https://www.gatech.edu/). My research interests are in applied cryptography, system and security.
 
-In my free time, I enjoy reading [books](/witsky), watching movies, tinkering with some [open source projects](https://github.com/yuxqiu), and most importantly, traveling.
+In my free time, I enjoy reading [books](/witsky), watching movies, tinkering with some [open source projects](https://github.com/yuxqiu), and most importantly, [traveling](/traveling).
 
 **I am currently looking for RA positions!**
 
