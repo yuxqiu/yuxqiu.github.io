@@ -15,7 +15,7 @@ nav: false
 
 <script src="/assets/js/leaflet-providers.min.js"></script>
 
-Discover my travel journey on this interactive map! Each marker pinpoints a city I've explored. Check out where I've been and stay tuned for more destinations and upcoming travel photos!
+Discover my travel journey on this interactive map! Each marker pinpoints a country I've explored. Check out where I've been and stay tuned for more destinations and upcoming travel photos!
 
 <style>
 #map {
@@ -41,11 +41,9 @@ Discover my travel journey on this interactive map! Each marker pinpoints a city
         popupAnchor: [0, -24] // Adjust popup position
     });
 
-    L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_toner_lite/{z}/{x}/{y}{r}.{ext}', {
-        minZoom: 0,
-        maxZoom: 20,
-        attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://www.stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        ext: 'png'
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC',
+        maxZoom: 16
     }).addTo(map);
 
     var bounds = L.latLngBounds([
@@ -58,7 +56,7 @@ Discover my travel journey on this interactive map! Each marker pinpoints a city
 
     {% for place in site.data.traveling %}
         {% if place.latitude and place.longitude %}
-            L.marker([{{place.latitude}}, {{place.longitude}}], { title: '{{place.city}}', icon: mark }).addTo(map);
+            L.marker([{{place.latitude}}, {{place.longitude}}], { title: '{{place.country}}', icon: mark }).addTo(map);
         {% endif %}
     {% endfor %}
 
