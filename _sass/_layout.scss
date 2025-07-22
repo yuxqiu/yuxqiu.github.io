@@ -47,13 +47,13 @@ body.sticky-bottom-footer {
  ******************************************************************************/
 
 /* This initially hides the footnote (i.e. span)  */
-input.sidenote + label + span {
+input.sidenote+label+span {
     display: none;
 }
 
 /* This styles the footnote text which appears
 when the label is clicked  */
-input.sidenote:checked + label + span {
+input.sidenote:checked+label+span {
     display: block;
     font-size: 85%;
     margin: 1rem;
@@ -70,7 +70,7 @@ input.sidenote {
 
 /* This styles the footnote label to appear
 like a hyperlink  */
-input.sidenote + label {
+input.sidenote+label {
     display: inline;
     cursor: pointer;
     color: var(--global-theme-color);
@@ -86,8 +86,11 @@ input.sidenote + label {
     }
 }
 
-// Ensure blockquote plays well with the sidenotes
-blockquote {
+// Ensure blockquote and list plays well with the sidenotes
+blockquote,
+ol,
+ul,
+dl {
     display: flow-root;
 }
 
