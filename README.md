@@ -7,3 +7,5 @@
 [claytonwramsey](https://claytonwramsey.com/): for inspiring the design of blog
 
 [Rishikesh Sreehari](https://rishikeshs.com/): for inspiring the design of blog footer
+
+[Tony Zorman](https://tony-zorman.com/): for inspiring the design of sidenote
