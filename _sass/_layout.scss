@@ -60,6 +60,7 @@ input.sidenote:checked + label + span {
     float: left;
     clear: both;
     width: 95%;
+    overflow-wrap: break-word;
 }
 
 /* This permanently hides the checkbox  */
