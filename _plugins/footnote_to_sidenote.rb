@@ -8,19 +8,20 @@ module Jekyll
 
       # Step 1: Collect footnote definitions
       footnotes = {}
-      doc.content.scan(/^\s*\[\^(\w+)\]:\s*(.+)$/) do |id, text|
+      doc.content.scan(/^\s*\[\^(.+)\]:\s*(.+)$/) do |id, text|
+        puts "Hi: #{id}"
         footnotes[id] = text.strip
       end
     #   puts "Found #{footnotes.size} footnotes"
 
       # Step 2: Remove footnote definitions
-      doc.content = doc.content.gsub(/^\s*\[\^(\w+)\]:\s*.+$/, '')
+      doc.content = doc.content.gsub(/^\s*\[\^(.+)\]:\s*.+$/, '')
 
       # Step 3: Initialize counter
       counter = 0
 
       # Step 4: Replace footnote references with HTML template
-      doc.content = doc.content.gsub(/\[\^(\w+)\]/) do |match|
+      doc.content = doc.content.gsub(/\[\^(.+)\]/) do |match|
         ref_id = Regexp.last_match(1)
         footnote_text = footnotes[ref_id] || ''
         counter += 1
