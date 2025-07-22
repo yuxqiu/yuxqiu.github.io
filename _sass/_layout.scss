@@ -42,6 +42,54 @@ body.sticky-bottom-footer {
     }
 }
 
+/******************************************************************************
+ * Sidenotes
+ ******************************************************************************/
+
+/* This initially hides the footnote (i.e. span)  */
+input.sidenote + label + span {
+    display: none;
+}
+
+/* This styles the footnote text which appears
+when the label is clicked  */
+input.sidenote:checked + label + span {
+    display: block;
+    font-size: 85%;
+    margin: 1rem;
+    float: left;
+    clear: both;
+    width: 95%;
+}
+
+/* This permanently hides the checkbox  */
+input.sidenote {
+    display: none;
+}
+
+/* This styles the footnote label to appear
+like a hyperlink  */
+input.sidenote + label {
+    display: inline;
+    cursor: pointer;
+    color: var(--global-theme-color);
+
+    &:hover {
+        color: var(--global-theme-color);
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    &:hover:after :not(.nav-item.dropdown) {
+        width: 100%;
+    }
+}
+
+// Ensure blockquote plays well with the sidenotes
+blockquote {
+    display: flex;
+}
+
 // TODO: redefine content layout.
 
 /******************************************************************************

@@ -1281,9 +1281,14 @@ figure {
 }
 
 // Proof end
+.proof-end {
+    position: relative;
+}
+
 .proof-end::after {
     content: "□";
-    float: right;
+    position: absolute;
+    right: 0;
 }
 
 // Center everything
