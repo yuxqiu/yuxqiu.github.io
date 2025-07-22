@@ -88,7 +88,7 @@ input.sidenote + label {
 
 // Ensure blockquote plays well with the sidenotes
 blockquote {
-    display: flex;
+    display: flow-root;
 }
 
 // TODO: redefine content layout.
