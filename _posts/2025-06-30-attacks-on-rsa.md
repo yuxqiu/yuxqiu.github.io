@@ -5,7 +5,7 @@ date: 2025-06-30
 tags: ["Cryptography"]
 
 featured: false
-katex: true
+jektex: true
 katex_macros:
   "\\tp": "\\textcolor{orange}{t_p}"
   "\\tq": "\\textcolor{teal}{t_q}"

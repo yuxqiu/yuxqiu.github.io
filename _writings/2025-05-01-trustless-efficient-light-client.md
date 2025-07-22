@@ -5,7 +5,7 @@ date: 2025-05-01
 tags: ["Cryptography"]
 
 featured: false
-katex: true
+jektex: true
 ---
 
 <div class="links">

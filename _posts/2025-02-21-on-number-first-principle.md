@@ -5,7 +5,7 @@ date: 2025-02-21 12:37:28
 tags: ["TIL", "Cryptography", "Math"]
 
 featured: false
-katex: true
+jektex: true
 ---
 
 Recently, I was reading [Number theory explained from first principles](https://explained-from-first-principles.com/number-theory/). It's a great article that covers many aspects of number theory that are useful in cryptography. This blog serves the purpose to additionally prove/clarify some aspects that I think could have been explained better in the original article.

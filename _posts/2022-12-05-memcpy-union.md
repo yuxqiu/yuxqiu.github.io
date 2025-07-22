@@ -6,7 +6,6 @@ tags: ["cpp"]
 
 toc: true
 featured: false
-jektex: "false"
 ---
 
 ## Introduction

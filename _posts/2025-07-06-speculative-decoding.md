@@ -5,7 +5,7 @@ date: 2025-07-06
 tags: ["AI"]
 
 featured: false
-katex: true
+jektex: true
 ---
 
 > **tl;dr**: I summarized the speculative decoding method for transformers and elaborated on why it is correct.

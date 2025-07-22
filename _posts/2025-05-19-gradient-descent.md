@@ -5,7 +5,7 @@ date: 2025-05-19
 tags: ["AI", "Math"]
 
 featured: false
-katex: true
+jektex: true
 published: false
 ---
 

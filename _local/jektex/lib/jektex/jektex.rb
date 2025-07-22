@@ -34,7 +34,9 @@ def get_list_of_updated_global_macros(current_macros, cached_global_macros)
 end
 
 def is_ignored?(page)
-  return true if page.data[FRONT_MATTER_TAG] == "false"
+  # BEGIN MODIFICATION
+  return true if !page.data[FRONT_MATTER_TAG]
+  # END MODIFICATION
   return $ignored.any? { |patern| File.fnmatch?(patern, page.relative_path, File::FNM_DOTMATCH) }
 end
 
