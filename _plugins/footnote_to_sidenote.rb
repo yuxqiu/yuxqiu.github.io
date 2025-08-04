@@ -9,7 +9,7 @@ module Jekyll
       # Step 1: Collect footnote definitions
       footnotes = {}
       doc.content.scan(/^\s*\[\^(.+)\]:\s*(.+)$/) do |id, text|
-        puts "Hi: #{id}"
+        # puts "Hi: #{id}"
         footnotes[id] = text.strip
       end
     #   puts "Found #{footnotes.size} footnotes"
