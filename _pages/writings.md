@@ -1,7 +1,7 @@
 ---
 layout: default
-title: SS
-permalink: /ss/
+title: Writings
+permalink: /writings/
 nav: true
 nav_order: 2
 
@@ -17,7 +17,7 @@ pagination:
     after: 3 # The number of links after the current page
 ---
 
-<h1 class="post-title">Shared Secrets</h1>
+<h1 class="post-title">Writings</h1>
 
 <div class="post">
 
