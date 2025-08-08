@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hash Generator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 30px;
+    }
+    h1 {
+        color: #333;
+    }
+    textarea {
+        width: 400px;
+        height: 100px;
+        padding: 10px;
+        font-size: 14px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        resize: vertical;
+    }
+    button {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        font-size: 14px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+    .output {
+        background: white;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+        width: 500px;
+        word-break: break-all;
+    }
+    .label {
+        font-weight: bold;
+        margin-bottom: 3px;
+    }
+</style>
+</head>
+<body>
+
+<h1>Hash Generator</h1>
+
+<textarea id="inputText" placeholder="Enter text here..."></textarea>
+<br>
+<button onclick="computeHashes()">Compute Hashes</button>
+
+<div class="output">
+    <div class="label">SHA-1:</div>
+    <div id="sha1"></div>
+</div>
+
+<div class="output">
+    <div class="label">SHA-256:</div>
+    <div id="sha256"></div>
+</div>
+
+<div class="output">
+    <div class="label">SHA-384:</div>
+    <div id="sha384"></div>
+</div>
+
+<div class="output">
+    <div class="label">SHA-512:</div>
+    <div id="sha512"></div>
+</div>
+
+<div class="output">
+    <div class="label">SHA3-256:</div>
+    <div id="sha3-256"></div>
+</div>
+
+<div class="output">
+    <div class="label">SHA3-512:</div>
+    <div id="sha3-512"></div>
+</div>
+
+<div class="output">
+    <div class="label">BLAKE2s-256:</div>
+    <div id="blake2s-256"></div>
+</div>
+
+<script async src="./js/noble-hashes.min.js"></script>
+
+<script>
+async function digestMessage(message, algorithm) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(message);
+    const hashBuffer = await crypto.subtle.digest(algorithm, data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function computeHashes() {
+    const text = document.getElementById('inputText').value;
+
+    // Web Crypto API hashes
+    document.getElementById('sha1').innerText = await digestMessage(text, 'SHA-1');
+    document.getElementById('sha256').innerText = await digestMessage(text, 'SHA-256');
+    document.getElementById('sha384').innerText = await digestMessage(text, 'SHA-384');
+    document.getElementById('sha512').innerText = await digestMessage(text, 'SHA-512');
+
+    // SHA3 and Blake2s-256 hashes using noble hashes
+    document.getElementById('sha3-256').innerText = nobleHashes.sha3_256(text).toHex();
+    document.getElementById('sha3-512').innerText = nobleHashes.sha3_512(text).toHex();
+    document.getElementById('blake2s-256').innerText = nobleHashes.blake2s(text).toHex();
+}
+</script>
+
+</body>
+</html>
