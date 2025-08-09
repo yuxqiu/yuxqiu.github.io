@@ -58,7 +58,7 @@ max_width: 930px
 cv: yuxiang_qiu_cv.pdf # your cv (should be put under assets/pdf)
 acm_id: # your dl.acm.org/profile/id
 blogger_url: # your blogger URL
-bluesky_url: # your bluesky URL
+bluesky_url: yuxqiu.bsky.social # your bluesky URL
 dblp_url: # your DBLP profile url
 discord_id: # your discord id (18-digit unique numerical identifier)
 facebook_id: # your facebook id
