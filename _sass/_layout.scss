@@ -56,11 +56,17 @@ when the label is clicked  */
 input.sidenote:checked+label+span {
     display: block;
     font-size: 85%;
-    margin: 1rem;
+    margin: 0 1rem;
     float: left;
     clear: both;
     width: 95%;
     overflow-wrap: break-word;
+    padding: 0.5rem;
+}
+
+// Fix additional spacing between consecutive sidenotes
+input.sidenote:checked + label + span + input.sidenote:checked + label + span {
+  padding: 0 0.5rem 0.5rem 0.5rem;
 }
 
 /* This permanently hides the checkbox  */

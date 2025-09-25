@@ -21,7 +21,7 @@ module Jekyll
       counter = 0
 
       # Step 4: Replace footnote references with HTML template
-      doc.content = doc.content.gsub(/\[\^(.+)\]/) do |match|
+      doc.content = doc.content.gsub(/\[\^(.+?)\]/) do |match|
         ref_id = Regexp.last_match(1)
         footnote_text = footnotes[ref_id] || ''
         counter += 1
