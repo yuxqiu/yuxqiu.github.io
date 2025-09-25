@@ -10,9 +10,9 @@ nav_order: 3
 Last updated on: {{ page.last_modified_at | date: '%Y-%m-%d' }}
 </small>
 
-- **Search for research assistant (RA) positions!**
-- Continue studying the [Abstract Algebra](https://wayback.archive-it.org/3671/20150528171650/https://www.extension.harvard.edu/open-learning-initiative/abstract-algebra) course.
+- Work on accelerating ZKP via GPU.
+- Continue studying the [Abstract Algebra](https://ocw.mit.edu/courses/18-702-algebra-ii-spring-2011/) course.
 - Enjoy flipping through [Fifty Years of Europe: An Album](https://www.goodreads.com/book/show/61042.Fifty_Years_of_Europe) by Jan Morris.
 - Develop my [thesis](https://yuxqiu.github.io/writings/trustless-efficient-light-client/) into a publishable paper.
-- Organize and compile notes from PET course.
+- Organize and compile notes from PET and Abstract Algebra courses.
 - Draft an article on [Distributed Point Functions](https://en.wikipedia.org/wiki/Distributed_point_function).
