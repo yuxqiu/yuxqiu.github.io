@@ -1,0 +1,10 @@
+services:
+  jekyll:
+    build:
+      context: .
+      network: host # solve DNS error when host DNS is overridden
+    network_mode: host
+    volumes:
+      - .:/srv/jekyll
+    environment:
+      - JEKYLL_ENV=development
