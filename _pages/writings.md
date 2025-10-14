@@ -4,17 +4,6 @@ title: Writings
 permalink: /writings/
 nav: true
 nav_order: 2
-
-pagination:
-  enabled: true
-  collection: writings
-  permalink: /page/:num/
-  per_page: 20
-  sort_field: date
-  sort_reverse: true
-  trail:
-    before: 1 # The number of links before the current page
-    after: 3 # The number of links after the current page
 ---
 
 <h1 class="post-title">Writings</h1>
@@ -29,11 +18,15 @@ This space features my unpublished writings as well as presentations I’ve crea
 
 <div class="post-list">
   <table class="table table-sm table-borderless">
-    {% if page.pagination.enabled %}
+    <!-- Disable pagination as it overwrites the introductory text -->
+    <!-- https://github.com/sverrirs/jekyll-paginate-v2/pull/75 -->
+    <!-- {% if page.pagination.enabled %}
       {% assign postlist = paginator.posts %}
     {% else %}
       {% assign postlist = site.posts %}
-    {% endif %}
+    {% endif %} -->
+
+    {% assign postlist = site.writings %}
 
     {% for post in postlist %}
 
