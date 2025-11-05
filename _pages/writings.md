@@ -26,7 +26,7 @@ This space features my unpublished writings as well as presentations I’ve crea
       {% assign postlist = site.posts %}
     {% endif %} -->
 
-    {% assign postlist = site.writings %}
+    {% assign postlist = site.writings | reverse %}
 
     {% for post in postlist %}
 

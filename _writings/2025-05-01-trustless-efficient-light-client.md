@@ -10,6 +10,8 @@ jektex: true
 
 <div class="links">
     <a href="/assets/pdf/writings/2025/trustless-efficient-light-client.pdf" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">PDF</a>
+
+    <a href="https://github.com/yuxqiu/mim" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Code</a>
 </div>
 
 ## TL;DR
