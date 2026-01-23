@@ -10,9 +10,8 @@ nav_order: 3
 Last updated on: {{ page.last_modified_at | date: '%Y-%m-%d' }}
 </small>
 
-- Apply to PhD programs!
-- Work on accelerating ZKP via GPU.
+- Waiting for results from PhD programs~~~
+- Enjoy watching [Can This Love Be Translated?](https://www.netflix.com/title/81697769)
 - Continue studying the [Abstract Algebra](https://ocw.mit.edu/courses/18-702-algebra-ii-spring-2011/) course.
 - Enjoy flipping through [Fifty Years of Europe: An Album](https://www.goodreads.com/book/show/61042.Fifty_Years_of_Europe) by Jan Morris.
-- Develop my [thesis](https://yuxqiu.github.io/writings/trustless-efficient-light-client/) into a publishable paper.
-- Organize and compile notes from PET and Abstract Algebra courses.
+- Organize and compile notes from PET, Abstract Algebra courses, and a couple of other courses.
