@@ -44,7 +44,7 @@ Small doses of wit.
    The fruit we gathered in the close,\
    The flowers that disclose,\
    Between the verdant mosses thick,\
-   Their almost wings;\
+   Their almost wings;
 
    And thought does blossom forth once more\
    At memory of a word so fair\
