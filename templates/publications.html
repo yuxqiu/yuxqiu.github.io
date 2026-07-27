@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% import "partials/macros.html" as m %}
+
+{% block title %}{{ page.title }} | {{ config.title }}{% endblock title %}
+
+{% block content %}
+<div class="container container--wide">
+  {{ m::page_header(title=page.title) }}
+
+  <ol class="pubs">
+    {% for pub in page.extra.publications %}
+    <li class="pub">
+      <h3 class="pub__title">{{ pub.title }}</h3>
+      <p class="pub__authors">{{ pub.authors | safe }}</p>
+      <p class="pub__venue">{{ pub.venue }}{% if pub.year %} · {{ pub.year }}{% endif %}</p>
+      {% if pub.links %}
+      <p class="pub__links">
+        {% for l in pub.links %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.name }}</a>{% if not loop.last %}<span class="pub__sep">·</span>{% endif %}{% endfor %}
+      </p>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ol>
+</div>
+{% endblock content %}

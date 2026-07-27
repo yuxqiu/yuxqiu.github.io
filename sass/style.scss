@@ -1,0 +1,1065 @@
+// =============================================================================
+// Kami-inspired design system for yuxqiu.github.io
+// Warm parchment canvas, ink blue sole accent, serif-led hierarchy.
+// "Documents should read as composed pages, not dashboards."
+// =============================================================================
+
+// ---------------------------------------------------------------------------
+// 1. Design tokens
+// ---------------------------------------------------------------------------
+
+:root {
+  // Core palette
+  --parchment: #f5f4ed; // page background — warm beige, emotional base
+  --ivory: #faf9f5; // cards / raised containers — brighter warm white
+  --warm-sand: #e8e6dc; // interactive surfaces, borders
+  --ink: #1b365d; // sole accent — ink blue, ≤5% of page area
+
+  // Warm neutral ramp (R ≈ G > B, yellow-brown undertone, no cool blue-gray)
+  --warm-900: #2d2a24;
+  --warm-800: #3d3a33;
+  --warm-700: #524e45;
+  --warm-600: #6b665b;
+  --warm-500: #847f72;
+  --warm-400: #a39d8e;
+  --warm-300: #c4bdae;
+  --warm-200: #d8d2c4;
+
+  // Semantic mappings
+  --bg: var(--parchment);
+  --bg-raised: var(--ivory);
+  --bg-surface: var(--warm-sand);
+  --text: var(--warm-900);
+  --text-body: var(--warm-800);
+  --text-muted: var(--warm-600);
+  --text-faint: var(--warm-500);
+  --accent: var(--ink);
+  --border: var(--warm-200);
+  --border-strong: var(--warm-300);
+
+  // Font families
+  --font-serif:
+    "Source Serif 4", "Charter", "Georgia", "Times New Roman", serif;
+  --font-sans:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
+    sans-serif;
+  --font-mono:
+    "JetBrains Mono", "Fira Code", "SF Mono", "Cascadia Code", monospace;
+
+  // Fluid type scale (mobile → desktop)
+  --fs-display: clamp(1.75rem, 1.3rem + 2.2vw, 2.5rem);
+  --fs-h1: clamp(1.5rem, 1.2rem + 1.5vw, 1.875rem);
+  --fs-h2: clamp(1.25rem, 1.05rem + 1vw, 1.5rem);
+  --fs-h3: clamp(1.125rem, 1rem + 0.6vw, 1.25rem);
+  --fs-body: clamp(1rem, 0.95rem + 0.25vw, 1.0625rem);
+  --fs-small: 0.875rem;
+  --fs-tiny: 0.8125rem;
+  --fs-micro: 0.75rem;
+
+  // Line heights (Kami three-tier system)
+  --lh-tight: 1.2; // headings
+  --lh-dense: 1.45; // dense body
+  --lh-read: 1.55; // reading body
+  --lh-label: 1.35; // labels, meta
+
+  // Font weights
+  --fw-serif: 500; // serif fixed at 500
+  --fw-sans: 400; // sans body
+  --fw-sans-m: 500; // sans labels/headings
+  --fw-sans-s: 600; // sans strong emphasis
+
+  // Spacing (4pt base unit → 0.25rem)
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.25rem;
+  --sp-6: 1.5rem;
+  --sp-8: 2rem;
+  --sp-10: 2.5rem;
+  --sp-12: 3rem;
+  --sp-16: 4rem;
+  --sp-20: 5rem;
+
+  // Layout
+  --max-width: 680px; // reading width
+  --max-wide: 820px; // index/list pages
+  --nav-height: 3.5rem;
+}
+
+// ---------------------------------------------------------------------------
+// 2. Mixins
+// ---------------------------------------------------------------------------
+
+// Breakpoints (SCSS variables — CSS vars can't be used in @media queries)
+$bp-ultra-narrow: 340px; // stack/wrap layout for extremely small screens
+
+// Reset link styling for UI elements (nav, footer, tags, etc.)
+@mixin link-reset {
+  border-bottom: none;
+  &:hover {
+    color: var(--accent);
+  }
+}
+
+// Flush last-child margin to avoid trailing whitespace
+@mixin last-child-flush {
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Callout base: ivory bg + left border + radius
+@mixin callout-base {
+  background-color: var(--ivory);
+  border-radius: 0 var(--sp-1) var(--sp-1) 0;
+}
+
+// Ultra-narrow: tighten line-height so wrapped flex rows don't have
+// large gaps from inherited reading line-height (1.55).
+@mixin ultra-narrow-tight {
+  @media (max-width: $bp-ultra-narrow) {
+    line-height: 1;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 3. Reset & base
+// ---------------------------------------------------------------------------
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+// Smooth scrolling only for users who haven't asked for reduced motion.
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  font-family: var(--font-serif);
+  font-weight: var(--fw-serif);
+  font-size: var(--fs-body);
+  line-height: var(--lh-read);
+  color: var(--text-body);
+  background-color: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+
+  // Sticky footer: body fills the viewport, main grows to push footer down.
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+// Main grows to fill available space so the footer rests at the bottom
+// even on short pages.
+main {
+  flex: 1 0 auto;
+}
+
+// No italics anywhere — Kami rule #9
+em,
+i {
+  font-style: normal;
+}
+
+// Links — ink blue accent, used sparingly
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--warm-300);
+  transition: border-color 0.15s ease;
+
+  &:hover {
+    border-bottom-color: var(--accent);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 4. Layout
+// ---------------------------------------------------------------------------
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--sp-4);
+
+  &--wide {
+    max-width: var(--max-wide);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 5. Navigation
+// ---------------------------------------------------------------------------
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--border);
+  // Translucent parchment with a soft blur — a modern, unobtrusive masthead.
+  background-color: color-mix(in srgb, var(--parchment) 82%, transparent);
+  backdrop-filter: saturate(1.4) blur(10px);
+  -webkit-backdrop-filter: saturate(1.4) blur(10px);
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--nav-height);
+  max-width: var(--max-wide);
+  margin: 0 auto;
+  padding: 0 var(--sp-4);
+  @include ultra-narrow-tight;
+
+  // Sans-serif wordmark in small caps — harmonizes with the uppercase
+  // nav links while reading as a distinct masthead. Ink blue anchors it.
+  &__brand {
+    font-family: var(--font-sans);
+    font-weight: var(--fw-sans-s);
+    font-size: var(--fs-tiny);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border-bottom: none;
+    transition: color 0.18s ease;
+
+    &:hover {
+      color: var(--text);
+    }
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--sp-6);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__link {
+    position: relative;
+    font-family: var(--font-sans);
+    font-weight: var(--fw-sans-s);
+    font-size: var(--fs-micro);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    border-bottom: none;
+    transition: color 0.18s ease;
+
+    // Ink-blue indicator that grows from the center on hover / active.
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -0.5em;
+      height: 2px;
+      background-color: var(--accent);
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.2s ease;
+    }
+
+    &:hover {
+      color: var(--text);
+      border-bottom: none;
+    }
+
+    &:hover::after,
+    &--active::after {
+      transform: scaleX(1);
+    }
+
+    &--active {
+      color: var(--accent);
+    }
+  }
+}
+
+// Mobile nav: collapse to breadcrumb-style row
+@media (max-width: 600px) {
+  .site-nav {
+    &__brand {
+      font-size: var(--fs-micro);
+      white-space: nowrap;
+    }
+
+    &__links {
+      gap: var(--sp-2);
+    }
+
+    &__link {
+      font-size: 0.625rem;
+      letter-spacing: 0.06em;
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .site-nav {
+    &__links {
+      gap: var(--sp-1);
+    }
+
+    &__link {
+      font-size: 0.5625rem;
+      letter-spacing: 0.04em;
+    }
+  }
+}
+
+// Ultra-narrow screens: reduce padding and stack nav to prevent overflow
+@media (max-width: $bp-ultra-narrow) {
+  .site-nav,
+  .container,
+  .site-footer__inner {
+    padding-left: var(--sp-3);
+    padding-right: var(--sp-3);
+  }
+
+  .site-nav {
+    height: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: var(--sp-1);
+    padding-top: var(--sp-1);
+    padding-bottom: var(--sp-1);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 6. Footer
+// ---------------------------------------------------------------------------
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: var(--sp-6) 0;
+  // No margin-top: main (flex: 1) already pushes the footer to the bottom,
+  // and content containers carry their own bottom spacing on long pages.
+
+  &__inner {
+    max-width: var(--max-wide);
+    margin: 0 auto;
+    padding: 0 var(--sp-4);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: var(--sp-2);
+    row-gap: var(--sp-4);
+  }
+
+  &__text {
+    font-family: var(--font-sans);
+    font-size: var(--fs-micro);
+    color: var(--text-faint);
+    margin: 0; // cancel global <p> bottom margin so it aligns with social row
+  }
+
+  &__social {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    @include ultra-narrow-tight;
+
+    a {
+      font-family: var(--font-sans);
+      font-size: var(--fs-micro);
+      color: var(--text-faint);
+      @include link-reset;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 7. Typography elements
+// ---------------------------------------------------------------------------
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-serif);
+  font-weight: var(--fw-serif);
+  line-height: var(--lh-tight);
+  color: var(--text);
+  // Offset anchor jumps so headings aren't hidden behind the sticky header.
+  scroll-margin-top: calc(var(--nav-height) + var(--sp-2));
+}
+
+h1 {
+  font-size: var(--fs-h1);
+  margin-top: var(--sp-12);
+  margin-bottom: var(--sp-4);
+}
+h2 {
+  font-size: var(--fs-h2);
+  margin-top: var(--sp-10);
+  margin-bottom: var(--sp-3);
+}
+h3 {
+  font-size: var(--fs-h3);
+  margin-top: var(--sp-8);
+  margin-bottom: var(--sp-2);
+}
+h4 {
+  font-size: var(--fs-body);
+  margin-top: var(--sp-6);
+  margin-bottom: var(--sp-2);
+}
+
+p {
+  margin-bottom: var(--sp-4);
+}
+
+// Prose lists — scoped to content containers so list spacing never leaks
+// into UI lists (nav, footer, link rows), which the universal reset zeroes.
+.post__content,
+.home__bio,
+.page-desc,
+.markdown-alert-note,
+.markdown-alert-tip,
+.markdown-alert-important,
+.markdown-alert-warning,
+.markdown-alert-caution,
+.sidenote {
+  ul,
+  ol {
+    margin-bottom: var(--sp-4);
+    padding-left: var(--sp-5);
+  }
+
+  li {
+    margin-bottom: var(--sp-1);
+  }
+}
+
+// Blockquotes — warm sand left border, no italics
+blockquote {
+  border-left: 3px solid var(--warm-300);
+  padding: var(--sp-2) var(--sp-4);
+  margin: var(--sp-6) 0;
+  color: var(--text-muted);
+  @include callout-base;
+
+  p {
+    @include last-child-flush;
+  }
+}
+
+// Code — inline and block
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background-color: var(--warm-sand);
+  padding: 0.1em 0.3em;
+  border-radius: var(--sp-1);
+  color: var(--warm-800);
+}
+
+// Code block — Kami spec: ivory bg + 0.5pt border + 6pt radius
+// Override Zola's syntax-highlighter inline background (pure white #FFFFFF)
+// with ivory, so code blocks stay on-brand with the parchment canvas.
+pre {
+  margin: var(--sp-6) 0;
+  padding: var(--sp-4);
+  background-color: var(--ivory) !important;
+  border: 1px solid var(--border);
+  border-radius: var(--sp-2); // 8px ≈ Kami 6pt
+  overflow-x: auto;
+
+  code {
+    background: none;
+    padding: 0;
+    font-size: var(--fs-small);
+    line-height: var(--lh-dense);
+    color: var(--warm-700); // Kami "Olive" — readable but not heavy
+  }
+}
+
+// Horizontal rule — subtle warm divider
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: var(--sp-8) 0;
+}
+
+// Footnotes — visually separated from the main content as a distinct
+// reference section. Smaller text, warm-sand panel, top border.
+.footnotes {
+  margin-top: var(--sp-12);
+  padding: var(--sp-5) var(--sp-5);
+  border-top: 1px solid var(--border);
+  background-color: var(--ivory);
+  border-radius: 0 0 var(--sp-1) var(--sp-1);
+
+  .footnotes-list {
+    padding-left: var(--sp-5);
+    margin: 0;
+  }
+
+  li {
+    font-family: var(--font-sans);
+    font-size: var(--fs-small);
+    line-height: var(--lh-label);
+    color: var(--text-muted);
+    margin-bottom: var(--sp-2);
+    // Offset anchor jumps so the target isn't hidden behind the sticky header.
+    scroll-margin-top: calc(var(--nav-height) + var(--sp-2));
+    @include last-child-flush;
+
+    p {
+      margin: 0;
+    }
+
+    a {
+      color: var(--text-muted);
+      border-bottom: none;
+
+      &:hover {
+        color: var(--accent);
+      }
+    }
+  }
+}
+
+// Inline footnote reference superscripts — small, ink blue
+.footnote-reference {
+  // Offset anchor jumps so the reference isn't hidden behind the sticky header
+  // when clicking the "↩" return arrow from the footnote section.
+  scroll-margin-top: calc(var(--nav-height) + var(--sp-2));
+
+  a {
+    font-family: var(--font-sans);
+    font-size: 0.7em;
+    color: var(--accent);
+    border-bottom: none;
+    text-decoration: none;
+
+    &:hover {
+      color: var(--text);
+    }
+  }
+}
+
+// Tables
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--sp-6) 0;
+  font-size: var(--fs-small);
+
+  th,
+  td {
+    padding: var(--sp-2) var(--sp-3);
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+  }
+
+  th {
+    font-family: var(--font-sans);
+    font-weight: var(--fw-sans-m);
+    color: var(--text);
+  }
+}
+
+// Images
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--sp-1);
+  display: block;
+  margin: var(--sp-4) auto;
+}
+
+// ---------------------------------------------------------------------------
+// 8. Page-specific styles
+// ---------------------------------------------------------------------------
+
+// Home / About page
+.home {
+  margin-top: var(--sp-16);
+
+  // Header: photo beside name + tagline, vertically centered.
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-6);
+    margin-bottom: var(--sp-8);
+
+    @media (max-width: 540px) {
+      gap: var(--sp-5);
+    }
+
+    // Ultra-narrow: stack photo above name to prevent overflow
+    @media (max-width: $bp-ultra-narrow) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--sp-3);
+    }
+  }
+
+  &__photo {
+    width: 112px;
+    height: 112px;
+    object-fit: cover;
+    border-radius: 999px; // circular avatar
+    flex-shrink: 0;
+    margin: 0;
+    // Kami "ring shadow" — depth from a warm ring, not a hard drop shadow.
+    box-shadow: 0 0 0 1px var(--warm-200);
+
+    @media (max-width: 540px) {
+      width: 88px;
+      height: 88px;
+    }
+  }
+
+  &__intro {
+    min-width: 0;
+  }
+
+  &__name {
+    font-size: var(--fs-display);
+    line-height: var(--lh-tight);
+    margin: 0;
+  }
+
+  &__tagline {
+    font-family: var(--font-sans);
+    font-size: var(--fs-small);
+    font-weight: var(--fw-sans-m);
+    color: var(--text-faint);
+    line-height: var(--lh-label);
+    margin: var(--sp-2) 0 0 0;
+    letter-spacing: 0.01em;
+  }
+
+  &__bio {
+    // slightly roomier reading measure for the intro prose
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  // Link row with middot separators (Kami-style "·").
+  &__links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--sp-3);
+    margin-top: var(--sp-8);
+    margin-bottom: var(--sp-6);
+    padding: 0;
+    list-style: none;
+    @include ultra-narrow-tight;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      margin: 0;
+
+      &:not(:last-child)::after {
+        content: "·";
+        color: var(--warm-300);
+      }
+    }
+
+    a {
+      font-family: var(--font-sans);
+      font-size: var(--fs-small);
+      font-weight: var(--fw-sans-m);
+      border-bottom: none;
+      color: var(--text-muted);
+
+      &:hover {
+        color: var(--accent);
+      }
+    }
+  }
+}
+
+// Unified page header — shared by all page types via partial
+.page-header {
+  margin-top: var(--sp-10);
+  margin-bottom: var(--sp-8);
+}
+
+.page-title {
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+  color: var(--accent);
+  margin-bottom: var(--sp-1);
+}
+
+// Pages without a description get a thin divider under the title
+// to anchor it — Kami section divide.
+.page-header:not(:has(.page-desc)) .page-title {
+  margin-bottom: var(--sp-3);
+  padding-bottom: var(--sp-2);
+  border-bottom: 1px solid var(--border);
+}
+
+.page-meta {
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  color: var(--text-faint);
+  line-height: var(--lh-label);
+  margin-top: var(--sp-1);
+}
+
+.page-desc {
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+  margin-top: var(--sp-1);
+  margin-bottom: var(--sp-8);
+  line-height: var(--lh-label);
+}
+
+// Post tags (blog posts only)
+.post__tags {
+  display: flex;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+  margin-top: var(--sp-3);
+  list-style: none;
+  padding: 0;
+}
+
+.post__tag {
+  font-family: var(--font-sans);
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-sans-m);
+  color: var(--accent);
+  background-color: var(--warm-sand);
+  padding: 0.15em 0.5em;
+  border-radius: var(--sp-1);
+  border-bottom: none;
+
+  &:hover {
+    background-color: var(--warm-300);
+  }
+}
+
+.post__content {
+  margin-bottom: var(--sp-12);
+
+  > *:first-child {
+    margin-top: 0;
+  }
+}
+
+// Publications — compact, editorial list (title / authors / venue / links)
+.pubs {
+  list-style: none;
+  margin: 0 0 var(--sp-12);
+  padding: 0;
+}
+
+.pub {
+  margin-bottom: var(--sp-6);
+  @include last-child-flush;
+
+  &__title {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: var(--fs-h3);
+    line-height: var(--lh-tight);
+    color: var(--text);
+    margin: 0;
+  }
+
+  &__authors {
+    font-family: var(--font-sans);
+    font-size: var(--fs-small);
+    color: var(--text-muted);
+    line-height: var(--lh-label);
+    margin: var(--sp-1) 0 0;
+  }
+
+  &__venue {
+    font-family: var(--font-sans);
+    font-size: var(--fs-small);
+    color: var(--text-faint);
+    line-height: var(--lh-label);
+    margin: var(--sp-1) 0 0;
+  }
+
+  &__links {
+    font-family: var(--font-sans);
+    font-size: var(--fs-small);
+    margin: var(--sp-2) 0 0;
+
+    a {
+      color: var(--accent);
+      border-bottom: none;
+
+      &:hover {
+        border-bottom: 1px solid var(--accent);
+      }
+    }
+  }
+
+  &__sep {
+    color: var(--warm-300);
+    margin: 0 var(--sp-2);
+  }
+}
+
+// Index / list pages — year groups and item rows
+.list {
+  &__group {
+    margin-bottom: var(--sp-8);
+  }
+
+  &__year {
+    font-family: var(--font-sans);
+    font-weight: var(--fw-sans-m);
+    font-size: var(--fs-small);
+    color: var(--text-faint);
+    margin-bottom: var(--sp-3);
+    padding-bottom: var(--sp-1);
+    border-bottom: 1px solid var(--border);
+  }
+
+  &__item {
+    display: flex;
+    align-items: baseline;
+    gap: var(--sp-4);
+    padding: var(--sp-2) 0;
+
+    @media (max-width: 500px) {
+      flex-direction: column;
+      gap: var(--sp-1);
+      padding: var(--sp-2) 0;
+    }
+  }
+
+  &__date {
+    font-family: var(--font-sans);
+    font-size: var(--fs-micro);
+    color: var(--text-faint);
+    flex-shrink: 0;
+    width: 5.5rem;
+
+    @media (max-width: 500px) {
+      width: auto;
+    }
+  }
+
+  &__link {
+    font-family: var(--font-serif);
+    font-weight: var(--fw-serif);
+    font-size: var(--fs-body);
+    color: var(--text);
+    border-bottom: none;
+
+    &:hover {
+      color: var(--accent);
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 9. GitHub alert styles (note, tip, important, warning, caution)
+// ---------------------------------------------------------------------------
+
+// GitHub alerts render as <blockquote> — reset blockquote styling so they
+// read as regular content with only a colored left border to indicate type.
+// Colors stay within the warm-restraint palette: ink accent for informational,
+// progressively darker warm tones for more urgent alerts.
+.markdown-alert-note,
+.markdown-alert-tip,
+.markdown-alert-important,
+.markdown-alert-warning,
+.markdown-alert-caution {
+  border-left: 3px solid var(--accent);
+  border-radius: 0;
+  background: none;
+  padding: var(--sp-1) var(--sp-4);
+  margin: var(--sp-4) 0;
+  color: var(--text-body);
+
+  p {
+    @include last-child-flush;
+  }
+}
+
+.markdown-alert-note {
+  border-left-color: var(--warm-300);
+}
+.markdown-alert-tip {
+  border-left-color: var(--accent);
+}
+.markdown-alert-important {
+  border-left-color: var(--warm-600);
+}
+.markdown-alert-warning {
+  border-left-color: var(--warm-700);
+}
+.markdown-alert-caution {
+  border-left-color: var(--warm-900);
+}
+
+.proof-end::after {
+  content: "∎";
+  display: inline-block;
+  color: var(--text-muted);
+  margin-left: 0.25em;
+}
+
+// Sidenotes default to an inline callout (safe at every width) and only
+// float into the right margin when the viewport is wide enough to hold
+// them. The float pulls the note 240px right of the 680px reading column,
+// so it needs (viewport - 680) / 2 >= 240, i.e. viewport >= 1160px.
+// Below that it collapsed unpredictably; now the float is the opt-in.
+.sidenote {
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+  line-height: var(--lh-label);
+  margin: var(--sp-3) 0;
+  padding: var(--sp-2) var(--sp-3);
+  border-left: 2px solid var(--warm-300);
+  @include callout-base;
+
+  @media (min-width: 1160px) {
+    float: right;
+    clear: right;
+    width: 200px;
+    margin-right: -240px;
+    margin-top: 0;
+    margin-bottom: var(--sp-2);
+    border-left: none;
+    background: none;
+    padding: 0;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 10. KaTeX adjustments
+// ---------------------------------------------------------------------------
+
+.katex-display {
+  margin: var(--sp-6) 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: var(--sp-1) 0;
+}
+
+// KaTeX color should match text, not be pure black
+.katex {
+  color: var(--text-body);
+}
+
+// ---------------------------------------------------------------------------
+// 11. Travel map
+// ---------------------------------------------------------------------------
+
+.travel-map {
+  margin: var(--sp-6) 0 0;
+  text-align: center;
+
+  svg {
+    width: 100%;
+    max-width: 760px;
+    height: auto;
+    display: inline-block;
+  }
+
+  figcaption {
+    font-family: var(--font-sans);
+    font-size: var(--fs-micro);
+    color: var(--text-faint);
+    margin-top: var(--sp-2);
+
+    a {
+      border-bottom: none;
+      color: var(--text-faint);
+
+      &:hover {
+        color: var(--accent);
+      }
+    }
+  }
+
+  // Unvisited countries — warm neutral, subtle
+  path {
+    fill: var(--warm-200);
+    stroke: var(--bg);
+    stroke-width: 0.4;
+    transition: fill 0.2s ease;
+  }
+
+  @media (max-width: 600px) {
+    svg {
+      max-width: 100%;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 12. Utility
+// ---------------------------------------------------------------------------
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// ---------------------------------------------------------------------------
+// 13. Reduced motion
+// ---------------------------------------------------------------------------
+
+// Honor the OS-level reduced-motion preference: disable animations and
+// smooth scrolling site-wide. Transitions collapse to ~instant so state
+// changes still apply, just without movement.
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

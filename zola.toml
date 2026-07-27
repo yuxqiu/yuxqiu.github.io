@@ -1,0 +1,50 @@
+# Site
+base_url = "https://yuxqiu.github.io"
+title = "Yuxiang Qiu"
+description = "Yuxiang Qiu's Blog"
+default_language = "en"
+
+# Build
+compile_sass = true
+minify_html = false
+generate_feeds = true
+feed_filenames = ["atom.xml"]
+generate_sitemap = true
+generate_robots_txt = true
+
+# Taxonomies
+taxonomies = [
+  { name = "tags", feed = true },
+]
+
+# Markdown
+[markdown]
+render_emoji = false
+smart_punctuation = true
+external_links_target_blank = true
+external_links_no_follow = false
+external_links_no_referrer = false
+bottom_footnotes = true
+github_alerts = true
+
+[markdown.highlighting]
+light_theme = "github-light"
+dark_theme = "github-dark"
+
+[extra]
+# Site-level metadata, available to all templates
+author = "Yuxiang Qiu"
+tagline = "Verifiable Computation · Proof Systems"
+email = "yuxqiu@proton.me"
+github = "yuxqiu"
+linkedin = "yuxqiu"
+keybase = "yuxqiu"
+cv = "/pdf/yuxiang_qiu_cv.pdf"
+
+# Navigation links (label → content path)
+nav = [
+  { label = "Blog", path = "@/blog/_index.md", prefix = "/blog" },
+  { label = "Writings", path = "@/writings/_index.md", prefix = "/writings" },
+  { label = "Publications", path = "@/publications.md", prefix = "/publications" },
+  { label = "More", path = "@/more.md", prefix = "/more" },
+]

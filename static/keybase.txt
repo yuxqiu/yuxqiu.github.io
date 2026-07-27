@@ -1,0 +1,62 @@
+==================================================================
+https://keybase.io/yuxqiu
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://yuxqiu.github.io
+  * I am yuxqiu (https://keybase.io/yuxqiu) on keybase.
+  * I have a public key with fingerprint 99C7 3DC0 FCD8 FEB5 F0CE  C2FE 92E9 4695 8DB9 EEDB
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0116b25772f204ab3918154e523c9f15ecbd92e8a301017a37359d645c6785beca6b0a",
+      "fingerprint": "99c73dc0fcd8feb5f0cec2fe92e946958db9eedb",
+      "host": "keybase.io",
+      "key_id": "92e946958db9eedb",
+      "kid": "0116b25772f204ab3918154e523c9f15ecbd92e8a301017a37359d645c6785beca6b0a",
+      "uid": "dd28e7500156111139cf60c320c21b19",
+      "username": "yuxqiu"
+    },
+    "service": {
+      "hostname": "yuxqiu.github.io",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "ctime": 1752501258,
+  "expire_in": 157680000,
+  "prev": "509d1b960a79bf093a2392a9c1a3712091a87e142d04bb0a75fdfdf815fea9aa",
+  "seqno": 3,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+
+owGtUr9rFUEQPmMi5JGAWgQsImYam+Oxu/f27vZAJBostYkQFHnuj9n3lsS7y/2I
+eYSAlYggiCAo5G8QCxWsooIoKDY2giBYBkQEC0FiIhdNIaS0Gmbm+76Z+Zjb4/u9
+1sSdjTN3bz39+nHfmw3l9euxwyugMjOAZAXmcSfggsGy6s47AwkQSkPFeBQxy0hH
+qkDQmPIOchZoYSlHrYxgGMuAUEIjGUQBFybscB1GMVeoZaiIBB+sS3tY5IVLK0hA
+CB0FRhOrTWxRcUs0amZRMBSdUPDYKIFoFPjQz8qGMY8DJUtsuwz8JunurLcH/j/v
+Xe/IGcNijDghlIeUUhoIbUOiA0Y0o4qKBlhikcorCAkM6uVFV8OqDyUWS05jY2tz
+xz/9ds9V/Vr9uSgvsirT2QIk0K+qvEwadjXIG/hVVN2/Ql3lUuPSHviwhEXpshQS
+uuqDrlyjTCPOOKGMxz7gcu4K7LoGwaMwJoSQZg4uQQKcCEMvKBESGQlliQgkCwST
+QlMZRJQRQWUcIe0wQzpKERlxa6yxMeUWpZCNMyUuphkkgQ+V7EECpeulsqoLhNXW
+jXrYm2h5kxNTw/dfnXi2+WHr8bd3L7Z2n29kqPk8rzV6cLfy87u37d7fHD07kuPi
+k82Z2eWTc1OfLumxRxePP3h77Npr+yX3tqcn19cezh3p3zvfvnz9848Dz8+tnzr9
+a/bloaGZtdnpo+O/AQ==
+=raOG
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/yuxqiu
+
+==================================================================

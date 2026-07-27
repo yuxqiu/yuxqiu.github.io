@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% import "partials/macros.html" as m %}
+
+{% block title %}{{ term.name }} | {{ config.title }}{% endblock title %}
+
+{% block content %}
+<div class="container container--wide">
+  {{ m::page_header(title="#" ~ term.name) }}
+  <div class="list__group">
+    {% set pages = term.pages | sort(attribute="date") | reverse %}
+    {% for page in pages %}
+    <div class="list__item">
+      <time class="list__date" datetime="{{ page.date }}">{{ page.date | date(format="%b %d, %Y") }}</time>
+      <a class="list__link" href="{{ page.permalink | safe }}">{{ page.title }}</a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

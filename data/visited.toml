@@ -1,0 +1,6 @@
+# ISO 3166-1 alpha-2 codes of visited places, rendered ink blue on the
+# travel map. Consumed by templates/shortcodes/travel_map.html.
+places = [
+  "cn", "sg", "tw", "jp", "us", "gb", "do", "ch", "it", "es", "th",
+  "my", "fr", "is", "no", "fi", "se", "dk",
+]

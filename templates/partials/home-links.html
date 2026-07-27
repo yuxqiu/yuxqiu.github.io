@@ -1,0 +1,12 @@
+{% if config.extra.cv %}
+<li><a href="{{ config.extra.cv }}" target="_blank" rel="noopener">CV</a></li>
+{% endif %}
+{% if config.extra.github %}
+<li><a href="https://github.com/{{ config.extra.github }}" target="_blank" rel="noopener">GitHub</a></li>
+{% endif %}
+{% if config.extra.linkedin %}
+<li><a href="https://linkedin.com/in/{{ config.extra.linkedin }}" target="_blank" rel="noopener">LinkedIn</a></li>
+{% endif %}
+{% if config.extra.email %}
+<li><a href="mailto:{{ config.extra.email }}">Email</a></li>
+{% endif %}

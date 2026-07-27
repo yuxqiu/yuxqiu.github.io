@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="{{ config.default_language }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ config.title }}{% endblock title %}</title>
+  <meta name="description" content="{{ config.description }}">
+  <link rel="icon" href="{{ get_url(path="favicon.svg") }}" type="image/svg+xml">
+  <link rel="icon" href="{{ get_url(path="favicon.ico") }}" sizes="32x32">
+  <link rel="apple-touch-icon" href="{{ get_url(path="apple-touch-icon.png") }}">
+  <link rel="stylesheet" href="{{ get_url(path="style.css") }}">
+  <link rel="stylesheet" href="{{ get_url(path="katex.min.css") }}">
+  <link rel="alternate" type="application/atom+xml" title="{{ config.title }}" href="{{ get_url(path="atom.xml", trailing_slash=false) }}">
+  {% block head %}{% endblock head %}
+</head>
+<body>
+  {% set cur = current_path | default(value="/") %}
+  <header class="site-header">
+    <nav class="site-nav">
+      <a href="{{ get_url(path="@/_index.md") }}" class="site-nav__brand">{{ config.title }}</a>
+      <ul class="site-nav__links">
+        {% for item in config.extra.nav %}
+        <li><a href="{{ get_url(path=item.path) }}" class="site-nav__link{% if cur == item.prefix or cur is starting_with(item.prefix ~ "/") %} site-nav__link--active{% endif %}">{{ item.label }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}{% endblock content %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <p class="site-footer__text">{{ config.title }}</p>
+      <ul class="site-footer__social">
+        {% include "partials/social-links.html" %}
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

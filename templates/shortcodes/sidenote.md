@@ -1,0 +1,5 @@
+<aside class="sidenote">
+
+{{ body | safe }}
+
+</aside>

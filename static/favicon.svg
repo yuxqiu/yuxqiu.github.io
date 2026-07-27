@@ -1,0 +1,558 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <rect x="1" y="1" width="62" height="62" rx="15" fill="#1B365D"/>
+  <path d="M 42.84 12.62 L 42.58 12.84 L 44.90 15.60 L 45.16 15.38 Z" fill="#F5F4ED"/>
+  <path d="M 42.57 12.84 L 42.30 13.06 L 44.65 15.82 L 44.91 15.59 Z" fill="#F5F4ED"/>
+  <path d="M 42.30 13.07 L 42.02 13.29 L 44.40 16.05 L 44.66 15.82 Z" fill="#F5F4ED"/>
+  <path d="M 42.02 13.29 L 41.74 13.51 L 44.15 16.29 L 44.41 16.04 Z" fill="#F5F4ED"/>
+  <path d="M 41.73 13.52 L 41.46 13.73 L 43.91 16.53 L 44.16 16.28 Z" fill="#F5F4ED"/>
+  <path d="M 41.45 13.74 L 41.17 13.96 L 43.67 16.77 L 43.92 16.52 Z" fill="#F5F4ED"/>
+  <path d="M 41.16 13.97 L 40.88 14.19 L 43.42 17.03 L 43.67 16.77 Z" fill="#F5F4ED"/>
+  <path d="M 40.87 14.19 L 40.59 14.42 L 43.18 17.28 L 43.43 17.02 Z" fill="#F5F4ED"/>
+  <path d="M 40.58 14.42 L 40.29 14.64 L 42.94 17.54 L 43.19 17.27 Z" fill="#F5F4ED"/>
+  <path d="M 40.29 14.65 L 40.00 14.88 L 42.70 17.80 L 42.95 17.53 Z" fill="#F5F4ED"/>
+  <path d="M 39.99 14.88 L 39.71 15.11 L 42.46 18.06 L 42.71 17.79 Z" fill="#F5F4ED"/>
+  <path d="M 39.70 15.12 L 39.41 15.35 L 42.22 18.33 L 42.47 18.06 Z" fill="#F5F4ED"/>
+  <path d="M 39.41 15.35 L 39.12 15.59 L 41.98 18.60 L 42.23 18.32 Z" fill="#F5F4ED"/>
+  <path d="M 39.11 15.59 L 38.83 15.83 L 41.74 18.86 L 41.98 18.59 Z" fill="#F5F4ED"/>
+  <path d="M 38.82 15.84 L 38.54 16.08 L 41.49 19.13 L 41.74 18.86 Z" fill="#F5F4ED"/>
+  <path d="M 38.53 16.08 L 38.25 16.32 L 41.25 19.40 L 41.50 19.13 Z" fill="#F5F4ED"/>
+  <path d="M 38.25 16.33 L 37.97 16.58 L 41.01 19.67 L 41.26 19.39 Z" fill="#F5F4ED"/>
+  <path d="M 37.96 16.58 L 37.69 16.83 L 40.76 19.93 L 41.01 19.66 Z" fill="#F5F4ED"/>
+  <path d="M 37.68 16.84 L 37.41 17.10 L 40.51 20.20 L 40.77 19.93 Z" fill="#F5F4ED"/>
+  <path d="M 37.41 17.10 L 37.14 17.36 L 40.26 20.46 L 40.52 20.19 Z" fill="#F5F4ED"/>
+  <path d="M 37.13 17.37 L 36.87 17.63 L 40.01 20.72 L 40.27 20.45 Z" fill="#F5F4ED"/>
+  <path d="M 36.87 17.64 L 36.61 17.90 L 39.76 20.97 L 40.02 20.71 Z" fill="#F5F4ED"/>
+  <path d="M 36.60 17.91 L 36.34 18.17 L 39.51 21.23 L 39.76 20.97 Z" fill="#F5F4ED"/>
+  <path d="M 36.34 18.18 L 36.08 18.45 L 39.26 21.49 L 39.51 21.23 Z" fill="#F5F4ED"/>
+  <path d="M 36.08 18.45 L 35.82 18.72 L 39.01 21.75 L 39.27 21.49 Z" fill="#F5F4ED"/>
+  <path d="M 35.82 18.72 L 35.56 18.99 L 38.77 22.01 L 39.02 21.75 Z" fill="#F5F4ED"/>
+  <path d="M 35.56 19.00 L 35.31 19.26 L 38.53 22.28 L 38.77 22.01 Z" fill="#F5F4ED"/>
+  <path d="M 35.30 19.27 L 35.05 19.53 L 38.29 22.54 L 38.53 22.27 Z" fill="#F5F4ED"/>
+  <path d="M 35.05 19.54 L 34.80 19.80 L 38.05 22.80 L 38.29 22.53 Z" fill="#F5F4ED"/>
+  <path d="M 34.79 19.81 L 34.55 20.07 L 37.81 23.06 L 38.05 22.79 Z" fill="#F5F4ED"/>
+  <path d="M 34.54 20.08 L 34.30 20.35 L 37.58 23.32 L 37.82 23.05 Z" fill="#F5F4ED"/>
+  <path d="M 34.30 20.35 L 34.06 20.61 L 37.35 23.57 L 37.59 23.31 Z" fill="#F5F4ED"/>
+  <path d="M 34.05 20.62 L 33.82 20.88 L 37.13 23.83 L 37.36 23.57 Z" fill="#F5F4ED"/>
+  <path d="M 33.81 20.89 L 33.58 21.15 L 36.90 24.09 L 37.13 23.82 Z" fill="#F5F4ED"/>
+  <path d="M 33.57 21.16 L 33.34 21.42 L 36.68 24.34 L 36.91 24.08 Z" fill="#F5F4ED"/>
+  <path d="M 33.33 21.42 L 33.11 21.68 L 36.47 24.60 L 36.69 24.34 Z" fill="#F5F4ED"/>
+  <path d="M 33.10 21.69 L 32.88 21.95 L 36.25 24.85 L 36.47 24.59 Z" fill="#F5F4ED"/>
+  <path d="M 32.87 21.95 L 32.65 22.21 L 36.04 25.10 L 36.26 24.84 Z" fill="#F5F4ED"/>
+  <path d="M 32.64 22.22 L 32.42 22.47 L 35.84 25.35 L 36.05 25.09 Z" fill="#F5F4ED"/>
+  <path d="M 32.42 22.48 L 32.20 22.73 L 35.64 25.59 L 35.85 25.34 Z" fill="#F5F4ED"/>
+  <path d="M 32.20 22.74 L 31.99 22.99 L 35.44 25.84 L 35.64 25.59 Z" fill="#F5F4ED"/>
+  <path d="M 31.98 23.00 L 31.77 23.24 L 35.25 26.08 L 35.45 25.83 Z" fill="#F5F4ED"/>
+  <path d="M 31.77 23.25 L 31.57 23.50 L 35.06 26.32 L 35.25 26.07 Z" fill="#F5F4ED"/>
+  <path d="M 31.56 23.51 L 31.36 23.75 L 34.87 26.55 L 35.07 26.31 Z" fill="#F5F4ED"/>
+  <path d="M 31.35 23.76 L 31.16 24.00 L 34.69 26.79 L 34.88 26.54 Z" fill="#F5F4ED"/>
+  <path d="M 31.15 24.01 L 30.96 24.24 L 34.52 27.02 L 34.70 26.78 Z" fill="#F5F4ED"/>
+  <path d="M 30.95 24.25 L 30.77 24.49 L 34.35 27.24 L 34.53 27.01 Z" fill="#F5F4ED"/>
+  <path d="M 30.76 24.50 L 30.58 24.73 L 34.18 27.47 L 34.36 27.23 Z" fill="#F5F4ED"/>
+  <path d="M 30.57 24.74 L 30.40 24.97 L 34.02 27.68 L 34.19 27.45 Z" fill="#F5F4ED"/>
+  <path d="M 30.39 24.98 L 30.22 25.20 L 33.87 27.90 L 34.03 27.67 Z" fill="#F5F4ED"/>
+  <path d="M 30.21 25.22 L 30.05 25.44 L 33.72 28.11 L 33.88 27.88 Z" fill="#F5F4ED"/>
+  <path d="M 30.04 25.45 L 29.88 25.67 L 33.58 28.31 L 33.73 28.09 Z" fill="#F5F4ED"/>
+  <path d="M 29.87 25.68 L 29.71 25.90 L 33.44 28.52 L 33.59 28.30 Z" fill="#F5F4ED"/>
+  <path d="M 29.70 25.91 L 29.56 26.12 L 33.31 28.71 L 33.45 28.50 Z" fill="#F5F4ED"/>
+  <path d="M 29.54 26.14 L 29.40 26.35 L 33.18 28.90 L 33.32 28.69 Z" fill="#F5F4ED"/>
+  <path d="M 29.39 26.36 L 29.25 26.56 L 33.06 29.09 L 33.19 28.88 Z" fill="#F5F4ED"/>
+  <path d="M 29.24 26.58 L 29.11 26.78 L 32.95 29.27 L 33.07 29.07 Z" fill="#F5F4ED"/>
+  <path d="M 29.10 26.80 L 28.97 27.00 L 32.84 29.44 L 32.96 29.24 Z" fill="#F5F4ED"/>
+  <path d="M 28.96 27.02 L 28.84 27.21 L 32.74 29.60 L 32.86 29.41 Z" fill="#F5F4ED"/>
+  <path d="M 28.82 27.23 L 28.71 27.41 L 32.65 29.76 L 32.76 29.58 Z" fill="#F5F4ED"/>
+  <path d="M 28.70 27.44 L 28.59 27.62 L 32.57 29.91 L 32.67 29.73 Z" fill="#F5F4ED"/>
+  <path d="M 28.57 27.65 L 28.48 27.82 L 32.49 30.06 L 32.58 29.88 Z" fill="#F5F4ED"/>
+  <path d="M 28.46 27.86 L 28.37 28.03 L 32.42 30.19 L 32.51 30.02 Z" fill="#F5F4ED"/>
+  <path d="M 28.35 28.07 L 28.26 28.23 L 32.36 30.32 L 32.44 30.15 Z" fill="#F5F4ED"/>
+  <path d="M 28.24 28.27 L 28.16 28.43 L 32.30 30.43 L 32.38 30.27 Z" fill="#F5F4ED"/>
+  <path d="M 28.14 28.48 L 28.07 28.63 L 32.26 30.54 L 32.32 30.38 Z" fill="#F5F4ED"/>
+  <path d="M 28.05 28.68 L 27.99 28.83 L 32.22 30.63 L 32.28 30.48 Z" fill="#F5F4ED"/>
+  <path d="M 27.96 28.89 L 27.91 29.03 L 32.19 30.70 L 32.24 30.56 Z" fill="#F5F4ED"/>
+  <path d="M 27.88 29.10 L 27.83 29.23 L 32.17 30.77 L 32.22 30.63 Z" fill="#F5F4ED"/>
+  <path d="M 27.82 29.28 L 27.77 29.41 L 32.14 30.85 L 32.18 30.72 Z" fill="#F5F4ED"/>
+  <path d="M 27.77 29.43 L 27.73 29.57 L 32.10 30.97 L 32.15 30.83 Z" fill="#F5F4ED"/>
+  <path d="M 27.72 29.59 L 27.68 29.73 L 32.06 31.09 L 32.11 30.95 Z" fill="#F5F4ED"/>
+  <path d="M 27.67 29.75 L 27.64 29.89 L 32.02 31.21 L 32.06 31.07 Z" fill="#F5F4ED"/>
+  <path d="M 27.63 29.91 L 27.59 30.06 L 31.97 31.34 L 32.02 31.20 Z" fill="#F5F4ED"/>
+  <path d="M 27.59 30.07 L 27.55 30.22 L 31.93 31.47 L 31.98 31.32 Z" fill="#F5F4ED"/>
+  <path d="M 27.55 30.24 L 27.51 30.40 L 31.88 31.61 L 31.93 31.46 Z" fill="#F5F4ED"/>
+  <path d="M 27.51 30.41 L 27.47 30.57 L 31.84 31.75 L 31.89 31.59 Z" fill="#F5F4ED"/>
+  <path d="M 27.47 30.59 L 27.43 30.75 L 31.79 31.89 L 31.84 31.73 Z" fill="#F5F4ED"/>
+  <path d="M 27.43 30.76 L 27.40 30.93 L 31.74 32.04 L 31.80 31.88 Z" fill="#F5F4ED"/>
+  <path d="M 27.39 30.94 L 27.36 31.11 L 31.70 32.19 L 31.75 32.02 Z" fill="#F5F4ED"/>
+  <path d="M 27.36 31.13 L 27.33 31.30 L 31.65 32.34 L 31.70 32.17 Z" fill="#F5F4ED"/>
+  <path d="M 27.33 31.32 L 27.30 31.49 L 31.60 32.50 L 31.65 32.33 Z" fill="#F5F4ED"/>
+  <path d="M 27.29 31.50 L 27.27 31.68 L 31.55 32.66 L 31.60 32.49 Z" fill="#F5F4ED"/>
+  <path d="M 27.26 31.70 L 27.24 31.88 L 31.50 32.82 L 31.55 32.65 Z" fill="#F5F4ED"/>
+  <path d="M 27.23 31.89 L 27.21 32.08 L 31.45 32.99 L 31.50 32.81 Z" fill="#F5F4ED"/>
+  <path d="M 27.20 32.09 L 27.18 32.28 L 31.40 33.16 L 31.46 32.98 Z" fill="#F5F4ED"/>
+  <path d="M 27.18 32.29 L 27.15 32.48 L 31.35 33.33 L 31.41 33.14 Z" fill="#F5F4ED"/>
+  <path d="M 27.15 32.50 L 27.13 32.69 L 31.31 33.51 L 31.36 33.32 Z" fill="#F5F4ED"/>
+  <path d="M 27.12 32.70 L 27.10 32.90 L 31.26 33.68 L 31.31 33.49 Z" fill="#F5F4ED"/>
+  <path d="M 27.10 32.91 L 27.08 33.11 L 31.21 33.86 L 31.26 33.67 Z" fill="#F5F4ED"/>
+  <path d="M 27.08 33.12 L 27.06 33.33 L 31.16 34.05 L 31.21 33.85 Z" fill="#F5F4ED"/>
+  <path d="M 27.05 33.34 L 27.04 33.54 L 31.11 34.24 L 31.16 34.04 Z" fill="#F5F4ED"/>
+  <path d="M 27.03 33.56 L 27.02 33.76 L 31.07 34.42 L 31.11 34.22 Z" fill="#F5F4ED"/>
+  <path d="M 27.01 33.77 L 27.00 33.98 L 31.02 34.62 L 31.07 34.41 Z" fill="#F5F4ED"/>
+  <path d="M 26.99 34.00 L 26.98 34.21 L 30.97 34.81 L 31.02 34.60 Z" fill="#F5F4ED"/>
+  <path d="M 26.98 34.22 L 26.96 34.43 L 30.93 35.01 L 30.98 34.80 Z" fill="#F5F4ED"/>
+  <path d="M 26.96 34.44 L 26.95 34.66 L 30.89 35.21 L 30.93 35.00 Z" fill="#F5F4ED"/>
+  <path d="M 26.95 34.67 L 26.93 34.89 L 30.84 35.41 L 30.89 35.20 Z" fill="#F5F4ED"/>
+  <path d="M 26.93 34.90 L 26.92 35.12 L 30.80 35.61 L 30.84 35.40 Z" fill="#F5F4ED"/>
+  <path d="M 26.92 35.13 L 26.91 35.36 L 30.76 35.82 L 30.80 35.60 Z" fill="#F5F4ED"/>
+  <path d="M 26.91 35.37 L 26.90 35.59 L 30.72 36.03 L 30.76 35.81 Z" fill="#F5F4ED"/>
+  <path d="M 26.89 35.60 L 26.89 35.83 L 30.68 36.24 L 30.72 36.02 Z" fill="#F5F4ED"/>
+  <path d="M 26.88 35.84 L 26.88 36.07 L 30.64 36.45 L 30.68 36.23 Z" fill="#F5F4ED"/>
+  <path d="M 26.88 36.08 L 26.87 36.31 L 30.61 36.67 L 30.65 36.44 Z" fill="#F5F4ED"/>
+  <path d="M 26.87 36.32 L 26.86 36.55 L 30.58 36.88 L 30.61 36.66 Z" fill="#F5F4ED"/>
+  <path d="M 26.86 36.57 L 26.86 36.80 L 30.54 37.10 L 30.58 36.87 Z" fill="#F5F4ED"/>
+  <path d="M 26.86 36.81 L 26.85 37.05 L 30.51 37.32 L 30.54 37.09 Z" fill="#F5F4ED"/>
+  <path d="M 26.85 37.06 L 26.85 37.29 L 30.48 37.55 L 30.51 37.31 Z" fill="#F5F4ED"/>
+  <path d="M 26.85 37.31 L 26.85 37.54 L 30.46 37.77 L 30.48 37.54 Z" fill="#F5F4ED"/>
+  <path d="M 26.84 37.56 L 26.84 37.79 L 30.43 38.00 L 30.46 37.76 Z" fill="#F5F4ED"/>
+  <path d="M 26.84 37.81 L 26.84 38.05 L 30.41 38.23 L 30.43 37.99 Z" fill="#F5F4ED"/>
+  <path d="M 26.84 38.06 L 26.84 38.30 L 30.39 38.45 L 30.41 38.21 Z" fill="#F5F4ED"/>
+  <path d="M 26.84 38.31 L 26.84 38.56 L 30.37 38.69 L 30.39 38.44 Z" fill="#F5F4ED"/>
+  <path d="M 26.84 38.57 L 26.85 38.81 L 30.35 38.92 L 30.37 38.67 Z" fill="#F5F4ED"/>
+  <path d="M 26.85 38.82 L 26.85 39.07 L 30.34 39.15 L 30.35 38.91 Z" fill="#F5F4ED"/>
+  <path d="M 26.85 39.08 L 26.85 39.33 L 30.32 39.39 L 30.34 39.14 Z" fill="#F5F4ED"/>
+  <path d="M 26.85 39.34 L 26.86 39.59 L 30.31 39.62 L 30.32 39.37 Z" fill="#F5F4ED"/>
+  <path d="M 26.86 39.60 L 26.87 39.85 L 30.31 39.86 L 30.31 39.61 Z" fill="#F5F4ED"/>
+  <path d="M 26.87 39.86 L 26.87 40.11 L 30.30 40.10 L 30.31 39.85 Z" fill="#F5F4ED"/>
+  <path d="M 26.87 40.13 L 26.88 40.38 L 30.30 40.34 L 30.30 40.08 Z" fill="#F5F4ED"/>
+  <path d="M 26.88 40.39 L 26.89 40.64 L 30.30 40.58 L 30.30 40.32 Z" fill="#F5F4ED"/>
+  <path d="M 26.89 40.66 L 26.90 40.91 L 30.30 40.82 L 30.30 40.56 Z" fill="#F5F4ED"/>
+  <path d="M 26.90 40.92 L 26.91 41.18 L 30.31 41.06 L 30.30 40.80 Z" fill="#F5F4ED"/>
+  <path d="M 26.91 41.19 L 26.92 41.44 L 30.32 41.30 L 30.31 41.05 Z" fill="#F5F4ED"/>
+  <path d="M 26.92 41.46 L 26.94 41.71 L 30.33 41.54 L 30.32 41.29 Z" fill="#F5F4ED"/>
+  <path d="M 26.94 41.73 L 26.95 41.98 L 30.34 41.79 L 30.33 41.53 Z" fill="#F5F4ED"/>
+  <path d="M 26.95 42.00 L 26.97 42.25 L 30.36 42.03 L 30.34 41.77 Z" fill="#F5F4ED"/>
+  <path d="M 26.97 42.27 L 27.00 42.53 L 30.37 42.28 L 30.36 42.02 Z" fill="#F5F4ED"/>
+  <path d="M 27.00 42.54 L 27.02 42.80 L 30.39 42.52 L 30.37 42.26 Z" fill="#F5F4ED"/>
+  <path d="M 27.02 42.81 L 27.05 43.07 L 30.41 42.77 L 30.39 42.51 Z" fill="#F5F4ED"/>
+  <path d="M 27.05 43.08 L 27.08 43.34 L 30.43 43.01 L 30.41 42.75 Z" fill="#F5F4ED"/>
+  <path d="M 27.08 43.36 L 27.12 43.62 L 30.45 43.26 L 30.43 43.00 Z" fill="#F5F4ED"/>
+  <path d="M 27.12 43.63 L 27.16 43.89 L 30.47 43.50 L 30.45 43.24 Z" fill="#F5F4ED"/>
+  <path d="M 27.16 43.90 L 27.20 44.16 L 30.50 43.75 L 30.47 43.49 Z" fill="#F5F4ED"/>
+  <path d="M 27.20 44.18 L 27.24 44.44 L 30.52 44.00 L 30.49 43.74 Z" fill="#F5F4ED"/>
+  <path d="M 27.24 44.45 L 27.29 44.71 L 30.55 44.25 L 30.52 43.98 Z" fill="#F5F4ED"/>
+  <path d="M 27.29 44.73 L 27.34 44.99 L 30.58 44.49 L 30.55 44.23 Z" fill="#F5F4ED"/>
+  <path d="M 27.34 45.00 L 27.39 45.26 L 30.61 44.74 L 30.58 44.48 Z" fill="#F5F4ED"/>
+  <path d="M 27.39 45.24 L 27.45 45.58 L 30.65 45.10 L 30.61 44.76 Z" fill="#F5F4ED"/>
+  <path d="M 27.46 45.65 L 27.53 45.98 L 30.70 45.36 L 30.64 45.03 Z" fill="#F5F4ED"/>
+  <path d="M 27.55 46.05 L 27.64 46.36 L 30.75 45.60 L 30.68 45.28 Z" fill="#F5F4ED"/>
+  <path d="M 27.66 46.44 L 27.76 46.74 L 30.80 45.82 L 30.72 45.52 Z" fill="#F5F4ED"/>
+  <path d="M 27.78 46.82 L 27.90 47.10 L 30.87 46.03 L 30.78 45.74 Z" fill="#F5F4ED"/>
+  <path d="M 27.93 47.18 L 28.05 47.45 L 30.95 46.23 L 30.84 45.95 Z" fill="#F5F4ED"/>
+  <path d="M 28.09 47.53 L 28.23 47.79 L 31.03 46.42 L 30.91 46.15 Z" fill="#F5F4ED"/>
+  <path d="M 28.27 47.86 L 28.42 48.11 L 31.11 46.59 L 30.98 46.34 Z" fill="#F5F4ED"/>
+  <path d="M 28.46 48.18 L 28.62 48.41 L 31.21 46.75 L 31.07 46.51 Z" fill="#F5F4ED"/>
+  <path d="M 28.68 48.49 L 28.85 48.70 L 31.31 46.90 L 31.15 46.67 Z" fill="#F5F4ED"/>
+  <path d="M 28.90 48.77 L 29.08 48.97 L 31.41 47.04 L 31.25 46.83 Z" fill="#F5F4ED"/>
+  <path d="M 29.14 49.04 L 29.34 49.23 L 31.53 47.18 L 31.35 46.97 Z" fill="#F5F4ED"/>
+  <path d="M 29.40 49.29 L 29.60 49.47 L 31.65 47.30 L 31.46 47.11 Z" fill="#F5F4ED"/>
+  <path d="M 29.67 49.53 L 29.88 49.69 L 31.77 47.42 L 31.58 47.24 Z" fill="#F5F4ED"/>
+  <path d="M 29.95 49.74 L 30.17 49.89 L 31.91 47.53 L 31.70 47.36 Z" fill="#F5F4ED"/>
+  <path d="M 30.24 49.94 L 30.46 50.07 L 32.05 47.63 L 31.84 47.48 Z" fill="#F5F4ED"/>
+  <path d="M 30.54 50.12 L 30.77 50.24 L 32.20 47.73 L 31.98 47.59 Z" fill="#F5F4ED"/>
+  <path d="M 30.84 50.28 L 31.09 50.39 L 32.37 47.82 L 32.13 47.69 Z" fill="#F5F4ED"/>
+  <path d="M 31.16 50.42 L 31.41 50.52 L 32.54 47.91 L 32.30 47.79 Z" fill="#F5F4ED"/>
+  <path d="M 31.48 50.54 L 31.74 50.63 L 32.72 47.98 L 32.47 47.88 Z" fill="#F5F4ED"/>
+  <path d="M 31.80 50.65 L 32.07 50.72 L 32.91 48.05 L 32.65 47.96 Z" fill="#F5F4ED"/>
+  <path d="M 32.13 50.74 L 32.41 50.80 L 33.11 48.11 L 32.85 48.03 Z" fill="#F5F4ED"/>
+  <path d="M 32.47 50.82 L 32.75 50.87 L 33.33 48.17 L 33.05 48.10 Z" fill="#F5F4ED"/>
+  <path d="M 32.81 50.88 L 33.09 50.92 L 33.55 48.21 L 33.26 48.16 Z" fill="#F5F4ED"/>
+  <path d="M 33.15 50.93 L 33.44 50.95 L 33.78 48.25 L 33.49 48.20 Z" fill="#F5F4ED"/>
+  <path d="M 33.50 50.96 L 33.80 50.98 L 34.02 48.28 L 33.72 48.24 Z" fill="#F5F4ED"/>
+  <path d="M 33.85 50.98 L 34.15 50.98 L 34.26 48.29 L 33.96 48.27 Z" fill="#F5F4ED"/>
+  <path d="M 34.20 50.98 L 34.51 50.98 L 34.52 48.30 L 34.21 48.29 Z" fill="#F5F4ED"/>
+  <path d="M 34.56 50.98 L 34.87 50.96 L 34.78 48.30 L 34.47 48.30 Z" fill="#F5F4ED"/>
+  <path d="M 34.92 50.96 L 35.23 50.93 L 35.06 48.29 L 34.74 48.30 Z" fill="#F5F4ED"/>
+  <path d="M 35.28 50.93 L 35.60 50.89 L 35.33 48.26 L 35.01 48.29 Z" fill="#F5F4ED"/>
+  <path d="M 35.64 50.88 L 35.97 50.83 L 35.62 48.23 L 35.29 48.27 Z" fill="#F5F4ED"/>
+  <path d="M 36.01 50.83 L 36.34 50.77 L 35.91 48.18 L 35.58 48.23 Z" fill="#F5F4ED"/>
+  <path d="M 36.38 50.76 L 36.71 50.69 L 36.21 48.13 L 35.87 48.19 Z" fill="#F5F4ED"/>
+  <path d="M 36.74 50.69 L 37.08 50.61 L 36.51 48.06 L 36.17 48.14 Z" fill="#F5F4ED"/>
+  <path d="M 37.12 50.60 L 37.46 50.51 L 36.81 47.99 L 36.47 48.07 Z" fill="#F5F4ED"/>
+  <path d="M 37.49 50.50 L 37.83 50.40 L 37.12 47.90 L 36.78 48.00 Z" fill="#F5F4ED"/>
+  <path d="M 37.86 50.39 L 38.21 50.28 L 37.43 47.80 L 37.09 47.91 Z" fill="#F5F4ED"/>
+  <path d="M 38.24 50.27 L 38.59 50.15 L 37.75 47.70 L 37.40 47.81 Z" fill="#F5F4ED"/>
+  <path d="M 38.62 50.14 L 38.96 50.01 L 38.07 47.58 L 37.72 47.71 Z" fill="#F5F4ED"/>
+  <path d="M 38.99 50.00 L 39.34 49.86 L 38.39 47.46 L 38.04 47.59 Z" fill="#F5F4ED"/>
+  <path d="M 39.37 49.85 L 39.72 49.69 L 38.72 47.33 L 38.36 47.47 Z" fill="#F5F4ED"/>
+  <path d="M 39.75 49.68 L 40.09 49.51 L 39.05 47.19 L 38.69 47.34 Z" fill="#F5F4ED"/>
+  <path d="M 40.12 49.50 L 40.47 49.32 L 39.38 47.04 L 39.02 47.20 Z" fill="#F5F4ED"/>
+  <path d="M 40.49 49.31 L 40.84 49.12 L 39.71 46.89 L 39.35 47.06 Z" fill="#F5F4ED"/>
+  <path d="M 40.86 49.10 L 41.21 48.90 L 40.05 46.73 L 39.69 46.90 Z" fill="#F5F4ED"/>
+  <path d="M 41.23 48.89 L 41.58 48.68 L 40.39 46.56 L 40.03 46.74 Z" fill="#F5F4ED"/>
+  <path d="M 41.60 48.67 L 41.94 48.44 L 40.72 46.37 L 40.36 46.57 Z" fill="#F5F4ED"/>
+  <path d="M 41.97 48.43 L 42.31 48.20 L 41.06 46.19 L 40.70 46.39 Z" fill="#F5F4ED"/>
+  <path d="M 42.33 48.19 L 42.67 47.94 L 41.40 45.99 L 41.04 46.20 Z" fill="#F5F4ED"/>
+  <path d="M 42.69 47.93 L 43.03 47.68 L 41.74 45.78 L 41.38 46.00 Z" fill="#F5F4ED"/>
+  <path d="M 43.04 47.67 L 43.38 47.41 L 42.07 45.56 L 41.72 45.79 Z" fill="#F5F4ED"/>
+  <path d="M 43.40 47.39 L 43.73 47.12 L 42.41 45.34 L 42.06 45.58 Z" fill="#F5F4ED"/>
+  <path d="M 43.75 47.11 L 44.08 46.83 L 42.74 45.10 L 42.39 45.35 Z" fill="#F5F4ED"/>
+  <path d="M 44.09 46.82 L 44.42 46.53 L 43.08 44.86 L 42.73 45.12 Z" fill="#F5F4ED"/>
+  <path d="M 44.44 46.52 L 44.76 46.22 L 43.41 44.61 L 43.06 44.88 Z" fill="#F5F4ED"/>
+  <path d="M 44.78 46.21 L 45.09 45.90 L 43.73 44.35 L 43.39 44.62 Z" fill="#F5F4ED"/>
+  <path d="M 45.11 45.89 L 45.43 45.58 L 44.06 44.08 L 43.72 44.36 Z" fill="#F5F4ED"/>
+  <path d="M 45.44 45.56 L 45.75 45.24 L 44.38 43.80 L 44.04 44.09 Z" fill="#F5F4ED"/>
+  <path d="M 45.77 45.23 L 46.07 44.90 L 44.69 43.51 L 44.36 43.81 Z" fill="#F5F4ED"/>
+  <path d="M 46.09 44.89 L 46.39 44.55 L 45.00 43.21 L 44.68 43.52 Z" fill="#F5F4ED"/>
+  <path d="M 46.40 44.54 L 46.70 44.20 L 45.31 42.90 L 44.99 43.22 Z" fill="#F5F4ED"/>
+  <path d="M 46.72 44.18 L 47.01 43.83 L 45.61 42.58 L 45.30 42.92 Z" fill="#F5F4ED"/>
+  <path d="M 47.02 43.82 L 47.31 43.46 L 45.90 42.26 L 45.60 42.60 Z" fill="#F5F4ED"/>
+  <path d="M 47.33 43.45 L 47.61 43.09 L 46.19 41.92 L 45.89 42.27 Z" fill="#F5F4ED"/>
+  <path d="M 47.62 43.07 L 47.90 42.70 L 46.47 41.58 L 46.18 41.94 Z" fill="#F5F4ED"/>
+  <path d="M 47.91 42.69 L 48.19 42.31 L 46.74 41.22 L 46.46 41.59 Z" fill="#F5F4ED"/>
+  <path d="M 48.20 42.29 L 48.47 41.91 L 47.00 40.86 L 46.73 41.24 Z" fill="#F5F4ED"/>
+  <path d="M 48.48 41.90 L 48.74 41.51 L 47.26 40.49 L 46.99 40.88 Z" fill="#F5F4ED"/>
+  <circle cx="44.00" cy="14.00" r="1.80" fill="#F5F4ED"/>
+  <circle cx="43.74" cy="14.22" r="1.80" fill="#F5F4ED"/>
+  <circle cx="43.48" cy="14.44" r="1.81" fill="#F5F4ED"/>
+  <circle cx="43.21" cy="14.67" r="1.82" fill="#F5F4ED"/>
+  <circle cx="42.95" cy="14.90" r="1.84" fill="#F5F4ED"/>
+  <circle cx="42.68" cy="15.13" r="1.86" fill="#F5F4ED"/>
+  <circle cx="42.42" cy="15.37" r="1.88" fill="#F5F4ED"/>
+  <circle cx="42.15" cy="15.61" r="1.91" fill="#F5F4ED"/>
+  <circle cx="41.88" cy="15.85" r="1.93" fill="#F5F4ED"/>
+  <circle cx="41.62" cy="16.09" r="1.96" fill="#F5F4ED"/>
+  <circle cx="41.35" cy="16.34" r="1.99" fill="#F5F4ED"/>
+  <circle cx="41.08" cy="16.59" r="2.02" fill="#F5F4ED"/>
+  <circle cx="40.82" cy="16.84" r="2.05" fill="#F5F4ED"/>
+  <circle cx="40.55" cy="17.09" r="2.08" fill="#F5F4ED"/>
+  <circle cx="40.28" cy="17.35" r="2.10" fill="#F5F4ED"/>
+  <circle cx="40.02" cy="17.60" r="2.13" fill="#F5F4ED"/>
+  <circle cx="39.75" cy="17.86" r="2.15" fill="#F5F4ED"/>
+  <circle cx="39.49" cy="18.12" r="2.17" fill="#F5F4ED"/>
+  <circle cx="39.22" cy="18.38" r="2.18" fill="#F5F4ED"/>
+  <circle cx="38.96" cy="18.65" r="2.19" fill="#F5F4ED"/>
+  <circle cx="38.70" cy="18.91" r="2.20" fill="#F5F4ED"/>
+  <circle cx="38.44" cy="19.17" r="2.20" fill="#F5F4ED"/>
+  <circle cx="38.18" cy="19.44" r="2.20" fill="#F5F4ED"/>
+  <circle cx="37.93" cy="19.70" r="2.20" fill="#F5F4ED"/>
+  <circle cx="37.67" cy="19.97" r="2.20" fill="#F5F4ED"/>
+  <circle cx="37.42" cy="20.24" r="2.20" fill="#F5F4ED"/>
+  <circle cx="37.17" cy="20.50" r="2.20" fill="#F5F4ED"/>
+  <circle cx="36.92" cy="20.77" r="2.20" fill="#F5F4ED"/>
+  <circle cx="36.67" cy="21.03" r="2.21" fill="#F5F4ED"/>
+  <circle cx="36.42" cy="21.30" r="2.21" fill="#F5F4ED"/>
+  <circle cx="36.18" cy="21.57" r="2.21" fill="#F5F4ED"/>
+  <circle cx="35.94" cy="21.83" r="2.21" fill="#F5F4ED"/>
+  <circle cx="35.71" cy="22.09" r="2.21" fill="#F5F4ED"/>
+  <circle cx="35.47" cy="22.36" r="2.22" fill="#F5F4ED"/>
+  <circle cx="35.24" cy="22.62" r="2.22" fill="#F5F4ED"/>
+  <circle cx="35.01" cy="22.88" r="2.22" fill="#F5F4ED"/>
+  <circle cx="34.79" cy="23.14" r="2.22" fill="#F5F4ED"/>
+  <circle cx="34.56" cy="23.40" r="2.23" fill="#F5F4ED"/>
+  <circle cx="34.35" cy="23.65" r="2.23" fill="#F5F4ED"/>
+  <circle cx="34.13" cy="23.91" r="2.23" fill="#F5F4ED"/>
+  <circle cx="33.92" cy="24.16" r="2.24" fill="#F5F4ED"/>
+  <circle cx="33.71" cy="24.41" r="2.24" fill="#F5F4ED"/>
+  <circle cx="33.51" cy="24.66" r="2.24" fill="#F5F4ED"/>
+  <circle cx="33.31" cy="24.91" r="2.25" fill="#F5F4ED"/>
+  <circle cx="33.12" cy="25.15" r="2.25" fill="#F5F4ED"/>
+  <circle cx="32.93" cy="25.39" r="2.25" fill="#F5F4ED"/>
+  <circle cx="32.74" cy="25.63" r="2.25" fill="#F5F4ED"/>
+  <circle cx="32.56" cy="25.86" r="2.26" fill="#F5F4ED"/>
+  <circle cx="32.38" cy="26.10" r="2.26" fill="#F5F4ED"/>
+  <circle cx="32.21" cy="26.33" r="2.26" fill="#F5F4ED"/>
+  <circle cx="32.04" cy="26.55" r="2.27" fill="#F5F4ED"/>
+  <circle cx="31.88" cy="26.77" r="2.27" fill="#F5F4ED"/>
+  <circle cx="31.73" cy="26.99" r="2.27" fill="#F5F4ED"/>
+  <circle cx="31.58" cy="27.21" r="2.28" fill="#F5F4ED"/>
+  <circle cx="31.43" cy="27.42" r="2.28" fill="#F5F4ED"/>
+  <circle cx="31.29" cy="27.62" r="2.28" fill="#F5F4ED"/>
+  <circle cx="31.16" cy="27.83" r="2.28" fill="#F5F4ED"/>
+  <circle cx="31.03" cy="28.02" r="2.29" fill="#F5F4ED"/>
+  <circle cx="30.91" cy="28.22" r="2.29" fill="#F5F4ED"/>
+  <circle cx="30.79" cy="28.40" r="2.29" fill="#F5F4ED"/>
+  <circle cx="30.68" cy="28.59" r="2.29" fill="#F5F4ED"/>
+  <circle cx="30.58" cy="28.77" r="2.29" fill="#F5F4ED"/>
+  <circle cx="30.48" cy="28.94" r="2.30" fill="#F5F4ED"/>
+  <circle cx="30.39" cy="29.11" r="2.30" fill="#F5F4ED"/>
+  <circle cx="30.31" cy="29.27" r="2.30" fill="#F5F4ED"/>
+  <circle cx="30.23" cy="29.43" r="2.30" fill="#F5F4ED"/>
+  <circle cx="30.16" cy="29.58" r="2.30" fill="#F5F4ED"/>
+  <circle cx="30.10" cy="29.73" r="2.30" fill="#F5F4ED"/>
+  <circle cx="30.05" cy="29.87" r="2.30" fill="#F5F4ED"/>
+  <circle cx="30.00" cy="30.00" r="2.30" fill="#F5F4ED"/>
+  <circle cx="29.96" cy="30.13" r="2.30" fill="#F5F4ED"/>
+  <circle cx="29.91" cy="30.27" r="2.30" fill="#F5F4ED"/>
+  <circle cx="29.87" cy="30.41" r="2.29" fill="#F5F4ED"/>
+  <circle cx="29.83" cy="30.55" r="2.29" fill="#F5F4ED"/>
+  <circle cx="29.78" cy="30.70" r="2.28" fill="#F5F4ED"/>
+  <circle cx="29.74" cy="30.85" r="2.28" fill="#F5F4ED"/>
+  <circle cx="29.70" cy="31.00" r="2.27" fill="#F5F4ED"/>
+  <circle cx="29.66" cy="31.16" r="2.26" fill="#F5F4ED"/>
+  <circle cx="29.61" cy="31.32" r="2.25" fill="#F5F4ED"/>
+  <circle cx="29.57" cy="31.48" r="2.24" fill="#F5F4ED"/>
+  <circle cx="29.53" cy="31.65" r="2.23" fill="#F5F4ED"/>
+  <circle cx="29.49" cy="31.82" r="2.22" fill="#F5F4ED"/>
+  <circle cx="29.45" cy="32.00" r="2.21" fill="#F5F4ED"/>
+  <circle cx="29.41" cy="32.17" r="2.20" fill="#F5F4ED"/>
+  <circle cx="29.37" cy="32.35" r="2.18" fill="#F5F4ED"/>
+  <circle cx="29.33" cy="32.53" r="2.17" fill="#F5F4ED"/>
+  <circle cx="29.29" cy="32.72" r="2.16" fill="#F5F4ED"/>
+  <circle cx="29.25" cy="32.91" r="2.14" fill="#F5F4ED"/>
+  <circle cx="29.22" cy="33.10" r="2.13" fill="#F5F4ED"/>
+  <circle cx="29.18" cy="33.29" r="2.11" fill="#F5F4ED"/>
+  <circle cx="29.14" cy="33.49" r="2.10" fill="#F5F4ED"/>
+  <circle cx="29.11" cy="33.69" r="2.08" fill="#F5F4ED"/>
+  <circle cx="29.07" cy="33.89" r="2.07" fill="#F5F4ED"/>
+  <circle cx="29.04" cy="34.09" r="2.05" fill="#F5F4ED"/>
+  <circle cx="29.01" cy="34.30" r="2.04" fill="#F5F4ED"/>
+  <circle cx="28.98" cy="34.51" r="2.02" fill="#F5F4ED"/>
+  <circle cx="28.95" cy="34.72" r="2.00" fill="#F5F4ED"/>
+  <circle cx="28.92" cy="34.93" r="1.99" fill="#F5F4ED"/>
+  <circle cx="28.89" cy="35.15" r="1.97" fill="#F5F4ED"/>
+  <circle cx="28.86" cy="35.37" r="1.96" fill="#F5F4ED"/>
+  <circle cx="28.83" cy="35.59" r="1.94" fill="#F5F4ED"/>
+  <circle cx="28.81" cy="35.81" r="1.92" fill="#F5F4ED"/>
+  <circle cx="28.78" cy="36.03" r="1.91" fill="#F5F4ED"/>
+  <circle cx="28.76" cy="36.26" r="1.89" fill="#F5F4ED"/>
+  <circle cx="28.74" cy="36.49" r="1.88" fill="#F5F4ED"/>
+  <circle cx="28.72" cy="36.72" r="1.86" fill="#F5F4ED"/>
+  <circle cx="28.70" cy="36.95" r="1.85" fill="#F5F4ED"/>
+  <circle cx="28.68" cy="37.19" r="1.84" fill="#F5F4ED"/>
+  <circle cx="28.67" cy="37.42" r="1.82" fill="#F5F4ED"/>
+  <circle cx="28.65" cy="37.66" r="1.81" fill="#F5F4ED"/>
+  <circle cx="28.64" cy="37.90" r="1.80" fill="#F5F4ED"/>
+  <circle cx="28.62" cy="38.14" r="1.78" fill="#F5F4ED"/>
+  <circle cx="28.61" cy="38.38" r="1.77" fill="#F5F4ED"/>
+  <circle cx="28.61" cy="38.62" r="1.76" fill="#F5F4ED"/>
+  <circle cx="28.60" cy="38.87" r="1.75" fill="#F5F4ED"/>
+  <circle cx="28.59" cy="39.11" r="1.74" fill="#F5F4ED"/>
+  <circle cx="28.59" cy="39.36" r="1.73" fill="#F5F4ED"/>
+  <circle cx="28.59" cy="39.61" r="1.73" fill="#F5F4ED"/>
+  <circle cx="28.59" cy="39.86" r="1.72" fill="#F5F4ED"/>
+  <circle cx="28.59" cy="40.11" r="1.71" fill="#F5F4ED"/>
+  <circle cx="28.59" cy="40.36" r="1.71" fill="#F5F4ED"/>
+  <circle cx="28.60" cy="40.61" r="1.71" fill="#F5F4ED"/>
+  <circle cx="28.60" cy="40.86" r="1.70" fill="#F5F4ED"/>
+  <circle cx="28.61" cy="41.12" r="1.70" fill="#F5F4ED"/>
+  <circle cx="28.62" cy="41.37" r="1.70" fill="#F5F4ED"/>
+  <circle cx="28.63" cy="41.63" r="1.70" fill="#F5F4ED"/>
+  <circle cx="28.65" cy="41.89" r="1.70" fill="#F5F4ED"/>
+  <circle cx="28.67" cy="42.14" r="1.70" fill="#F5F4ED"/>
+  <circle cx="28.69" cy="42.40" r="1.69" fill="#F5F4ED"/>
+  <circle cx="28.71" cy="42.66" r="1.69" fill="#F5F4ED"/>
+  <circle cx="28.73" cy="42.92" r="1.69" fill="#F5F4ED"/>
+  <circle cx="28.76" cy="43.18" r="1.68" fill="#F5F4ED"/>
+  <circle cx="28.78" cy="43.44" r="1.68" fill="#F5F4ED"/>
+  <circle cx="28.81" cy="43.70" r="1.67" fill="#F5F4ED"/>
+  <circle cx="28.85" cy="43.96" r="1.66" fill="#F5F4ED"/>
+  <circle cx="28.88" cy="44.22" r="1.66" fill="#F5F4ED"/>
+  <circle cx="28.92" cy="44.48" r="1.65" fill="#F5F4ED"/>
+  <circle cx="28.96" cy="44.74" r="1.64" fill="#F5F4ED"/>
+  <circle cx="29.00" cy="45.00" r="1.63" fill="#F5F4ED"/>
+  <circle cx="29.05" cy="45.34" r="1.62" fill="#F5F4ED"/>
+  <circle cx="29.11" cy="45.67" r="1.61" fill="#F5F4ED"/>
+  <circle cx="29.19" cy="45.98" r="1.60" fill="#F5F4ED"/>
+  <circle cx="29.28" cy="46.28" r="1.59" fill="#F5F4ED"/>
+  <circle cx="29.38" cy="46.57" r="1.58" fill="#F5F4ED"/>
+  <circle cx="29.50" cy="46.84" r="1.57" fill="#F5F4ED"/>
+  <circle cx="29.63" cy="47.10" r="1.56" fill="#F5F4ED"/>
+  <circle cx="29.76" cy="47.35" r="1.55" fill="#F5F4ED"/>
+  <circle cx="29.92" cy="47.58" r="1.54" fill="#F5F4ED"/>
+  <circle cx="30.08" cy="47.80" r="1.52" fill="#F5F4ED"/>
+  <circle cx="30.25" cy="48.01" r="1.51" fill="#F5F4ED"/>
+  <circle cx="30.43" cy="48.20" r="1.50" fill="#F5F4ED"/>
+  <circle cx="30.62" cy="48.38" r="1.49" fill="#F5F4ED"/>
+  <circle cx="30.83" cy="48.55" r="1.48" fill="#F5F4ED"/>
+  <circle cx="31.04" cy="48.71" r="1.47" fill="#F5F4ED"/>
+  <circle cx="31.26" cy="48.85" r="1.45" fill="#F5F4ED"/>
+  <circle cx="31.49" cy="48.98" r="1.44" fill="#F5F4ED"/>
+  <circle cx="31.73" cy="49.10" r="1.43" fill="#F5F4ED"/>
+  <circle cx="31.97" cy="49.21" r="1.42" fill="#F5F4ED"/>
+  <circle cx="32.23" cy="49.31" r="1.41" fill="#F5F4ED"/>
+  <circle cx="32.49" cy="49.39" r="1.40" fill="#F5F4ED"/>
+  <circle cx="32.76" cy="49.46" r="1.39" fill="#F5F4ED"/>
+  <circle cx="33.04" cy="49.52" r="1.38" fill="#F5F4ED"/>
+  <circle cx="33.32" cy="49.57" r="1.37" fill="#F5F4ED"/>
+  <circle cx="33.61" cy="49.60" r="1.36" fill="#F5F4ED"/>
+  <circle cx="33.91" cy="49.63" r="1.35" fill="#F5F4ED"/>
+  <circle cx="34.21" cy="49.64" r="1.35" fill="#F5F4ED"/>
+  <circle cx="34.52" cy="49.64" r="1.34" fill="#F5F4ED"/>
+  <circle cx="34.83" cy="49.63" r="1.33" fill="#F5F4ED"/>
+  <circle cx="35.15" cy="49.61" r="1.33" fill="#F5F4ED"/>
+  <circle cx="35.47" cy="49.58" r="1.32" fill="#F5F4ED"/>
+  <circle cx="35.79" cy="49.53" r="1.31" fill="#F5F4ED"/>
+  <circle cx="36.12" cy="49.48" r="1.31" fill="#F5F4ED"/>
+  <circle cx="36.46" cy="49.41" r="1.31" fill="#F5F4ED"/>
+  <circle cx="36.79" cy="49.34" r="1.30" fill="#F5F4ED"/>
+  <circle cx="37.13" cy="49.25" r="1.30" fill="#F5F4ED"/>
+  <circle cx="37.48" cy="49.15" r="1.30" fill="#F5F4ED"/>
+  <circle cx="37.82" cy="49.04" r="1.30" fill="#F5F4ED"/>
+  <circle cx="38.17" cy="48.93" r="1.30" fill="#F5F4ED"/>
+  <circle cx="38.52" cy="48.80" r="1.29" fill="#F5F4ED"/>
+  <circle cx="38.87" cy="48.66" r="1.29" fill="#F5F4ED"/>
+  <circle cx="39.22" cy="48.51" r="1.28" fill="#F5F4ED"/>
+  <circle cx="39.57" cy="48.35" r="1.27" fill="#F5F4ED"/>
+  <circle cx="39.92" cy="48.18" r="1.26" fill="#F5F4ED"/>
+  <circle cx="40.28" cy="48.00" r="1.25" fill="#F5F4ED"/>
+  <circle cx="40.63" cy="47.81" r="1.23" fill="#F5F4ED"/>
+  <circle cx="40.98" cy="47.62" r="1.22" fill="#F5F4ED"/>
+  <circle cx="41.33" cy="47.41" r="1.20" fill="#F5F4ED"/>
+  <circle cx="41.68" cy="47.19" r="1.18" fill="#F5F4ED"/>
+  <circle cx="42.03" cy="46.97" r="1.17" fill="#F5F4ED"/>
+  <circle cx="42.38" cy="46.73" r="1.15" fill="#F5F4ED"/>
+  <circle cx="42.73" cy="46.48" r="1.13" fill="#F5F4ED"/>
+  <circle cx="43.07" cy="46.23" r="1.11" fill="#F5F4ED"/>
+  <circle cx="43.41" cy="45.97" r="1.09" fill="#F5F4ED"/>
+  <circle cx="43.75" cy="45.70" r="1.07" fill="#F5F4ED"/>
+  <circle cx="44.08" cy="45.41" r="1.05" fill="#F5F4ED"/>
+  <circle cx="44.41" cy="45.12" r="1.03" fill="#F5F4ED"/>
+  <circle cx="44.74" cy="44.83" r="1.02" fill="#F5F4ED"/>
+  <circle cx="45.06" cy="44.52" r="1.00" fill="#F5F4ED"/>
+  <circle cx="45.38" cy="44.20" r="0.98" fill="#F5F4ED"/>
+  <circle cx="45.70" cy="43.88" r="0.97" fill="#F5F4ED"/>
+  <circle cx="46.01" cy="43.55" r="0.95" fill="#F5F4ED"/>
+  <circle cx="46.31" cy="43.21" r="0.94" fill="#F5F4ED"/>
+  <circle cx="46.61" cy="42.86" r="0.93" fill="#F5F4ED"/>
+  <circle cx="46.90" cy="42.50" r="0.92" fill="#F5F4ED"/>
+  <circle cx="47.18" cy="42.14" r="0.91" fill="#F5F4ED"/>
+  <circle cx="47.46" cy="41.77" r="0.90" fill="#F5F4ED"/>
+  <circle cx="47.74" cy="41.39" r="0.90" fill="#F5F4ED"/>
+  <circle cx="48.00" cy="41.00" r="0.90" fill="#F5F4ED"/>
+  <path d="M 17.00 15.83 L 17.14 16.01 L 19.15 14.34 L 19.00 14.17 Z" fill="#F5F4ED"/>
+  <path d="M 17.14 16.01 L 17.28 16.19 L 19.30 14.51 L 19.15 14.34 Z" fill="#F5F4ED"/>
+  <path d="M 17.28 16.19 L 17.41 16.38 L 19.46 14.68 L 19.30 14.51 Z" fill="#F5F4ED"/>
+  <path d="M 17.41 16.38 L 17.55 16.57 L 19.63 14.84 L 19.46 14.68 Z" fill="#F5F4ED"/>
+  <path d="M 17.55 16.57 L 17.68 16.76 L 19.79 15.01 L 19.63 14.84 Z" fill="#F5F4ED"/>
+  <path d="M 17.68 16.76 L 17.81 16.95 L 19.96 15.18 L 19.79 15.01 Z" fill="#F5F4ED"/>
+  <path d="M 17.81 16.95 L 17.95 17.15 L 20.12 15.35 L 19.96 15.18 Z" fill="#F5F4ED"/>
+  <path d="M 17.94 17.15 L 18.08 17.34 L 20.29 15.52 L 20.13 15.35 Z" fill="#F5F4ED"/>
+  <path d="M 18.08 17.34 L 18.22 17.53 L 20.45 15.70 L 20.29 15.52 Z" fill="#F5F4ED"/>
+  <path d="M 18.22 17.53 L 18.37 17.72 L 20.61 15.88 L 20.45 15.70 Z" fill="#F5F4ED"/>
+  <path d="M 18.37 17.72 L 18.52 17.91 L 20.77 16.07 L 20.61 15.88 Z" fill="#F5F4ED"/>
+  <path d="M 18.52 17.91 L 18.68 18.10 L 20.92 16.26 L 20.77 16.07 Z" fill="#F5F4ED"/>
+  <path d="M 18.68 18.10 L 18.83 18.29 L 21.08 16.45 L 20.92 16.26 Z" fill="#F5F4ED"/>
+  <path d="M 18.83 18.29 L 18.98 18.48 L 21.24 16.63 L 21.08 16.45 Z" fill="#F5F4ED"/>
+  <path d="M 18.98 18.48 L 19.14 18.68 L 21.40 16.82 L 21.24 16.64 Z" fill="#F5F4ED"/>
+  <path d="M 19.14 18.68 L 19.29 18.87 L 21.56 17.02 L 21.40 16.83 Z" fill="#F5F4ED"/>
+  <path d="M 19.29 18.87 L 19.44 19.07 L 21.73 17.21 L 21.56 17.02 Z" fill="#F5F4ED"/>
+  <path d="M 19.44 19.07 L 19.60 19.27 L 21.89 17.40 L 21.73 17.21 Z" fill="#F5F4ED"/>
+  <path d="M 19.59 19.27 L 19.75 19.47 L 22.06 17.59 L 21.89 17.40 Z" fill="#F5F4ED"/>
+  <path d="M 19.75 19.47 L 19.90 19.68 L 22.23 17.78 L 22.06 17.59 Z" fill="#F5F4ED"/>
+  <path d="M 19.90 19.68 L 20.06 19.88 L 22.40 17.98 L 22.23 17.78 Z" fill="#F5F4ED"/>
+  <path d="M 20.06 19.88 L 20.21 20.09 L 22.57 18.17 L 22.40 17.98 Z" fill="#F5F4ED"/>
+  <path d="M 20.21 20.09 L 20.36 20.30 L 22.75 18.37 L 22.57 18.17 Z" fill="#F5F4ED"/>
+  <path d="M 20.36 20.30 L 20.52 20.51 L 22.92 18.56 L 22.75 18.37 Z" fill="#F5F4ED"/>
+  <path d="M 20.52 20.51 L 20.67 20.72 L 23.10 18.76 L 22.92 18.57 Z" fill="#F5F4ED"/>
+  <path d="M 20.67 20.72 L 20.83 20.94 L 23.28 18.96 L 23.10 18.76 Z" fill="#F5F4ED"/>
+  <path d="M 20.83 20.94 L 20.98 21.15 L 23.45 19.16 L 23.28 18.96 Z" fill="#F5F4ED"/>
+  <path d="M 20.98 21.15 L 21.14 21.37 L 23.63 19.36 L 23.46 19.16 Z" fill="#F5F4ED"/>
+  <path d="M 21.14 21.37 L 21.30 21.59 L 23.82 19.56 L 23.64 19.36 Z" fill="#F5F4ED"/>
+  <path d="M 21.30 21.59 L 21.45 21.81 L 24.00 19.76 L 23.82 19.56 Z" fill="#F5F4ED"/>
+  <path d="M 21.45 21.81 L 21.61 22.03 L 24.18 19.96 L 24.00 19.76 Z" fill="#F5F4ED"/>
+  <path d="M 21.61 22.03 L 21.77 22.25 L 24.37 20.17 L 24.18 19.96 Z" fill="#F5F4ED"/>
+  <path d="M 21.77 22.25 L 21.93 22.48 L 24.55 20.37 L 24.37 20.17 Z" fill="#F5F4ED"/>
+  <path d="M 21.93 22.48 L 22.09 22.70 L 24.74 20.58 L 24.55 20.37 Z" fill="#F5F4ED"/>
+  <path d="M 22.09 22.70 L 22.25 22.93 L 24.93 20.79 L 24.74 20.58 Z" fill="#F5F4ED"/>
+  <path d="M 22.25 22.93 L 22.41 23.16 L 25.12 20.99 L 24.93 20.79 Z" fill="#F5F4ED"/>
+  <path d="M 22.41 23.16 L 22.57 23.39 L 25.31 21.20 L 25.12 21.00 Z" fill="#F5F4ED"/>
+  <path d="M 22.57 23.39 L 22.73 23.62 L 25.50 21.41 L 25.31 21.20 Z" fill="#F5F4ED"/>
+  <path d="M 22.73 23.62 L 22.89 23.86 L 25.69 21.63 L 25.50 21.42 Z" fill="#F5F4ED"/>
+  <path d="M 22.89 23.85 L 23.06 24.09 L 25.88 21.84 L 25.69 21.63 Z" fill="#F5F4ED"/>
+  <path d="M 23.06 24.09 L 23.22 24.33 L 26.08 22.05 L 25.88 21.84 Z" fill="#F5F4ED"/>
+  <path d="M 23.22 24.32 L 23.39 24.56 L 26.27 22.27 L 26.08 22.05 Z" fill="#F5F4ED"/>
+  <path d="M 23.39 24.56 L 23.55 24.80 L 26.46 22.49 L 26.27 22.27 Z" fill="#F5F4ED"/>
+  <path d="M 23.55 24.80 L 23.72 25.04 L 26.66 22.71 L 26.47 22.49 Z" fill="#F5F4ED"/>
+  <path d="M 23.72 25.04 L 23.89 25.28 L 26.86 22.93 L 26.66 22.71 Z" fill="#F5F4ED"/>
+  <path d="M 23.89 25.28 L 24.06 25.52 L 27.05 23.15 L 26.86 22.93 Z" fill="#F5F4ED"/>
+  <path d="M 24.06 25.52 L 24.23 25.76 L 27.25 23.37 L 27.05 23.15 Z" fill="#F5F4ED"/>
+  <path d="M 24.23 25.76 L 24.40 26.01 L 27.45 23.59 L 27.25 23.37 Z" fill="#F5F4ED"/>
+  <path d="M 24.40 26.01 L 24.57 26.25 L 27.65 23.82 L 27.45 23.59 Z" fill="#F5F4ED"/>
+  <path d="M 24.57 26.25 L 24.74 26.50 L 27.85 24.05 L 27.65 23.82 Z" fill="#F5F4ED"/>
+  <path d="M 24.74 26.50 L 24.92 26.74 L 28.05 24.27 L 27.85 24.05 Z" fill="#F5F4ED"/>
+  <path d="M 24.92 26.74 L 25.10 26.99 L 28.25 24.50 L 28.05 24.28 Z" fill="#F5F4ED"/>
+  <path d="M 25.09 26.99 L 25.27 27.24 L 28.45 24.74 L 28.25 24.51 Z" fill="#F5F4ED"/>
+  <path d="M 25.27 27.24 L 25.45 27.49 L 28.65 24.97 L 28.45 24.74 Z" fill="#F5F4ED"/>
+  <path d="M 25.45 27.49 L 25.63 27.74 L 28.85 25.20 L 28.65 24.97 Z" fill="#F5F4ED"/>
+  <path d="M 25.63 27.74 L 25.81 27.99 L 29.05 25.44 L 28.85 25.21 Z" fill="#F5F4ED"/>
+  <path d="M 25.81 27.99 L 25.99 28.24 L 29.26 25.68 L 29.06 25.44 Z" fill="#F5F4ED"/>
+  <path d="M 25.99 28.24 L 26.18 28.49 L 29.46 25.92 L 29.26 25.68 Z" fill="#F5F4ED"/>
+  <path d="M 26.18 28.49 L 26.36 28.75 L 29.66 26.16 L 29.46 25.92 Z" fill="#F5F4ED"/>
+  <path d="M 26.36 28.75 L 26.55 29.00 L 29.87 26.40 L 29.66 26.16 Z" fill="#F5F4ED"/>
+  <path d="M 26.55 29.00 L 26.74 29.26 L 30.07 26.65 L 29.87 26.41 Z" fill="#F5F4ED"/>
+  <path d="M 26.74 29.26 L 26.93 29.51 L 30.27 26.90 L 30.07 26.65 Z" fill="#F5F4ED"/>
+  <path d="M 26.93 29.51 L 27.12 29.77 L 30.48 27.15 L 30.27 26.90 Z" fill="#F5F4ED"/>
+  <path d="M 27.12 29.77 L 27.31 30.03 L 30.68 27.40 L 30.48 27.15 Z" fill="#F5F4ED"/>
+  <path d="M 27.31 30.03 L 27.51 30.28 L 30.88 27.65 L 30.68 27.40 Z" fill="#F5F4ED"/>
+  <path d="M 27.51 30.28 L 27.70 30.54 L 31.09 27.90 L 30.88 27.65 Z" fill="#F5F4ED"/>
+  <path d="M 27.70 30.54 L 27.90 30.80 L 31.29 28.16 L 31.09 27.90 Z" fill="#F5F4ED"/>
+  <path d="M 27.90 30.80 L 28.10 31.06 L 31.49 28.42 L 31.29 28.16 Z" fill="#F5F4ED"/>
+  <path d="M 28.10 31.06 L 28.30 31.32 L 31.70 28.68 L 31.49 28.42 Z" fill="#F5F4ED"/>
+  <circle cx="18.00" cy="15.00" r="1.30" fill="#F5F4ED"/>
+  <circle cx="18.15" cy="15.17" r="1.30" fill="#F5F4ED"/>
+  <circle cx="18.29" cy="15.35" r="1.31" fill="#F5F4ED"/>
+  <circle cx="18.44" cy="15.53" r="1.33" fill="#F5F4ED"/>
+  <circle cx="18.59" cy="15.71" r="1.35" fill="#F5F4ED"/>
+  <circle cx="18.74" cy="15.89" r="1.37" fill="#F5F4ED"/>
+  <circle cx="18.88" cy="16.07" r="1.39" fill="#F5F4ED"/>
+  <circle cx="19.04" cy="16.25" r="1.41" fill="#F5F4ED"/>
+  <circle cx="19.19" cy="16.43" r="1.43" fill="#F5F4ED"/>
+  <circle cx="19.34" cy="16.62" r="1.44" fill="#F5F4ED"/>
+  <circle cx="19.49" cy="16.80" r="1.45" fill="#F5F4ED"/>
+  <circle cx="19.65" cy="16.99" r="1.45" fill="#F5F4ED"/>
+  <circle cx="19.80" cy="17.18" r="1.45" fill="#F5F4ED"/>
+  <circle cx="19.96" cy="17.37" r="1.45" fill="#F5F4ED"/>
+  <circle cx="20.11" cy="17.56" r="1.46" fill="#F5F4ED"/>
+  <circle cx="20.27" cy="17.75" r="1.46" fill="#F5F4ED"/>
+  <circle cx="20.43" cy="17.94" r="1.47" fill="#F5F4ED"/>
+  <circle cx="20.59" cy="18.14" r="1.47" fill="#F5F4ED"/>
+  <circle cx="20.74" cy="18.33" r="1.48" fill="#F5F4ED"/>
+  <circle cx="20.91" cy="18.53" r="1.49" fill="#F5F4ED"/>
+  <circle cx="21.07" cy="18.73" r="1.50" fill="#F5F4ED"/>
+  <circle cx="21.23" cy="18.93" r="1.51" fill="#F5F4ED"/>
+  <circle cx="21.39" cy="19.13" r="1.52" fill="#F5F4ED"/>
+  <circle cx="21.56" cy="19.33" r="1.53" fill="#F5F4ED"/>
+  <circle cx="21.72" cy="19.54" r="1.55" fill="#F5F4ED"/>
+  <circle cx="21.89" cy="19.74" r="1.56" fill="#F5F4ED"/>
+  <circle cx="22.05" cy="19.95" r="1.57" fill="#F5F4ED"/>
+  <circle cx="22.22" cy="20.16" r="1.59" fill="#F5F4ED"/>
+  <circle cx="22.39" cy="20.36" r="1.60" fill="#F5F4ED"/>
+  <circle cx="22.56" cy="20.57" r="1.62" fill="#F5F4ED"/>
+  <circle cx="22.73" cy="20.78" r="1.63" fill="#F5F4ED"/>
+  <circle cx="22.90" cy="21.00" r="1.65" fill="#F5F4ED"/>
+  <circle cx="23.07" cy="21.21" r="1.67" fill="#F5F4ED"/>
+  <circle cx="23.24" cy="21.43" r="1.68" fill="#F5F4ED"/>
+  <circle cx="23.41" cy="21.64" r="1.70" fill="#F5F4ED"/>
+  <circle cx="23.59" cy="21.86" r="1.72" fill="#F5F4ED"/>
+  <circle cx="23.76" cy="22.08" r="1.73" fill="#F5F4ED"/>
+  <circle cx="23.94" cy="22.30" r="1.75" fill="#F5F4ED"/>
+  <circle cx="24.11" cy="22.52" r="1.77" fill="#F5F4ED"/>
+  <circle cx="24.29" cy="22.74" r="1.79" fill="#F5F4ED"/>
+  <circle cx="24.47" cy="22.96" r="1.81" fill="#F5F4ED"/>
+  <circle cx="24.65" cy="23.19" r="1.82" fill="#F5F4ED"/>
+  <circle cx="24.83" cy="23.42" r="1.84" fill="#F5F4ED"/>
+  <circle cx="25.01" cy="23.64" r="1.86" fill="#F5F4ED"/>
+  <circle cx="25.19" cy="23.87" r="1.88" fill="#F5F4ED"/>
+  <circle cx="25.37" cy="24.10" r="1.89" fill="#F5F4ED"/>
+  <circle cx="25.56" cy="24.33" r="1.91" fill="#F5F4ED"/>
+  <circle cx="25.74" cy="24.57" r="1.93" fill="#F5F4ED"/>
+  <circle cx="25.92" cy="24.80" r="1.95" fill="#F5F4ED"/>
+  <circle cx="26.11" cy="25.03" r="1.96" fill="#F5F4ED"/>
+  <circle cx="26.30" cy="25.27" r="1.98" fill="#F5F4ED"/>
+  <circle cx="26.48" cy="25.51" r="1.99" fill="#F5F4ED"/>
+  <circle cx="26.67" cy="25.75" r="2.01" fill="#F5F4ED"/>
+  <circle cx="26.86" cy="25.99" r="2.02" fill="#F5F4ED"/>
+  <circle cx="27.05" cy="26.23" r="2.04" fill="#F5F4ED"/>
+  <circle cx="27.24" cy="26.47" r="2.05" fill="#F5F4ED"/>
+  <circle cx="27.43" cy="26.72" r="2.06" fill="#F5F4ED"/>
+  <circle cx="27.63" cy="26.96" r="2.07" fill="#F5F4ED"/>
+  <circle cx="27.82" cy="27.21" r="2.09" fill="#F5F4ED"/>
+  <circle cx="28.01" cy="27.45" r="2.10" fill="#F5F4ED"/>
+  <circle cx="28.21" cy="27.70" r="2.11" fill="#F5F4ED"/>
+  <circle cx="28.40" cy="27.95" r="2.11" fill="#F5F4ED"/>
+  <circle cx="28.60" cy="28.20" r="2.12" fill="#F5F4ED"/>
+  <circle cx="28.80" cy="28.46" r="2.13" fill="#F5F4ED"/>
+  <circle cx="29.00" cy="28.71" r="2.14" fill="#F5F4ED"/>
+  <circle cx="29.20" cy="28.97" r="2.14" fill="#F5F4ED"/>
+  <circle cx="29.40" cy="29.22" r="2.14" fill="#F5F4ED"/>
+  <circle cx="29.60" cy="29.48" r="2.15" fill="#F5F4ED"/>
+  <circle cx="29.80" cy="29.74" r="2.15" fill="#F5F4ED"/>
+  <circle cx="30.00" cy="30.00" r="2.15" fill="#F5F4ED"/>
+  <circle cx="30.00" cy="30.00" r="2.22" fill="#F5F4ED"/>
+</svg>

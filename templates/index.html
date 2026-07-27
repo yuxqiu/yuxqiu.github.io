@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container home">
+  <header class="home__header">
+    {% set pic = resize_image(path="img/prof_pic.jpg", width=448, height=448, op="fill", format="webp", quality=85) %}
+    <img src="{{ pic.url }}" alt="{{ config.title }}" class="home__photo" width="{{ pic.width }}" height="{{ pic.height }}">
+    <div class="home__intro">
+      <h1 class="home__name">{{ section.title }}</h1>
+      {% if config.extra.tagline %}
+      <p class="home__tagline">{{ config.extra.tagline }}</p>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="home__bio">
+    {{ section.content | safe }}
+  </div>
+
+  <ul class="home__links">
+    {% include "partials/home-links.html" %}
+  </ul>
+</div>
+{% endblock content %}

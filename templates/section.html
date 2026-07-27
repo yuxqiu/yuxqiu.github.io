@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% import "partials/macros.html" as m %}
+
+{% block title %}{{ section.title }} | {{ config.title }}{% endblock title %}
+
+{% block content %}
+<div class="container container--wide">
+  {{ m::page_header(title=section.title, desc=section.content) }}
+
+  {# group_by yields (year, [pages]) pairs in insertion order. Sort
+     explicitly by date descending so the groups come out newest-first. #}
+  {% set pages = section.pages | sort(attribute="date") | reverse | group_by(attribute="year") %}
+
+  <div class="list">
+  {% for year, posts in pages %}
+    <div class="list__group">
+      <h2 class="list__year">{{ year }}</h2>
+      {% for page in posts %}
+      <div class="list__item">
+        <time class="list__date" datetime="{{ page.date }}">{{ page.date | date(format="%b %d") }}</time>
+        <a class="list__link" href="{{ page.permalink | safe }}">{{ page.title }}</a>
+      </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+  </div>
+</div>
+{% endblock content %}

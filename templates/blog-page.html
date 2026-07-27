@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% import "partials/macros.html" as m %}
+
+{% block title %}{{ page.title }} | {{ config.title }}{% endblock title %}
+
+{% block content %}
+<article class="container">
+  {{ m::page_header(title=page.title, meta=page.date | date(format="%b %d, %Y"), tags=page.taxonomies.tags) }}
+  <div class="post__content">
+    {{ page.content | safe }}
+  </div>
+</article>
+{% endblock content %}

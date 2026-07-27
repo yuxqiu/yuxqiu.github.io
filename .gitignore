@@ -1,0 +1,15 @@
+# Zola build output
+public/
+# Generated content (pre-build script outputs here from src/)
+content/
+# Zola cache
+.caches/
+# Zola processed images (resize_image output)
+static/processed_images/
+
+# Pre-build script build artifacts
+scripts/prebuild/target/
+target/
+
+# OS
+.DS_store

@@ -1,0 +1,18 @@
+{% macro page_header(title, desc="", meta="", tags=false) %}
+<header class="page-header">
+  <h1 class="page-title">{{ title }}</h1>
+  {% if desc %}
+  <div class="page-desc">{{ desc | safe }}</div>
+  {% endif %}
+  {% if meta %}
+  <p class="page-meta">{{ meta }}</p>
+  {% endif %}
+  {% if tags %}
+  <ul class="post__tags">
+    {% for tag in tags %}
+    <li><a class="post__tag" href="{{ get_taxonomy_url(kind="tags", name=tag) }}">{{ tag }}</a></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</header>
+{% endmacro page_header %}
