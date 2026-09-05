@@ -2,9 +2,10 @@
 {% import "partials/macros.html" as m %}
 
 {% block title %}{{ page.title }} | {{ config.title }}{% endblock title %}
+{% block og_title %}{{ page.title }} | {{ config.title }}{% endblock og_title %}
 
 {% block content %}
-<div class="container container--wide">
+<div class="container">
   {{ m::page_header(title=page.title) }}
 
   <ol class="pubs">

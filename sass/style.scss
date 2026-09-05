@@ -82,9 +82,20 @@
   --sp-20: 5rem;
 
   // Layout
-  --max-width: 680px; // reading width
-  --max-wide: 820px; // index/list pages
+  // Fluid, not fixed: below ~1170px viewport these resolve to the old flat
+  // 680/820px (unchanged mobile/tablet/laptop behavior). Between roughly
+  // 1170–1310px (680) / 1170–1350px (820) they scale gently up to a slightly
+  // roomier ceiling, then hold flat again on desktop and wider — so the
+  // reading column grows a little on common laptop/desktop viewports
+  // instead of just floating, tiny, in a sea of margin on a 1440px+ screen,
+  // while still capping out well short of a full-bleed "dashboard" measure.
+  --max-width: clamp(680px, 58vw, 760px); // reading width — every page's content column
+  --max-wide: clamp(820px, 68vw, 920px); // nav/footer chrome only — deliberately wider than the content column it frames
   --nav-height: 3.5rem;
+
+  // No dark mode is designed — pin native UI (scrollbars, form controls)
+  // to the light rendering path so it never mismatches the parchment page.
+  color-scheme: light;
 }
 
 // ---------------------------------------------------------------------------
@@ -188,6 +199,37 @@ a {
   }
 }
 
+// Visible keyboard-focus ring in the accent color, standard browser
+// default otherwise suppressed for mouse/touch input via :focus-visible.
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+// Skip link — hidden off-screen until keyboard-focused, lets keyboard and
+// screen-reader users bypass the nav and jump straight to <main>.
+.skip-link {
+  position: absolute;
+  top: var(--sp-2);
+  left: var(--sp-2);
+  transform: translateY(-150%);
+  background-color: var(--ink);
+  color: var(--ivory);
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-sans-m);
+  padding: var(--sp-2) var(--sp-4);
+  border-radius: var(--sp-1);
+  border-bottom: none;
+  z-index: 1000;
+  transition: transform 0.15s ease;
+
+  &:focus-visible {
+    transform: translateY(0);
+  }
+}
+
 // ---------------------------------------------------------------------------
 // 4. Layout
 // ---------------------------------------------------------------------------
@@ -196,10 +238,6 @@ a {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 var(--sp-4);
-
-  &--wide {
-    max-width: var(--max-wide);
-  }
 }
 
 // ---------------------------------------------------------------------------
@@ -486,10 +524,19 @@ code {
 // Code block — Kami spec: ivory bg + 0.5pt border + 6pt radius
 // Override Zola's syntax-highlighter inline background (pure white #FFFFFF)
 // with ivory, so code blocks stay on-brand with the parchment canvas.
+//
+// Zola's highlighter also inlines `color-scheme: light dark` on <pre> and
+// per-token `color: light-dark(<light>, <dark>)` on nested <span>s, so in a
+// dark-OS browser the tokens would render with dark-theme (light-on-dark)
+// colors while our background stays ivory — low-contrast and off-brand.
+// Forcing color-scheme back to light (author !important beats the inline
+// non-important declaration) makes every light-dark() in this subtree
+// resolve to its light branch, regardless of OS preference.
 pre {
   margin: var(--sp-6) 0;
   padding: var(--sp-4);
   background-color: var(--ivory) !important;
+  color-scheme: light !important;
   border: 1px solid var(--border);
   border-radius: var(--sp-2); // 8px ≈ Kami 6pt
   overflow-x: auto;
@@ -938,9 +985,13 @@ img {
 
 // Sidenotes default to an inline callout (safe at every width) and only
 // float into the right margin when the viewport is wide enough to hold
-// them. The float pulls the note 240px right of the 680px reading column,
-// so it needs (viewport - 680) / 2 >= 240, i.e. viewport >= 1160px.
-// Below that it collapsed unpredictably; now the float is the opt-in.
+// them. The float pulls the note 240px right of the reading column, which
+// needs (viewport - column) / 2 >= 240. --max-width is fluid now and only
+// finishes settling at its 760px ceiling once the viewport reaches ~1310px
+// (see the --max-width comment), so the threshold here is pinned safely
+// past that settle point — at 1360px, (1360 - 760) / 2 = 300 >= 240 — so
+// the fixed margin math below is always correct once the float activates.
+// Below the threshold it collapsed unpredictably; now the float is opt-in.
 .sidenote {
   font-family: var(--font-sans);
   font-size: var(--fs-small);
@@ -951,7 +1002,7 @@ img {
   border-left: 2px solid var(--warm-300);
   @include callout-base;
 
-  @media (min-width: 1160px) {
+  @media (min-width: 1360px) {
     float: right;
     clear: right;
     width: 200px;

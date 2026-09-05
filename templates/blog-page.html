@@ -2,6 +2,12 @@
 {% import "partials/macros.html" as m %}
 
 {% block title %}{{ page.title }} | {{ config.title }}{% endblock title %}
+{% block description %}{{ page.content | striptags | replace(from="
+", to=" ") | trim | truncate(length=160) }}{% endblock description %}
+{% block og_type %}article{% endblock og_type %}
+{% block og_title %}{{ page.title }} | {{ config.title }}{% endblock og_title %}
+{% block og_description %}{{ page.content | striptags | replace(from="
+", to=" ") | trim | truncate(length=160) }}{% endblock og_description %}
 
 {% block content %}
 <article class="container">

@@ -63,12 +63,12 @@ url = "/pdf/..."
 
 ## Template Architecture
 
-- `base.html` — master template (nav, footer, head). Nav links come from `zola.toml` `[extra] nav` array.
+- `base.html` — master template (nav, footer, head, skip-link). Nav links come from `zola.toml` `[extra] nav` array. Head emits a canonical link and OG/Twitter meta tags with site-wide defaults; child templates override them via the `title`, `description`, `og_type`, `og_title`, `og_description` blocks (Tera blocks don't share scope across each other or with top-level `{% set %}`, so each block must recompute its own value rather than reusing a variable).
 - `partials/macros.html` — Tera macros. Currently exports `page_header(title, desc="", meta="", tags=[])`, the unified page title header used by all page templates via `{% import "partials/macros.html" as m %}`.
 - `partials/social-links.html` — shared social link list (CV, GitHub, LinkedIn, Email, Keybase, RSS). Used by both `base.html` footer and `index.html` home links.
 - `index.html` — homepage with photo, name, tagline, bio.
 - `section.html` — blog/writings listing, grouped by year.
-- `blog-page.html` — individual blog/writing post.
+- `blog-page.html` — individual blog/writing post. Note: `page.reading_time` is NOT used for meta — it's computed from post-KaTeX HTML, so math-heavy posts get wildly inflated word counts (one post showed "269 min read").
 - `page.html` — generic page (More page).
 - `publications.html` — publications list.
 - `404.html` — error page.

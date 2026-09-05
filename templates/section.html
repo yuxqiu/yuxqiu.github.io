@@ -2,9 +2,10 @@
 {% import "partials/macros.html" as m %}
 
 {% block title %}{{ section.title }} | {{ config.title }}{% endblock title %}
+{% block og_title %}{{ section.title }} | {{ config.title }}{% endblock og_title %}
 
 {% block content %}
-<div class="container container--wide">
+<div class="container">
   {{ m::page_header(title=section.title, desc=section.content) }}
 
   {# group_by yields (year, [pages]) pairs in insertion order. Sort

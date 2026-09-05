@@ -4,17 +4,28 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}{{ config.title }}{% endblock title %}</title>
-  <meta name="description" content="{{ config.description }}">
+  <meta name="description" content="{% block description %}{{ config.description }}{% endblock description %}">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f5f4ed">
+  {% set cur = current_path | default(value="/") %}
+  <link rel="canonical" href="{{ config.base_url }}{{ cur }}">
   <link rel="icon" href="{{ get_url(path="favicon.svg") }}" type="image/svg+xml">
   <link rel="icon" href="{{ get_url(path="favicon.ico") }}" sizes="32x32">
   <link rel="apple-touch-icon" href="{{ get_url(path="apple-touch-icon.png") }}">
   <link rel="stylesheet" href="{{ get_url(path="style.css") }}">
   <link rel="stylesheet" href="{{ get_url(path="katex.min.css") }}">
   <link rel="alternate" type="application/atom+xml" title="{{ config.title }}" href="{{ get_url(path="atom.xml", trailing_slash=false) }}">
+
+  <meta property="og:site_name" content="{{ config.title }}">
+  <meta property="og:type" content="{% block og_type %}website{% endblock og_type %}">
+  <meta property="og:title" content="{% block og_title %}{{ config.title }}{% endblock og_title %}">
+  <meta property="og:description" content="{% block og_description %}{{ config.description }}{% endblock og_description %}">
+  <meta property="og:url" content="{{ config.base_url }}{{ cur }}">
+  <meta name="twitter:card" content="summary">
   {% block head %}{% endblock head %}
 </head>
 <body>
-  {% set cur = current_path | default(value="/") %}
+  <a href="#main" class="skip-link">Skip to content</a>
   <header class="site-header">
     <nav class="site-nav">
       <a href="{{ get_url(path="@/_index.md") }}" class="site-nav__brand">{{ config.title }}</a>
@@ -26,7 +37,7 @@
     </nav>
   </header>
 
-  <main>
+  <main id="main">
     {% block content %}{% endblock content %}
   </main>
 
