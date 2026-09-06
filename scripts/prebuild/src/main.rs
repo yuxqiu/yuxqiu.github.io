@@ -5,6 +5,7 @@ use std::process;
 
 use walkdir::WalkDir;
 
+mod caption;
 mod frontmatter;
 mod images;
 mod math;

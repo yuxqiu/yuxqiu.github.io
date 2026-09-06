@@ -1,14 +1,13 @@
 {% extends "base.html" %}
-{% import "partials/macros.html" as m %}
 
 {% block title %}{{ page.title }} | {{ config.title }}{% endblock title %}
-{% block description %}{{ page.extra.publications | map(attribute="title") | join(sep=" · ") | truncate(length=160) }}{% endblock description %}
+{% block description %}{{ [p.title for p in page.extra.publications] | join(sep=" · ") | truncate(length=160) }}{% endblock description %}
 {% block og_title %}{{ page.title }} | {{ config.title }}{% endblock og_title %}
-{% block og_description %}{{ page.extra.publications | map(attribute="title") | join(sep=" · ") | truncate(length=160) }}{% endblock og_description %}
+{% block og_description %}{{ [p.title for p in page.extra.publications] | join(sep=" · ") | truncate(length=160) }}{% endblock og_description %}
 
 {% block content %}
 <div class="container">
-  {{ m::page_header(title=page.title) }}
+  {{ <page_header title={page.title}/> }}
 
   <ol class="pubs">
     {% for pub in page.extra.publications %}

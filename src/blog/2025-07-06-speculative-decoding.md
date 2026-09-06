@@ -89,7 +89,7 @@ $$
 $$
 
 is the probability that $x_i \sim q(x)$ was rejected.
-{{ proof_end() }}
+{{ <proof_end/> }}
 
 ## Simulation
 

@@ -11,6 +11,9 @@ toml = "1"
 serde = { version = "1", features = ["derive"] }
 imagesize = "0.15.0"
 roxmltree = "0.21.1"
+html-escape = "0.2.15"
+gray_matter = { version = "0.3.2", default-features = false, features = ["toml"] }
+usvg = { version = "0.48.1", default-features = false }
 
 [lints.clippy]
 pedantic = { level = "warn", priority = -1 }

@@ -1,11 +1,10 @@
 {% extends "base.html" %}
-{% import "partials/macros.html" as m %}
 
 {% block title %}404 | {{ config.title }}{% endblock title %}
 
 {% block content %}
 <div class="container">
-  {{ m::page_header(title="404") }}
+  {{ <page_header title="404"/> }}
   <div class="post__content">
     <p>This page does not exist. <a href="{{ get_url(path="@/_index.md") }}">Go home</a>.</p>
   </div>

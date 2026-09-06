@@ -17,6 +17,7 @@
             zola
             rustc
             cargo
+            clippy
             watchexec
           ];
         };

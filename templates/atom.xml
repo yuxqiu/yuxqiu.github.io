@@ -5,16 +5,16 @@
     <link rel="self" type="application/atom+xml" href="{{ feed_url | safe }}" />
     <link rel="alternate" type="text/html" href="{{ config.base_url | safe }}" />
     <id>{{ feed_url | safe }}</id>
-    <updated>{{ last_updated | date(format="%+") }}</updated>
+    <updated>{{ last_updated | date(format="%Y-%m-%dT%H:%M:%S%:z") }}</updated>
     <author><name>{{ config.extra.author }}</name></author>
     {% for page in pages %}
     <entry>
         <title>{{ page.title | safe }}</title>
         <link rel="alternate" type="text/html" href="{{ page.permalink | safe }}" />
         <id>{{ page.permalink | safe }}</id>
-        <updated>{{ page.updated | default(value=page.date) | date(format="%+") }}</updated>
-        <published>{{ page.date | date(format="%+") }}</published>
-        <summary>{{ page.summary | default(value=page.description) | safe }}</summary>
+        <updated>{{ page.updated | default(value=page.date, boolean=true) | date(format="%Y-%m-%dT%H:%M:%S%:z") }}</updated>
+        <published>{{ page.date | date(format="%Y-%m-%dT%H:%M:%S%:z") }}</published>
+        <summary>{{ page.summary | default(value=page.description, boolean=true) | safe }}</summary>
         {% for tag in page.taxonomies.tags %}
         <category term="{{ tag }}" />
         {% endfor %}

@@ -48,7 +48,7 @@ There are two cases to consider:
    $$
 
    Since $m$ is smaller than any of the moduli, $m^3 < N_A N_B N_C$. Therefore, the cube root of $c'$ can be taken directly to recover $m$.
-   {{ proof_end() }}
+   {{ <proof_end/> }}
 
 ## Improve RSA Attack Success Rate
 
@@ -80,7 +80,7 @@ r \leftarrow x \cdot s^{-1} \bmod N.
 $$
 
 By repeating the algorithm $\mathcal{A}$ a bounded number of times, we can design $\mathcal{B}$ with a success probability of 99%.
-{{ proof_end() }}
+{{ <proof_end/> }}
 
 ## Square Root and RSA
 
@@ -183,7 +183,7 @@ Before proceeding further, we prove the following lemma:
      $$
 
      Since $g$ has order $p-1$, it must be that $c \cdot \frac{p-1}{2}$ is a multiple of $p-1$; hence, $c$ is even. Writing $c = 2k$, we have $e = g^{2k} = (g^2)^k$, so $e \in S$. This also implies that if $e \notin S$, then $e^{\frac{p-1}{2}} \equiv -1 \bmod p$.
-     {{ proof_end() }}
+     {{ <proof_end/> }}
 
 ---
 
@@ -222,14 +222,14 @@ $$
 $$
 
 This completes the proof.
-{{ proof_end() }}
+{{ <proof_end/> }}
 
 You can also programmatically verify the above proof using [this simulation](https://github.com/yuxqiu/garden/blob/main/2025-06-30-attacks-on-rsa/attacks-on-rsa.py). The simulation verifies the above proof and additionally provides another method to simulate the probability of factorizing $N$ by checking all the elements in the sequence.
 
 ### Proof (Continued)
 
 To factor $N$, we can randomly sample group elements $g$ until we find one that yields a nontrivial square root of 1. Based on the analysis above, this happens with a high probability after only a few tries. Ultimately, the nontrivial square root is used to factor $N$[^2].
-{{ proof_end() }}
+{{ <proof_end/> }}
 
 ### Shor's Algorithm
 

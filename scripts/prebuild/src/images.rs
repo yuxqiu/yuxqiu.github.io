@@ -5,36 +5,43 @@ use std::path::Path;
 
 use walkdir::WalkDir;
 
-/// Read intrinsic width/height from an SVG file via `roxmltree` (a real XML
-/// parser — `imagesize`, used for raster formats below, has no SVG support
-/// at all). Prefers the root `<svg>` element's `width`/`height` attributes,
-/// falling back to the last two numbers in `viewBox` (needed when
-/// width/height are percentages, e.g. "100%", or omitted and sizing is left
-/// to CSS — a plain numeric parse of "100%" would silently misread it as 100).
-// Image dimensions in pixels are always small non-negative numbers, nowhere
-// near u32::MAX or negative — the truncation/sign-loss these casts warn
-// about can't happen in practice for a real image file.
-#[allow(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
-fn svg_dimensions(path: &Path) -> Option<(u32, u32)> {
+use crate::caption::{caption_after, escape_attr};
+
+/// Read intrinsic width/height from an SVG file. Delegates the actual size
+/// resolution (unit conversion, percentage-of-viewBox math, the
+/// width/height-vs-viewBox precedence rules) to `usvg` — a real
+/// spec-compliant SVG parser — rather than hand-rolling unit stripping and
+/// float parsing, which doesn't handle every unit (`cm`, `pt`, `%`, ...)
+/// `usvg` does.
+///
+/// One thing `usvg` won't do for us: per the SVG spec it falls back to a
+/// default 100x100 viewport when there's no width/height/viewBox at all
+/// (needed to have *something* to render into), but that's a rendering
+/// guess, not a real intrinsic size — for our purposes (setting `width`/
+/// `height` on `<img>` to prevent layout shift) a guessed 100x100 would be
+/// actively misleading, so that case is still explicitly checked for and
+/// treated as unresolvable, same as before.
+///
+/// Returns usvg's own native `f32` precision, unrounded — rounding to the
+/// integer pixels an `<img>` attribute needs is `image_dimensions`'s job,
+/// not this function's, so both this and the raster path (`imagesize`,
+/// which already hands back plain integers) return their format's native
+/// numeric type and are normalized to `u32` in one place.
+fn svg_dimensions(path: &Path) -> Option<(f32, f32)> {
     let content = fs::read_to_string(path).ok()?;
+
     let doc = roxmltree::Document::parse(&content).ok()?;
     let root = doc.root_element();
-
-    let attr_px =
-        |name: &str| -> Option<f64> { root.attribute(name)?.trim_end_matches("px").parse().ok() };
-    if let (Some(w), Some(h)) = (attr_px("width"), attr_px("height")) {
-        return Some((w.round() as u32, h.round() as u32));
+    if root.attribute("width").is_none()
+        && root.attribute("height").is_none()
+        && root.attribute("viewBox").is_none()
+    {
+        return None;
     }
 
-    let nums: Vec<f64> = root
-        .attribute("viewBox")?
-        .split_whitespace()
-        .filter_map(|n| n.parse().ok())
-        .collect();
-    match nums.as_slice() {
-        [_, _, w, h] => Some((w.round() as u32, h.round() as u32)),
-        _ => None,
-    }
+    let tree = usvg::Tree::from_str(&content, &usvg::Options::default()).ok()?;
+    let size = tree.size();
+    Some((size.width(), size.height()))
 }
 
 /// Outcome of resolving a markdown image's intrinsic pixel dimensions.
@@ -43,7 +50,9 @@ fn svg_dimensions(path: &Path) -> Option<(u32, u32)> {
 /// error, an external URL or unsupported format is not.
 #[derive(Debug, PartialEq)]
 enum ImageDims {
-    /// Dimensions were resolved — inject `width`/`height`.
+    /// Dimensions were resolved — inject `width`/`height` (rounded to the
+    /// integers HTML requires there — SVG's own size can be fractional,
+    /// a raster format's pixel dimensions from `imagesize` already aren't).
     Resolved(u32, u32),
     /// Not a site-root-relative path (external URL, etc.) — nothing to
     /// check; every current content image is root-relative
@@ -60,8 +69,10 @@ enum ImageDims {
 
 /// Resolve a markdown image's intrinsic pixel dimensions, for injecting
 /// `width`/`height` into the rendered `<img>` tag (prevents layout shift).
-// See the same-reasoned #[allow] on `svg_dimensions` above.
-#[allow(clippy::cast_possible_truncation)]
+// Image dimensions in pixels are always small non-negative numbers, nowhere
+// near u32::MAX or negative — the truncation/sign-loss these casts warn
+// about can't happen in practice for a real image file.
+#[allow(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
 fn image_dimensions(static_dir: &Path, dest_url: &str) -> ImageDims {
     let Some(rel) = dest_url.strip_prefix('/') else {
         return ImageDims::Skipped;
@@ -71,7 +82,9 @@ fn image_dimensions(static_dir: &Path, dest_url: &str) -> ImageDims {
         return ImageDims::Missing;
     }
     let dims = match path.extension().and_then(|e| e.to_str()) {
-        Some(ext) if ext.eq_ignore_ascii_case("svg") => svg_dimensions(&path),
+        Some(ext) if ext.eq_ignore_ascii_case("svg") => {
+            svg_dimensions(&path).map(|(w, h)| (w.round() as u32, h.round() as u32))
+        }
         _ => imagesize::size(&path)
             .ok()
             .map(|d| (d.width as u32, d.height as u32)),
@@ -80,13 +93,6 @@ fn image_dimensions(static_dir: &Path, dest_url: &str) -> ImageDims {
         Some((w, h)) => ImageDims::Resolved(w, h),
         None => ImageDims::Unrecognized,
     }
-}
-
-fn escape_html_attr(s: &str) -> String {
-    s.replace('&', "&amp;")
-        .replace('"', "&quot;")
-        .replace('<', "&lt;")
-        .replace('>', "&gt;")
 }
 
 /// Rewrite plain markdown images (`![alt](url)`) to raw `<img>` HTML with
@@ -109,11 +115,25 @@ fn escape_html_attr(s: &str) -> String {
 /// way a bad KaTeX-opts config would (see `render_math`), rather than
 /// silently shipping a broken `<img>`. Missing dimensions for a file that
 /// *does* exist (unsupported/corrupt format) is not fatal — only a warning.
+///
+/// # Caption convention
+///
+/// `![alt](url)` followed, with no blank line in between, by a single line
+/// of `*italic text*` is treated as an image with a caption: the pair
+/// renders as `<figure><img>...<figcaption>` instead of a bare `<img>`, and
+/// the caption line is consumed (not left behind to be re-parsed). This
+/// matters because with no blank line the two markdown lines are one
+/// `CommonMark` paragraph, and after the image is rewritten to a raw `<img>`
+/// tag, that tag starts an HTML block (`CommonMark` type 7) which swallows
+/// any immediately-following line as literal, unparsed text — the emphasis
+/// markers would render as literal asterisks, not become a caption. See
+/// `crate::caption::caption_after` for the exact event pattern required.
 struct ImageSpan {
     start: usize,
     end: usize,
     dest_url: String,
     alt: String,
+    caption: Option<String>,
 }
 
 pub fn rewrite_images(
@@ -121,47 +141,60 @@ pub fn rewrite_images(
     static_dir: &Path,
     referenced: &mut HashSet<String>,
 ) -> Result<String, String> {
-    let parser = pulldown_cmark::Parser::new(body);
+    let events: Vec<_> = pulldown_cmark::Parser::new(body)
+        .into_offset_iter()
+        .collect();
 
     let mut spans: Vec<ImageSpan> = Vec::new();
-    let mut current: Option<ImageSpan> = None;
-    for (event, range) in parser.into_offset_iter() {
-        match event {
-            pulldown_cmark::Event::Start(pulldown_cmark::Tag::Image { dest_url, .. }) => {
-                current = Some(ImageSpan {
-                    start: range.start,
-                    end: range.end,
-                    dest_url: dest_url.into_string(),
-                    alt: String::new(),
-                });
-            }
-            // Alt text containing `<...>` (e.g. `vector<int>`, `shared_ptr<T>`
-            // — common on a C++ blog) parses as inline HTML (InlineHtml), not
-            // Text. It's not real HTML here (alt attributes don't render
-            // markup), so treat it as literal text too — otherwise it
-            // silently vanishes from the alt attribute instead of erroring
-            // or warning.
-            pulldown_cmark::Event::Text(t) | pulldown_cmark::Event::InlineHtml(t) => {
-                if let Some(span) = current.as_mut() {
-                    span.alt.push_str(&t);
+    let mut i = 0;
+    while i < events.len() {
+        let (pulldown_cmark::Event::Start(pulldown_cmark::Tag::Image { dest_url, .. }), range) =
+            &events[i]
+        else {
+            i += 1;
+            continue;
+        };
+        let mut span = ImageSpan {
+            start: range.start,
+            end: range.end,
+            dest_url: dest_url.clone().into_string(),
+            alt: String::new(),
+            caption: None,
+        };
+
+        // Collect alt text (Text, or InlineHtml for e.g. `vector<int>` —
+        // common on a C++ blog, and not real HTML since alt attributes
+        // don't render markup) up to the matching End(Image).
+        i += 1;
+        loop {
+            match &events[i].0 {
+                pulldown_cmark::Event::Text(t) | pulldown_cmark::Event::InlineHtml(t) => {
+                    span.alt.push_str(t);
+                    i += 1;
                 }
-            }
-            pulldown_cmark::Event::End(pulldown_cmark::TagEnd::Image) => {
-                if let Some(mut span) = current.take() {
-                    span.end = range.end;
-                    spans.push(span);
+                pulldown_cmark::Event::End(pulldown_cmark::TagEnd::Image) => {
+                    span.end = events[i].1.end;
+                    i += 1;
+                    break;
                 }
+                _ => i += 1,
             }
-            _ => {}
         }
+
+        if let Some((caption, emphasis_end)) = caption_after(&events, i) {
+            span.caption = Some(caption);
+            span.end = events[emphasis_end].1.end;
+        }
+
+        spans.push(span);
     }
 
     let mut result = String::with_capacity(body.len());
     let mut cursor = 0;
     for span in &spans {
         result.push_str(&body[cursor..span.start]);
-        let src = escape_html_attr(&span.dest_url);
-        let alt = escape_html_attr(&span.alt);
+        let src = escape_attr(&span.dest_url);
+        let alt = escape_attr(&span.alt);
 
         if span.alt.is_empty() {
             eprintln!("  WARN: image has no alt text: {}", span.dest_url);
@@ -170,31 +203,26 @@ pub fn rewrite_images(
             referenced.insert(rel.to_string());
         }
 
-        match image_dimensions(static_dir, &span.dest_url) {
-            ImageDims::Resolved(w, h) => {
-                let _ = write!(
-                    result,
-                    "<img src=\"{}\" alt=\"{}\" width=\"{}\" height=\"{}\" loading=\"lazy\" decoding=\"async\">",
-                    src, alt, w, h
-                );
-            }
-            ImageDims::Skipped => {
-                let _ = write!(
-                    result,
-                    "<img src=\"{}\" alt=\"{}\" loading=\"lazy\" decoding=\"async\">",
-                    src, alt
-                );
-            }
+        let (img_tag, width) = match image_dimensions(static_dir, &span.dest_url) {
+            ImageDims::Resolved(w, h) => (
+                format!(
+                    "<img src=\"{src}\" alt=\"{alt}\" width=\"{w}\" height=\"{h}\" loading=\"lazy\" decoding=\"async\">"
+                ),
+                Some(w),
+            ),
+            ImageDims::Skipped => (
+                format!("<img src=\"{src}\" alt=\"{alt}\" loading=\"lazy\" decoding=\"async\">"),
+                None,
+            ),
             ImageDims::Unrecognized => {
                 eprintln!(
                     "  WARN: could not determine dimensions for {} (unsupported or corrupt image)",
                     span.dest_url
                 );
-                let _ = write!(
-                    result,
-                    "<img src=\"{}\" alt=\"{}\" loading=\"lazy\" decoding=\"async\">",
-                    src, alt
-                );
+                (
+                    format!("<img src=\"{src}\" alt=\"{alt}\" loading=\"lazy\" decoding=\"async\">"),
+                    None,
+                )
             }
             ImageDims::Missing => {
                 return Err(format!(
@@ -202,6 +230,26 @@ pub fn rewrite_images(
                     span.dest_url, span.dest_url
                 ));
             }
+        };
+
+        match &span.caption {
+            // Already escaped (and any inline code spans already rendered
+            // to <code>) by caption_after. The figure's max-width is
+            // capped to the image's intrinsic width (when known) so a long
+            // caption wraps to the image's rendered width instead of the
+            // full column — without it, <figcaption> (an ordinary block
+            // element) stretches to fill the figure, which by default
+            // spans the whole reading column, not just the (often
+            // narrower) image.
+            Some(caption) => {
+                let style =
+                    width.map_or_else(String::new, |w| format!(" style=\"max-width: {w}px\""));
+                let _ = write!(
+                    result,
+                    "<figure{style}>{img_tag}<figcaption>{caption}</figcaption></figure>"
+                );
+            }
+            None => result.push_str(&img_tag),
         }
         cursor = span.end;
     }
@@ -331,11 +379,13 @@ mod tests {
 
     #[test]
     fn svg_dimensions_from_width_height() {
+        // Returned unrounded — 593.4 stays 593.4 here; rounding to 593 is
+        // image_dimensions's job (see image_dimensions_rounds_svg_size).
         let path = write_temp(
             "wh.svg",
             r#"<svg width="958" height="593.4" viewBox="0 0 100 100"></svg>"#,
         );
-        assert_eq!(svg_dimensions(&path), Some((958, 593)));
+        assert_eq!(svg_dimensions(&path), Some((958.0, 593.4)));
         let _ = fs::remove_file(&path);
     }
 
@@ -343,7 +393,7 @@ mod tests {
     fn svg_dimensions_falls_back_to_viewbox() {
         // width/height omitted (common when sizing is left to CSS).
         let path = write_temp("vb.svg", r#"<svg viewBox="0 0 800 600"></svg>"#);
-        assert_eq!(svg_dimensions(&path), Some((800, 600)));
+        assert_eq!(svg_dimensions(&path), Some((800.0, 600.0)));
         let _ = fs::remove_file(&path);
     }
 
@@ -354,7 +404,7 @@ mod tests {
             "pct.svg",
             r#"<svg width="100%" height="100%" viewBox="0 0 320 240"></svg>"#,
         );
-        assert_eq!(svg_dimensions(&path), Some((320, 240)));
+        assert_eq!(svg_dimensions(&path), Some((320.0, 240.0)));
         let _ = fs::remove_file(&path);
     }
 
@@ -415,6 +465,25 @@ mod tests {
         assert_eq!(
             image_dimensions(&static_dir, "/img/x.svg"),
             ImageDims::Resolved(10, 20)
+        );
+        let _ = fs::remove_dir_all(&static_dir);
+    }
+
+    #[test]
+    fn image_dimensions_rounds_svg_size() {
+        // svg_dimensions returns 593.4 unrounded; image_dimensions is where
+        // that becomes the integer an <img height> attribute needs.
+        let static_dir = temp_static_dir("rounds");
+        fs::create_dir_all(static_dir.join("img")).unwrap();
+        fs::write(
+            static_dir.join("img/x.svg"),
+            r#"<svg width="958" height="593.4" viewBox="0 0 100 100"></svg>"#,
+        )
+        .unwrap();
+
+        assert_eq!(
+            image_dimensions(&static_dir, "/img/x.svg"),
+            ImageDims::Resolved(958, 593)
         );
         let _ = fs::remove_dir_all(&static_dir);
     }
@@ -542,10 +611,116 @@ mod tests {
     }
 
     #[test]
-    fn escape_html_attr_escapes_all_special_chars() {
-        assert_eq!(
-            escape_html_attr("a \"quote\" & <tag>"),
-            "a &quot;quote&quot; &amp; &lt;tag&gt;"
+    fn rewrite_images_wraps_caption_in_figure() {
+        // No blank line between the image and the italic line — the
+        // caption convention.
+        let static_dir = std::env::temp_dir();
+        let body = "![x](https://example.com/x.png)\n*a caption*\n";
+        let out = rewrite_images(body, &static_dir, &mut HashSet::new()).unwrap();
+        assert!(
+            out.contains("<figure><img")
+                && out.contains("<figcaption>a caption</figcaption></figure>"),
+            "{}",
+            out
+        );
+        // The caption markdown must be fully consumed, not left as
+        // dangling literal text after the <img>.
+        assert!(!out.contains('*'), "{}", out);
+    }
+
+    #[test]
+    fn rewrite_images_caps_figure_width_to_image_width() {
+        // <figcaption> is an ordinary block element with no width of its
+        // own, so without capping the figure it stretches to fill the
+        // reading column — wider than a narrower image. The figure's
+        // max-width should match the image's resolved intrinsic width.
+        let static_dir = temp_static_dir("caption-width");
+        fs::create_dir_all(static_dir.join("img")).unwrap();
+        fs::write(
+            static_dir.join("img/x.svg"),
+            r#"<svg width="123" height="45"></svg>"#,
+        )
+        .unwrap();
+
+        let body = "![x](/img/x.svg)\n*a caption*\n";
+        let out = rewrite_images(body, &static_dir, &mut HashSet::new()).unwrap();
+        assert!(
+            out.contains("<figure style=\"max-width: 123px\">"),
+            "{}",
+            out
+        );
+
+        let _ = fs::remove_dir_all(&static_dir);
+    }
+
+    #[test]
+    fn rewrite_images_figure_has_no_width_style_when_dimensions_unresolved() {
+        // External URL — image_dimensions returns Skipped — no width to
+        // constrain the figure to, so no inline style should be emitted.
+        let static_dir = std::env::temp_dir();
+        let body = "![x](https://example.com/x.png)\n*a caption*\n";
+        let out = rewrite_images(body, &static_dir, &mut HashSet::new()).unwrap();
+        assert!(out.contains("<figure><img"), "{}", out);
+        assert!(!out.contains("style="), "{}", out);
+    }
+
+    #[test]
+    fn rewrite_images_no_figure_without_caption() {
+        let static_dir = std::env::temp_dir();
+        let body = "![x](https://example.com/x.png)\n\nmore prose\n";
+        let out = rewrite_images(body, &static_dir, &mut HashSet::new()).unwrap();
+        assert!(!out.contains("<figure>"), "{}", out);
+        assert!(out.contains("<img"), "{}", out);
+    }
+
+    #[test]
+    fn rewrite_images_ignores_emphasis_in_a_separate_paragraph() {
+        // A blank line means this is a new paragraph, not a caption.
+        // rewrite_images only ever touches image spans, so the emphasis
+        // markdown must survive verbatim for Zola's own markdown pass to
+        // turn into <em> later.
+        let static_dir = std::env::temp_dir();
+        let body = "![x](https://example.com/x.png)\n\n*not a caption*\n";
+        let out = rewrite_images(body, &static_dir, &mut HashSet::new()).unwrap();
+        assert!(!out.contains("<figure>"), "{}", out);
+        assert!(out.contains("*not a caption*"), "{}", out);
+    }
+
+    #[test]
+    fn rewrite_images_ignores_caption_with_trailing_content() {
+        // More text after the italic run in the same paragraph — not the
+        // "image, then one line of italics, then nothing else" shape.
+        let static_dir = std::env::temp_dir();
+        let body = "![x](https://example.com/x.png)\n*text* and more\n";
+        let out = rewrite_images(body, &static_dir, &mut HashSet::new()).unwrap();
+        assert!(!out.contains("<figure>"), "{}", out);
+    }
+
+    #[test]
+    fn rewrite_images_escapes_caption_text() {
+        // Quotes aren't escaped here — this is text content, not an
+        // attribute value, so `"` is safe as-is.
+        let static_dir = std::env::temp_dir();
+        let body = "![x](https://example.com/x.png)\n*a \"quote\" & <tag>*\n";
+        let out = rewrite_images(body, &static_dir, &mut HashSet::new()).unwrap();
+        assert!(
+            out.contains("<figcaption>a \"quote\" &amp; &lt;tag&gt;</figcaption>"),
+            "{}",
+            out
+        );
+    }
+
+    #[test]
+    fn rewrite_images_renders_code_spans_in_caption() {
+        // A caption containing inline code (e.g. `` `sk1` ``) must still be
+        // recognized, with the code span rendered as <code>.
+        let static_dir = std::env::temp_dir();
+        let body = "![x](https://example.com/x.png)\n*sign with `sk1` please*\n";
+        let out = rewrite_images(body, &static_dir, &mut HashSet::new()).unwrap();
+        assert!(
+            out.contains("<figcaption>sign with <code>sk1</code> please</figcaption>"),
+            "{}",
+            out
         );
     }
 
@@ -690,9 +865,9 @@ mod tests {
     #[test]
     fn collect_template_image_refs_scans_nested_directories() {
         let templates_dir = temp_static_dir("templates-nested");
-        fs::create_dir_all(templates_dir.join("shortcodes")).unwrap();
+        fs::create_dir_all(templates_dir.join("components")).unwrap();
         fs::write(
-            templates_dir.join("shortcodes/figure.html"),
+            templates_dir.join("components/figure.html"),
             r#"{{ get_image_metadata(path="img/deep/nested.png") }}"#,
         )
         .unwrap();

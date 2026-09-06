@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% import "partials/macros.html" as m %}
 
 {% block title %}{{ page.title }} | {{ config.title }}{% endblock title %}
 {% block description %}{{ page.content | striptags | replace(from="
@@ -10,7 +9,7 @@
 
 {% block content %}
 <div class="container">
-  {{ m::page_header(title=page.title) }}
+  {{ <page_header title={page.title}/> }}
   <div class="post__content">
     {{ page.content | safe }}
   </div>

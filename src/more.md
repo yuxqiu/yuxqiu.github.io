@@ -19,4 +19,4 @@ Small doses of wit.
 
 ## Traveling
 
-{{ travel_map() }}
+{{ <travel_map/> }}

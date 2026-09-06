@@ -54,6 +54,23 @@ fn build_opts(display: bool, macros: &HashMap<String, String>) -> Result<katex::
 /// delimiters, since the range includes them) is emitted verbatim and a
 /// warning is printed. A misclassification therefore degrades to literal
 /// text, never garbage. The safety net is this fallback, not any heuristic.
+///
+/// # Caption convention
+///
+/// A `$$...$$` display-math block followed, with no blank line in between,
+/// by a single line of `*italic text*` is treated as an equation with a
+/// caption — same convention as `images::rewrite_images`, and the same
+/// underlying reason: with no blank line the two are one `CommonMark`
+/// paragraph, and after the equation is rewritten to a raw `KaTeX` `<div>`,
+/// that starts an HTML block which would otherwise swallow the caption
+/// line as literal, unparsed text. The pair renders as
+/// `<figure><div class="katex-display">...<figcaption>` instead. Unlike an
+/// image, an equation's rendered width isn't known at build time, so
+/// (unlike `rewrite_images`) the figure isn't width-capped to it — a long
+/// caption can end up wider than a narrow equation. Inline math (`$...$`)
+/// is not eligible; a caption only makes sense for a block-level equation.
+/// See `crate::caption::caption_after` for the exact event pattern
+/// required.
 pub fn render_math(body: &str, macros: &HashMap<String, String>) -> Result<String, String> {
     let opts = build_opts(false, macros)?;
     let opts_display = build_opts(true, macros)?;
@@ -62,38 +79,66 @@ pub fn render_math(body: &str, macros: &HashMap<String, String>) -> Result<Strin
     // where math is; it handles code exclusion, escapes, and nesting.
     let mut opts_p = pulldown_cmark::Options::empty();
     opts_p.insert(pulldown_cmark::Options::ENABLE_MATH);
-    let parser = pulldown_cmark::Parser::new_ext(body, opts_p);
+    let events: Vec<_> = pulldown_cmark::Parser::new_ext(body, opts_p)
+        .into_offset_iter()
+        .collect();
 
-    // Collect math spans as (start_byte, end_byte, content, is_display).
-    // The event content is the raw LaTeX (not HTML-escaped); the range
-    // includes the delimiters.
-    let mut math_spans: Vec<(usize, usize, String, bool)> = Vec::new();
-    for (event, range) in parser.into_offset_iter() {
-        match event {
+    // Collect math spans. The event content is the raw LaTeX (not
+    // HTML-escaped); the range includes the delimiters.
+    let mut math_spans: Vec<MathSpan> = Vec::new();
+    let mut i = 0;
+    while i < events.len() {
+        match &events[i].0 {
             pulldown_cmark::Event::InlineMath(s) => {
-                math_spans.push((range.start, range.end, s.into_string(), false));
+                math_spans.push(MathSpan {
+                    start: events[i].1.start,
+                    end: events[i].1.end,
+                    math: s.clone().into_string(),
+                    is_display: false,
+                    caption: None,
+                });
             }
             pulldown_cmark::Event::DisplayMath(s) => {
-                math_spans.push((range.start, range.end, s.into_string(), true));
+                let mut span = MathSpan {
+                    start: events[i].1.start,
+                    end: events[i].1.end,
+                    math: s.clone().into_string(),
+                    is_display: true,
+                    caption: None,
+                };
+                if let Some((caption, emphasis_end)) = crate::caption::caption_after(&events, i + 1)
+                {
+                    span.caption = Some(caption);
+                    span.end = events[emphasis_end].1.end;
+                }
+                math_spans.push(span);
             }
             _ => {}
         }
+        i += 1;
     }
 
     // pulldown-cmark emits events in document order, so math_spans should
     // already be sorted by start. Sort explicitly as cheap insurance.
-    math_spans.sort_by_key(|(start, _, _, _)| *start);
+    math_spans.sort_by_key(|s| s.start);
 
     // Walk the original string, replacing math spans with KaTeX HTML.
     // Everything outside math spans is emitted verbatim — the markdown
     // passes through to Zola unchanged.
     let mut result = String::with_capacity(body.len());
     let mut cursor = 0;
-    for (start, end, math, is_display) in &math_spans {
-        debug_assert!(*start >= cursor, "math spans out of order or overlapping");
-        result.push_str(&body[cursor..*start]);
-        let opts_ref = if *is_display { &opts_display } else { &opts };
-        match katex::render_with_opts(math, opts_ref) {
+    for span in &math_spans {
+        debug_assert!(
+            span.start >= cursor,
+            "math spans out of order or overlapping"
+        );
+        result.push_str(&body[cursor..span.start]);
+        let opts_ref = if span.is_display {
+            &opts_display
+        } else {
+            &opts
+        };
+        match katex::render_with_opts(&span.math, opts_ref) {
             Ok(html) => {
                 // KaTeX HTML for multi-line math (e.g. \begin{align*})
                 // contains literal newlines inside the <annotation> tag.
@@ -103,29 +148,62 @@ pub fn render_math(body: &str, macros: &HashMap<String, String>) -> Result<Strin
                 // HTML on a single line — safe because newlines in HTML
                 // are not semantically significant.
                 let html = html.replace('\n', "");
-                if *is_display {
-                    let _ = write!(result, "<div class=\"katex-display\">{}</div>", html);
+                // Zola 0.23+ renders every content file as a Tera template,
+                // so a literal `{{`, `{%` or `{#` breaks the build. The
+                // `<annotation>` element KaTeX emits embeds the original
+                // TeX source verbatim, and `\newcommand{...}[1]{...#1...}`
+                // macro bodies routinely produce a `{#1` sequence — Tera's
+                // comment-open sigil. Wrap the rendered HTML in `{% raw %}`
+                // so its contents are never parsed as Tera.
+                if span.is_display {
+                    let inner = format!(
+                        "{{% raw %}}<div class=\"katex-display\">{html}</div>{{% endraw %}}"
+                    );
+                    match &span.caption {
+                        // Already escaped by caption_after.
+                        Some(caption) => {
+                            let _ = write!(
+                                result,
+                                "<figure>{inner}<figcaption>{caption}</figcaption></figure>"
+                            );
+                        }
+                        None => result.push_str(&inner),
+                    }
                 } else {
-                    result.push_str(&html);
+                    let _ = write!(result, "{{% raw %}}{}{{% endraw %}}", html);
                 }
             }
             Err(e) => {
                 eprintln!(
                     "  WARN: {} math render failed: {} | math: {}",
-                    if *is_display { "display" } else { "inline" },
+                    if span.is_display { "display" } else { "inline" },
                     e,
-                    math
+                    span.math
                 );
                 // Fallback: emit the original text verbatim (including
-                // delimiters, since the range includes them) so the
-                // source survives for diagnosis.
-                result.push_str(&body[*start..*end]);
+                // delimiters and, if present, the caption line — the span
+                // was extended to cover it) so the source survives for
+                // diagnosis. Also wrapped in `{% raw %}` since the raw TeX
+                // source can itself contain `{{`/`{%`/`{#`.
+                let _ = write!(
+                    result,
+                    "{{% raw %}}{}{{% endraw %}}",
+                    &body[span.start..span.end]
+                );
             }
         }
-        cursor = *end;
+        cursor = span.end;
     }
     result.push_str(&body[cursor..]);
     Ok(result)
+}
+
+struct MathSpan {
+    start: usize,
+    end: usize,
+    math: String,
+    is_display: bool,
+    caption: Option<String>,
 }
 
 #[cfg(test)]
@@ -358,5 +436,50 @@ mod tests {
             "blank line in $$...$$ prevents math parsing: {}",
             out
         );
+    }
+
+    // ---- render_math: caption convention ----
+
+    #[test]
+    fn render_wraps_display_math_caption_in_figure() {
+        // No blank line between $$...$$ and the italic line — the caption
+        // convention.
+        let body = "$$\na + b\n$$\n*a caption*\n";
+        let out = render_math(body, &no_macros()).unwrap();
+        assert!(
+            out.contains("<figure>{% raw %}<div class=\"katex-display\">")
+                && out.contains("<figcaption>a caption</figcaption></figure>"),
+            "{}",
+            out
+        );
+        // The caption markdown must be fully consumed, not left dangling.
+        assert!(!out.contains('*'), "{}", out);
+    }
+
+    #[test]
+    fn render_no_figure_around_display_math_without_caption() {
+        let body = "$$\na + b\n$$\n\nmore prose\n";
+        let out = render_math(body, &no_macros()).unwrap();
+        assert!(!out.contains("<figure>"), "{}", out);
+    }
+
+    #[test]
+    fn render_ignores_emphasis_in_a_separate_paragraph_after_display_math() {
+        // A blank line means this is a new paragraph, not a caption.
+        let body = "$$\na + b\n$$\n\n*not a caption*\n";
+        let out = render_math(body, &no_macros()).unwrap();
+        assert!(!out.contains("<figure>"), "{}", out);
+        assert!(out.contains("*not a caption*"), "{}", out);
+    }
+
+    #[test]
+    fn render_ignores_inline_math_caption_attempt() {
+        // The caption convention only applies to display ($$) math — an
+        // inline $...$ span followed by an italic line is not a caption
+        // (it isn't even the same paragraph shape: inline math doesn't end
+        // a paragraph the way a display block does).
+        let body = "prose $a$\n*not a caption*\n";
+        let out = render_math(body, &no_macros()).unwrap();
+        assert!(!out.contains("<figure>"), "{}", out);
     }
 }

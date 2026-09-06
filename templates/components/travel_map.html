@@ -1,3 +1,4 @@
+{% component travel_map() %}
 <figure class="travel-map" role="img" aria-label="World map with visited places highlighted">
   {% set visited = load_data(path="data/visited.toml", format="toml") %}
   <style>
@@ -6,3 +7,4 @@
   {{ load_data(path="data/world-map.svg", format="plain") | safe }}
   <figcaption>Map by <a href="https://github.com/flekschas/simple-world-map" target="_blank" rel="noopener">flekschas</a> — CC BY-SA 3.0</figcaption>
 </figure>
+{% endcomponent travel_map %}

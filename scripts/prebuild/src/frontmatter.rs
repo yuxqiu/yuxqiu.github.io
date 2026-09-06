@@ -1,21 +1,26 @@
 use std::collections::HashMap;
 
+use gray_matter::engine::TOML;
+use gray_matter::{Matter, Pod};
+
 /// Extract the TOML front matter (between +++ lines) and the body from a Zola markdown file.
 /// Returns (`front_matter_str`, `body_str`). If no front matter, returns ("", `full_content`).
+///
+/// Delegates the actual delimiter/edge-case handling (EOF without a trailing
+/// newline, no front matter at all, etc.) to `gray_matter` rather than
+/// hand-rolling it — Zola's `+++` convention is just `gray_matter`'s default
+/// `---` with a custom delimiter. `Pod` (the crate's own loosely-typed
+/// value) is used as the target type since we only need the raw
+/// `matter`/`content` strings back, not a parsed value — `parse_macros`
+/// below does its own separate, specifically-typed parse of the raw string.
 pub fn split_front_matter(content: &str) -> (String, String) {
     let trimmed = content.trim_start();
-    if let Some(rest) = trimmed.strip_prefix("+++\n") {
-        if let Some(end) = rest.find("\n+++\n") {
-            let fm = rest[..end].to_string();
-            let body = rest[end + 5..].to_string();
-            return (fm, body);
-        }
-        // Front matter at EOF without trailing newline
-        if let Some(rest2) = rest.strip_suffix("+++") {
-            return (rest2.to_string(), String::new());
-        }
+    let mut matter: Matter<TOML> = Matter::new();
+    "+++".clone_into(&mut matter.delimiter);
+    match matter.parse::<Pod>(trimmed) {
+        Ok(parsed) if !parsed.matter.is_empty() => (parsed.matter, parsed.content),
+        _ => (String::new(), content.to_string()),
     }
-    (String::new(), content.to_string())
 }
 
 /// Minimal front matter shape — only the field the prebuild needs.
@@ -103,6 +108,20 @@ year = 2024
 "#;
         let macros = parse_macros(fm);
         assert!(macros.is_empty());
+    }
+
+    #[test]
+    fn split_front_matter_eof_without_trailing_newline() {
+        let (fm, body) = split_front_matter("+++\ntitle = \"Test\"\n+++");
+        assert_eq!(fm, "title = \"Test\"");
+        assert_eq!(body, "");
+    }
+
+    #[test]
+    fn split_front_matter_none() {
+        let (fm, body) = split_front_matter("# Just a heading\n");
+        assert_eq!(fm, "");
+        assert_eq!(body, "# Just a heading\n");
     }
 
     // ---- CRLF front matter ----

@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% import "partials/macros.html" as m %}
 
 {% block title %}{{ term.name }} | {{ config.title }}{% endblock title %}
 {% block description %}Posts tagged &quot;{{ term.name }}&quot; on {{ config.title }}.{% endblock description %}
@@ -7,7 +6,7 @@
 
 {% block content %}
 <div class="container">
-  {{ m::page_header(title="#" ~ term.name) }}
+  {{ <page_header title={"#" ~ term.name}/> }}
   <div class="list__group">
     {% set pages = term.pages | sort(attribute="date") | reverse %}
     {% for page in pages %}

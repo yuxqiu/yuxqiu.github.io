@@ -1,13 +1,12 @@
 {% extends "base.html" %}
-{% import "partials/macros.html" as m %}
 
 {% block title %}Tags | {{ config.title }}{% endblock title %}
-{% block description %}Tags: {{ terms | map(attribute="name") | join(sep=", ") | truncate(length=160) }}{% endblock description %}
-{% block og_description %}Tags: {{ terms | map(attribute="name") | join(sep=", ") | truncate(length=160) }}{% endblock og_description %}
+{% block description %}Tags: {{ [term.name for term in terms] | join(sep=", ") | truncate(length=160) }}{% endblock description %}
+{% block og_description %}Tags: {{ [term.name for term in terms] | join(sep=", ") | truncate(length=160) }}{% endblock og_description %}
 
 {% block content %}
 <div class="container">
-  {{ m::page_header(title="Tags") }}
+  {{ <page_header title="Tags"/> }}
   <div class="list__group">
     {% for term in terms %}
     <div class="list__item">

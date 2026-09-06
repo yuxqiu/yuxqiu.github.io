@@ -1,4 +1,4 @@
-{% macro page_header(title, desc="", meta="", tags=false) %}
+{% component page_header(title: string, desc: string = "", meta: string = "", tags: array = []) %}
 <header class="page-header">
   <h1 class="page-title">{{ title }}</h1>
   {% if desc %}
@@ -15,4 +15,4 @@
   </ul>
   {% endif %}
 </header>
-{% endmacro page_header %}
+{% endcomponent page_header %}

@@ -193,6 +193,7 @@ a {
   text-decoration: none;
   border-bottom: 1px solid var(--warm-300);
   transition: border-color 0.15s ease;
+  overflow-wrap: break-word;
 
   &:hover {
     border-bottom-color: var(--accent);
@@ -485,8 +486,7 @@ p {
 .markdown-alert-tip,
 .markdown-alert-important,
 .markdown-alert-warning,
-.markdown-alert-caution,
-.sidenote {
+.markdown-alert-caution {
   ul,
   ol {
     margin-bottom: var(--sp-4);
@@ -495,6 +495,16 @@ p {
 
   li {
     margin-bottom: var(--sp-1);
+
+    // A list nested inside an <li> is part of that item's content, not a
+    // new top-level block. Without this override, the unconditional
+    // margin-bottom above still applies to it, which — since it has no
+    // margin-top to match — leaves a visibly bigger gap after a nested
+    // list than before one, and a bigger gap than between plain <li>s.
+    ul,
+    ol {
+      margin-bottom: 0;
+    }
   }
 }
 
@@ -506,7 +516,14 @@ blockquote {
   color: var(--text-muted);
   @include callout-base;
 
-  p {
+  // Flush whichever element actually ends the blockquote — a paragraph,
+  // or a list (e.g. a blockquote whose content is an ordered list of
+  // steps). Without covering ul/ol too, a list-terminated blockquote
+  // keeps the list's own margin-bottom stacked on this padding-bottom,
+  // making the bottom gap bigger than the (padding-only) top gap.
+  p,
+  ul,
+  ol {
     @include last-child-flush;
   }
 }
@@ -519,6 +536,7 @@ code {
   padding: 0.1em 0.3em;
   border-radius: var(--sp-1);
   color: var(--warm-800);
+  overflow-wrap: break-word;
 }
 
 // Code block — Kami spec: ivory bg + 0.5pt border + 6pt radius
@@ -617,6 +635,14 @@ hr {
 
 // Tables
 table {
+  // display: block lets the table clip and scroll its own overflow — a
+  // table with default `display: table` ignores overflow-x and just grows
+  // past its container to fit long cell content instead. th/td keep their
+  // table-track display values, so the browser still generates the
+  // internal table layout via CSS table fixup rules; only the outer table
+  // box itself becomes an ordinary block box.
+  display: block;
+  overflow-x: auto;
   width: 100%;
   border-collapse: collapse;
   margin: var(--sp-6) 0;
@@ -643,6 +669,34 @@ img {
   border-radius: var(--sp-1);
   display: block;
   margin: var(--sp-4) auto;
+}
+
+// Captioned images (`![alt](src)` immediately followed by a line of
+// `*italic text*` — see rewrite_images in the prebuild script, which turns
+// this into <figure>/<figcaption>).
+figure {
+  margin: var(--sp-4) auto;
+
+  img {
+    margin: 0 auto;
+  }
+
+  // A captioned equation (see render_math's caption convention) wraps a
+  // .katex-display, whose own margin would otherwise stack with
+  // figcaption's margin-top, doubling the gap to the caption compared to
+  // an image's (already zeroed above).
+  .katex-display {
+    margin: 0;
+  }
+}
+
+figcaption {
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: var(--sp-2);
+  overflow-wrap: break-word;
 }
 
 // ---------------------------------------------------------------------------
@@ -955,7 +1009,11 @@ img {
   margin: var(--sp-4) 0;
   color: var(--text-body);
 
-  p {
+  // See the plain `blockquote` rule above — same reasoning: flush
+  // whichever element (paragraph or list) actually ends the alert.
+  p,
+  ul,
+  ol {
     @include last-child-flush;
   }
 }
@@ -981,38 +1039,6 @@ img {
   display: inline-block;
   color: var(--text-muted);
   margin-left: 0.25em;
-}
-
-// Sidenotes default to an inline callout (safe at every width) and only
-// float into the right margin when the viewport is wide enough to hold
-// them. The float pulls the note 240px right of the reading column, which
-// needs (viewport - column) / 2 >= 240. --max-width is fluid now and only
-// finishes settling at its 760px ceiling once the viewport reaches ~1310px
-// (see the --max-width comment), so the threshold here is pinned safely
-// past that settle point — at 1360px, (1360 - 760) / 2 = 300 >= 240 — so
-// the fixed margin math below is always correct once the float activates.
-// Below the threshold it collapsed unpredictably; now the float is opt-in.
-.sidenote {
-  font-family: var(--font-sans);
-  font-size: var(--fs-small);
-  color: var(--text-muted);
-  line-height: var(--lh-label);
-  margin: var(--sp-3) 0;
-  padding: var(--sp-2) var(--sp-3);
-  border-left: 2px solid var(--warm-300);
-  @include callout-base;
-
-  @media (min-width: 1360px) {
-    float: right;
-    clear: right;
-    width: 200px;
-    margin-right: -240px;
-    margin-top: 0;
-    margin-bottom: var(--sp-2);
-    border-left: none;
-    background: none;
-    padding: 0;
-  }
 }
 
 // ---------------------------------------------------------------------------

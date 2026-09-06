@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% import "partials/macros.html" as m %}
 
 {% block title %}{{ section.title }} | {{ config.title }}{% endblock title %}
 {% block description %}{{ section.content | striptags | replace(from="
@@ -10,24 +9,30 @@
 
 {% block content %}
 <div class="container">
-  {{ m::page_header(title=section.title, desc=section.content) }}
+  {{ <page_header title={section.title} desc={section.content}/> }}
 
-  {# group_by yields (year, [pages]) pairs in insertion order. Sort
-     explicitly by date descending so the groups come out newest-first. #}
-  {% set pages = section.pages | sort(attribute="date") | reverse | group_by(attribute="year") %}
+  {% set pages = section.pages | sort(attribute="date") | reverse %}
 
+  {# Tera's `group_by` filter buckets into a HashMap, whose iteration order
+     is arbitrary — it cannot be relied on to come out newest-first. Group
+     manually instead: `pages` is already sorted newest-first, so a new
+     `.list__group` starts whenever the year changes from the previous
+     post. #}
   <div class="list">
-  {% for year, posts in pages %}
-    <div class="list__group">
-      <h2 class="list__year">{{ year }}</h2>
-      {% for page in posts %}
-      <div class="list__item">
-        <time class="list__date" datetime="{{ page.date }}">{{ page.date | date(format="%b %d") }}</time>
-        <a class="list__link" href="{{ page.permalink | safe }}">{{ page.title }}</a>
-      </div>
-      {% endfor %}
+  {% set_global current_year = 0 %}
+  {% for page in pages %}
+    {% if page.year != current_year %}
+      {% if not loop.first %}</div>{% endif %}
+      <div class="list__group">
+      <h2 class="list__year">{{ page.year }}</h2>
+      {% set_global current_year = page.year %}
+    {% endif %}
+    <div class="list__item">
+      <time class="list__date" datetime="{{ page.date }}">{{ page.date | date(format="%b %d") }}</time>
+      <a class="list__link" href="{{ page.permalink | safe }}">{{ page.title }}</a>
     </div>
   {% endfor %}
+  {% if pages %}</div>{% endif %}
   </div>
 </div>
 {% endblock content %}
