@@ -2,7 +2,9 @@
 {% import "partials/macros.html" as m %}
 
 {% block title %}{{ page.title }} | {{ config.title }}{% endblock title %}
+{% block description %}{{ page.extra.publications | map(attribute="title") | join(sep=" · ") | truncate(length=160) }}{% endblock description %}
 {% block og_title %}{{ page.title }} | {{ config.title }}{% endblock og_title %}
+{% block og_description %}{{ page.extra.publications | map(attribute="title") | join(sep=" · ") | truncate(length=160) }}{% endblock og_description %}
 
 {% block content %}
 <div class="container">

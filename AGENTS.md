@@ -65,7 +65,7 @@ url = "/pdf/..."
 
 - `base.html` — master template (nav, footer, head, skip-link). Nav links come from `zola.toml` `[extra] nav` array. Head emits a canonical link and OG/Twitter meta tags with site-wide defaults; child templates override them via the `title`, `description`, `og_type`, `og_title`, `og_description` blocks (Tera blocks don't share scope across each other or with top-level `{% set %}`, so each block must recompute its own value rather than reusing a variable).
 - `partials/macros.html` — Tera macros. Currently exports `page_header(title, desc="", meta="", tags=[])`, the unified page title header used by all page templates via `{% import "partials/macros.html" as m %}`.
-- `partials/social-links.html` — shared social link list (CV, GitHub, LinkedIn, Email, Keybase, RSS). Used by both `base.html` footer and `index.html` home links.
+- `partials/social-links.html` / `partials/home-links.html` — two deliberately different link lists, not a shared partial: `social-links.html` (GitHub, LinkedIn, Keybase, RSS) is included by `base.html`'s footer; `home-links.html` (CV, GitHub, LinkedIn, Email) is included by `index.html`'s homepage link row. Some links (Keybase, RSS) are intentionally footer-only and others (CV, Email) intentionally homepage-only — this is a curated split per page, not drift to fix by merging them into one list.
 - `index.html` — homepage with photo, name, tagline, bio.
 - `section.html` — blog/writings listing, grouped by year.
 - `blog-page.html` — individual blog/writing post. Note: `page.reading_time` is NOT used for meta — it's computed from post-KaTeX HTML, so math-heavy posts get wildly inflated word counts (one post showed "269 min read").
@@ -103,6 +103,10 @@ The site follows the [Kami](https://github.com/tw93/Kami) design system:
 - **No italics** anywhere
 - **Depth via ring/whisper shadow**, not hard drop shadows
 - **Tag backgrounds**: solid hex, no rgba
+
+### Font-loading strategy (intentional, not a bug)
+
+`--font-serif`/`--font-sans`/`--font-mono` name "Source Serif 4", "Inter", and "JetBrains Mono" first, but no `@font-face`/webfont is shipped anywhere — this is deliberate, not an oversight. Visitors who already have those fonts installed locally get them; everyone else gets the fallback stack (Charter/Georgia/Times New Roman, system-ui, SF Mono/Cascadia Code), which the design already accounts for. Do not add a font CDN link or self-hosted `@font-face` to "fix" this.
 
 ## Configuration
 

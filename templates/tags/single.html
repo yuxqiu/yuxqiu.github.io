@@ -2,6 +2,8 @@
 {% import "partials/macros.html" as m %}
 
 {% block title %}{{ term.name }} | {{ config.title }}{% endblock title %}
+{% block description %}Posts tagged &quot;{{ term.name }}&quot; on {{ config.title }}.{% endblock description %}
+{% block og_description %}Posts tagged &quot;{{ term.name }}&quot; on {{ config.title }}.{% endblock og_description %}
 
 {% block content %}
 <div class="container">

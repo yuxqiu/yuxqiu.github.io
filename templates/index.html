@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
+{% block description %}{{ section.content | striptags | replace(from="
+", to=" ") | trim | truncate(length=160) }}{% endblock description %}
+{% block og_description %}{{ section.content | striptags | replace(from="
+", to=" ") | trim | truncate(length=160) }}{% endblock og_description %}
+
 {% block content %}
 <div class="container home">
   <header class="home__header">

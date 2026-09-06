@@ -31,7 +31,8 @@
       <a href="{{ get_url(path="@/_index.md") }}" class="site-nav__brand">{{ config.title }}</a>
       <ul class="site-nav__links">
         {% for item in config.extra.nav %}
-        <li><a href="{{ get_url(path=item.path) }}" class="site-nav__link{% if cur == item.prefix or cur is starting_with(item.prefix ~ "/") %} site-nav__link--active{% endif %}">{{ item.label }}</a></li>
+        {% set is_active = cur == item.prefix or cur is starting_with(item.prefix ~ "/") %}
+        <li><a href="{{ get_url(path=item.path) }}" class="site-nav__link{% if is_active %} site-nav__link--active{% endif %}"{% if is_active %} aria-current="page"{% endif %}>{{ item.label }}</a></li>
         {% endfor %}
       </ul>
     </nav>

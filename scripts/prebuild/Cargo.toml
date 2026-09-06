@@ -9,3 +9,5 @@ walkdir = "2"
 pulldown-cmark = "0.13"
 toml = "1"
 serde = { version = "1", features = ["derive"] }
+imagesize = "0.15.0"
+roxmltree = "0.21.1"

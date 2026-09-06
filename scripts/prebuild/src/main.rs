@@ -183,12 +183,139 @@ fn render_math(body: &str, macros: &HashMap<String, String>) -> Result<String, S
     Ok(result)
 }
 
-/// Process a single markdown file: read, split front matter, render math,
-/// write to output. Skips the write when the rendered output is identical to
-/// the existing destination, so a live file watcher (zola serve) only sees
-/// changes for files that actually changed — avoiding a rebuild storm when
-/// one source file is edited.
-fn process_file(src: &Path, dst: &Path) -> Result<bool, String> {
+/// Read intrinsic width/height from an SVG file via `roxmltree` (a real XML
+/// parser — `imagesize`, used for raster formats below, has no SVG support
+/// at all). Prefers the root `<svg>` element's `width`/`height` attributes,
+/// falling back to the last two numbers in `viewBox` (needed when
+/// width/height are percentages, e.g. "100%", or omitted and sizing is left
+/// to CSS — a plain numeric parse of "100%" would silently misread it as 100).
+fn svg_dimensions(path: &Path) -> Option<(u32, u32)> {
+    let content = fs::read_to_string(path).ok()?;
+    let doc = roxmltree::Document::parse(&content).ok()?;
+    let root = doc.root_element();
+
+    let attr_px = |name: &str| -> Option<f64> {
+        root.attribute(name)?.trim_end_matches("px").parse().ok()
+    };
+    if let (Some(w), Some(h)) = (attr_px("width"), attr_px("height")) {
+        return Some((w.round() as u32, h.round() as u32));
+    }
+
+    let nums: Vec<f64> = root
+        .attribute("viewBox")?
+        .split_whitespace()
+        .filter_map(|n| n.parse().ok())
+        .collect();
+    match nums.as_slice() {
+        [_, _, w, h] => Some((w.round() as u32, h.round() as u32)),
+        _ => None,
+    }
+}
+
+/// Resolve a markdown image's intrinsic pixel dimensions, for injecting
+/// `width`/`height` into the rendered `<img>` tag (prevents layout shift).
+///
+/// Only handles site-root-relative paths (`/img/...`), which is how every
+/// content image is currently referenced (they live under `static/`, not
+/// colocated with the markdown). External URLs (`http(s)://...`) and any
+/// other form are left alone — returns None, and the caller falls back to
+/// an `<img>` without dimensions.
+fn image_dimensions(static_dir: &Path, dest_url: &str) -> Option<(u32, u32)> {
+    let rel = dest_url.strip_prefix('/')?;
+    let path = static_dir.join(rel);
+    match path.extension().and_then(|e| e.to_str()) {
+        Some(ext) if ext.eq_ignore_ascii_case("svg") => svg_dimensions(&path),
+        _ => imagesize::size(&path).ok().map(|d| (d.width as u32, d.height as u32)),
+    }
+}
+
+fn escape_html_attr(s: &str) -> String {
+    s.replace('&', "&amp;")
+        .replace('"', "&quot;")
+        .replace('<', "&lt;")
+        .replace('>', "&gt;")
+}
+
+/// Rewrite plain markdown images (`![alt](url)`) to raw `<img>` HTML with
+/// `width`/`height` (when resolvable, see `image_dimensions`) plus
+/// `loading="lazy" decoding="async"`, so posts don't reflow as images load in.
+/// Source markdown stays as plain, portable `![]()` syntax — this only
+/// touches the generated `content/` output.
+///
+/// Image spans are located the same way as math spans in `render_math`: by
+/// parsing with pulldown-cmark and using event byte ranges as the single
+/// source of truth, so images inside code spans/blocks are left untouched
+/// automatically.
+fn rewrite_images(body: &str, static_dir: &Path) -> String {
+    let parser = pulldown_cmark::Parser::new(body);
+
+    struct ImageSpan {
+        start: usize,
+        end: usize,
+        dest_url: String,
+        alt: String,
+    }
+
+    let mut spans: Vec<ImageSpan> = Vec::new();
+    let mut current: Option<ImageSpan> = None;
+    for (event, range) in parser.into_offset_iter() {
+        match event {
+            pulldown_cmark::Event::Start(pulldown_cmark::Tag::Image { dest_url, .. }) => {
+                current = Some(ImageSpan {
+                    start: range.start,
+                    end: range.end,
+                    dest_url: dest_url.into_string(),
+                    alt: String::new(),
+                });
+            }
+            pulldown_cmark::Event::Text(t) => {
+                if let Some(span) = current.as_mut() {
+                    span.alt.push_str(&t);
+                }
+            }
+            pulldown_cmark::Event::End(pulldown_cmark::TagEnd::Image) => {
+                if let Some(mut span) = current.take() {
+                    span.end = range.end;
+                    spans.push(span);
+                }
+            }
+            _ => {}
+        }
+    }
+
+    let mut result = String::with_capacity(body.len());
+    let mut cursor = 0;
+    for span in &spans {
+        result.push_str(&body[cursor..span.start]);
+        let src = escape_html_attr(&span.dest_url);
+        let alt = escape_html_attr(&span.alt);
+        match image_dimensions(static_dir, &span.dest_url) {
+            Some((w, h)) => {
+                result.push_str(&format!(
+                    "<img src=\"{}\" alt=\"{}\" width=\"{}\" height=\"{}\" loading=\"lazy\" decoding=\"async\">",
+                    src, alt, w, h
+                ));
+            }
+            None => {
+                eprintln!("  WARN: could not resolve image dimensions for {}", span.dest_url);
+                result.push_str(&format!(
+                    "<img src=\"{}\" alt=\"{}\" loading=\"lazy\" decoding=\"async\">",
+                    src, alt
+                ));
+            }
+        }
+        cursor = span.end;
+    }
+    result.push_str(&body[cursor..]);
+    result
+}
+
+/// Process a single markdown file: read, split front matter, rewrite images,
+/// render math, write to output. Skips the write when the rendered output is
+/// identical to the existing destination, so a live file watcher (zola serve)
+/// only sees changes for files that actually changed — avoiding a rebuild
+/// storm when one source file is edited.
+fn process_file(src: &Path, dst: &Path, static_dir: &Path) -> Result<bool, String> {
     let raw = fs::read_to_string(src).map_err(|e| format!("read {}: {}", src.display(), e))?;
     let content = raw.replace("\r\n", "\n");
 
@@ -199,6 +326,7 @@ fn process_file(src: &Path, dst: &Path) -> Result<bool, String> {
         eprintln!("  macros: {:?}", macros);
     }
 
+    let body = rewrite_images(&body, static_dir);
     let rendered_body = render_math(&body, &macros)?;
 
     // Reassemble: front matter + rendered body
@@ -286,6 +414,7 @@ fn remove_orphans(dst_dir: &Path, keep: &[PathBuf]) {
 fn main() {
     let src_dir = PathBuf::from("src");
     let dst_dir = PathBuf::from("content");
+    let static_dir = PathBuf::from("static");
 
     if !src_dir.exists() {
         eprintln!("ERROR: {} directory does not exist", src_dir.display());
@@ -311,7 +440,7 @@ fn main() {
         match ext {
             Some("md") => {
                 eprintln!("processing: {}", rel.display());
-                if let Err(e) = process_file(path, &dst) {
+                if let Err(e) = process_file(path, &dst, &static_dir) {
                     eprintln!("ERROR: {}", e);
                     process::exit(1);
                 }
@@ -633,5 +762,133 @@ year = 2024
         let fm = "title = \"Test\"\r\n[extra]\r\nkatex_macros = { \"\\\\R\" = \"\\\\mathbb{R}\" }\r\n";
         let macros = parse_macros(&fm.replace("\r\n", "\n"));
         assert_eq!(macros.get("\\R").unwrap(), "\\mathbb{R}");
+    }
+
+    // ---- svg_dimensions ----
+
+    fn write_temp(name: &str, contents: &str) -> PathBuf {
+        let path = std::env::temp_dir().join(format!("prebuild-test-{}-{}", process::id(), name));
+        fs::write(&path, contents).unwrap();
+        path
+    }
+
+    #[test]
+    fn svg_dimensions_from_width_height() {
+        let path = write_temp(
+            "wh.svg",
+            r#"<svg width="958" height="593.4" viewBox="0 0 100 100"></svg>"#,
+        );
+        assert_eq!(svg_dimensions(&path), Some((958, 593)));
+        let _ = fs::remove_file(&path);
+    }
+
+    #[test]
+    fn svg_dimensions_falls_back_to_viewbox() {
+        // width/height omitted (common when sizing is left to CSS).
+        let path = write_temp("vb.svg", r#"<svg viewBox="0 0 800 600"></svg>"#);
+        assert_eq!(svg_dimensions(&path), Some((800, 600)));
+        let _ = fs::remove_file(&path);
+    }
+
+    #[test]
+    fn svg_dimensions_falls_back_to_viewbox_on_percent_size() {
+        // width="100%" has no fixed pixel size, so it must not be parsed as 100.
+        let path = write_temp(
+            "pct.svg",
+            r#"<svg width="100%" height="100%" viewBox="0 0 320 240"></svg>"#,
+        );
+        assert_eq!(svg_dimensions(&path), Some((320, 240)));
+        let _ = fs::remove_file(&path);
+    }
+
+    #[test]
+    fn svg_dimensions_none_when_unresolvable() {
+        let path = write_temp("none.svg", r#"<svg></svg>"#);
+        assert_eq!(svg_dimensions(&path), None);
+        let _ = fs::remove_file(&path);
+    }
+
+    // ---- image_dimensions ----
+
+    #[test]
+    fn image_dimensions_external_url_unresolved() {
+        let static_dir = std::env::temp_dir();
+        assert_eq!(
+            image_dimensions(&static_dir, "https://example.com/a.png"),
+            None
+        );
+    }
+
+    #[test]
+    fn image_dimensions_missing_file_unresolved() {
+        let static_dir = std::env::temp_dir();
+        assert_eq!(
+            image_dimensions(&static_dir, "/does/not/exist.png"),
+            None
+        );
+    }
+
+    // ---- rewrite_images ----
+
+    #[test]
+    fn rewrite_images_adds_lazy_loading_without_dimensions_when_unresolvable() {
+        let static_dir = std::env::temp_dir().join("prebuild-test-empty-static-dir");
+        let body = "prose\n\n![alt text](/img/missing.png)\n\nmore\n";
+        let out = rewrite_images(body, &static_dir);
+        assert!(out.contains(r#"<img src="/img/missing.png" alt="alt text" loading="lazy" decoding="async">"#), "{}", out);
+        assert!(!out.contains("width="), "{}", out);
+    }
+
+    #[test]
+    fn rewrite_images_adds_dimensions_for_resolvable_svg() {
+        let static_dir = std::env::temp_dir().join(format!("prebuild-test-static-{}", process::id()));
+        fs::create_dir_all(static_dir.join("img")).unwrap();
+        fs::write(
+            static_dir.join("img/x.svg"),
+            r#"<svg width="10" height="20"></svg>"#,
+        )
+        .unwrap();
+
+        let body = "![x](/img/x.svg)\n";
+        let out = rewrite_images(body, &static_dir);
+        assert!(
+            out.contains(r#"<img src="/img/x.svg" alt="x" width="10" height="20" loading="lazy" decoding="async">"#),
+            "{}",
+            out
+        );
+
+        let _ = fs::remove_dir_all(&static_dir);
+    }
+
+    #[test]
+    fn rewrite_images_skips_images_in_code() {
+        let static_dir = std::env::temp_dir();
+        let body = "before\n\n`![x](/img/x.png)`\n\nafter\n";
+        let out = rewrite_images(body, &static_dir);
+        assert!(out.contains("![x](/img/x.png)"), "{}", out);
+        assert!(!out.contains("<img"), "{}", out);
+    }
+
+    #[test]
+    fn rewrite_images_escapes_alt_text() {
+        // `<tag>`-like text in alt is a separate concern (pulldown-cmark
+        // parses it as inline HTML, not Text) — covered directly by
+        // escape_html_attr's own test below instead.
+        let static_dir = std::env::temp_dir();
+        let body = "![a \"quote\" & more](/img/x.png)\n";
+        let out = rewrite_images(body, &static_dir);
+        assert!(
+            out.contains("alt=\"a &quot;quote&quot; &amp; more\""),
+            "{}",
+            out
+        );
+    }
+
+    #[test]
+    fn escape_html_attr_escapes_all_special_chars() {
+        assert_eq!(
+            escape_html_attr("a \"quote\" & <tag>"),
+            "a &quot;quote&quot; &amp; &lt;tag&gt;"
+        );
     }
 }
