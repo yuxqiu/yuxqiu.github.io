@@ -54,11 +54,11 @@ Imagine if you want to implement a multi-threaded web server. You use system fun
 - However, in theory, "strerror is not required to be thread-safe" (because of the static buffer). So if some unwise people, when developing this function, copy the error message to a static buffer and return it, you will have no idea what error messages you will get.
 
 So, how could we mitigate this (before C11) if we want a portable version of `strerror`?
-1. Create a wrapper function and use a `mutex`. There are two possible implementations:
-    1. Before releasing the `mutex`, copy the string into a dynamically allocated buffer. This method requires the user to free the returned result.
-    2. Accept a user-provided buffer as a parameter and take in another parameter which is the size of the buffer. Copy the string into the buffer based on the given size.
-2. You could use `sys_nerr` and `sys_errlist`. The first argument is the length of the `sys_errlist`, and the second is an array that stores pointers to error messages. The detailed usage is not provided here because it is "deprecated and declared inconsistently" in some systems[^2].
-3. Use `strerror_r` (which is another evil function)
+- Create a wrapper function and use a `mutex`. There are two possible implementations:
+    - Before releasing the `mutex`, copy the string into a dynamically allocated buffer. This method requires the user to free the returned result.
+    - Accept a user-provided buffer as a parameter and take in another parameter which is the size of the buffer. Copy the string into the buffer based on the given size.
+- You could use `sys_nerr` and `sys_errlist`. The first argument is the length of the `sys_errlist`, and the second is an array that stores pointers to error messages. The detailed usage is not provided here because it is "deprecated and declared inconsistently" in some systems[^2].
+- Use `strerror_r` (which is another evil function)
 
 [^2]: [Mac OS X manual page for strerror(3)](https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man3/strerror.3.html)
 

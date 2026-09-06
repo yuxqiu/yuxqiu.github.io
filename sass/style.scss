@@ -168,6 +168,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  // Inherited by every element, so a long unbroken token anywhere in body
+  // copy (a bare URL with no markdown link syntax, e.g. "Source: https://…"
+  // in a blockquote) wraps instead of overflowing the page.
+  overflow-wrap: break-word;
 
   // Sticky footer: body fills the viewport, main grows to push footer down.
   min-height: 100vh;
@@ -193,7 +197,6 @@ a {
   text-decoration: none;
   border-bottom: 1px solid var(--warm-300);
   transition: border-color 0.15s ease;
-  overflow-wrap: break-word;
 
   &:hover {
     border-bottom-color: var(--accent);
@@ -496,6 +499,18 @@ p {
   li {
     margin-bottom: var(--sp-1);
 
+    // Spacing rhythm belongs to the outermost list only. A nested list's
+    // items are all one group of detail on a single top-level point (the
+    // Gestalt proximity principle: less space between elements reads as
+    // "these belong together") — giving them the same margin-bottom as
+    // top-level items makes them read as loose, separate siblings instead
+    // of a single tight sublist under their parent bullet. This overrides
+    // the rule above for any <li> at any depth below the first, via
+    // specificity (li li beats li), not by targeting a particular level.
+    li {
+      margin-bottom: 0;
+    }
+
     // A list nested inside an <li> is part of that item's content, not a
     // new top-level block. Without this override, the unconditional
     // margin-bottom above still applies to it, which — since it has no
@@ -504,6 +519,30 @@ p {
     ul,
     ol {
       margin-bottom: 0;
+    }
+
+    // A "loose" list (CommonMark: any blank line anywhere between its
+    // items, e.g. to fence off a code block or image elsewhere in the
+    // same list) wraps every item's text in a <p>, even items with no
+    // blank line of their own right around them — an implementation
+    // detail of that item's own markup, not a signal that it needs
+    // visual separation from whatever follows. Flushing it here means a
+    // loose list renders identically to a tight one: no bigger gap
+    // before a nested list/code block within the item, and — since an
+    // <li> has no border/padding of its own to stop it — no leaking
+    // through the <li> to inflate the gap to the next sibling item
+    // (this <p>'s margin would otherwise collapse with, and dominate
+    // over, the smaller li margin-bottom above).
+    > p {
+      margin-bottom: 0;
+    }
+
+    // The one case that still needs real separation: multiple paragraphs
+    // within a single item (e.g. a multi-paragraph proof step). Restore
+    // it as a gap *before* each paragraph after the first, rather than
+    // undoing the flush above.
+    > p + p {
+      margin-top: var(--sp-4);
     }
   }
 }
@@ -536,7 +575,6 @@ code {
   padding: 0.1em 0.3em;
   border-radius: var(--sp-1);
   color: var(--warm-800);
-  overflow-wrap: break-word;
 }
 
 // Code block — Kami spec: ivory bg + 0.5pt border + 6pt radius
@@ -696,7 +734,6 @@ figcaption {
   color: var(--text-muted);
   text-align: center;
   margin-top: var(--sp-2);
-  overflow-wrap: break-word;
 }
 
 // ---------------------------------------------------------------------------

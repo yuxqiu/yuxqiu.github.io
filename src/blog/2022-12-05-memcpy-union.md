@@ -26,28 +26,28 @@ Before talking about the `memcpy`, it's necessary to understand
 
 > [Trivial, standard-layout, POD, and literal types](https://learn.microsoft.com/en-us/cpp/cpp/trivial-standard-layout-and-pod-types?view=msvc-170)
 
-1. Trivial Types
-   1. Definition
-      1. no virtual functions or virtual base classes,
-      2. no base classes with a corresponding non-trivial constructor/operator/destructor
-      3. no data members of class type with a corresponding non-trivial constructor/operator/destructor
-   2. Notes
-      1. Trivial Types can have different access modifiers
-      2. The C++ Standard places no requirements on the layout between different class modifiers. Compilers can feel free to optimize these (e.g. move private members to lower memory address even though they are declared after public members)
-      3. [Potential optimizations that can be done](https://stackoverflow.com/a/52745420)
+- Trivial Types
+   - Definition
+      - no virtual functions or virtual base classes,
+      - no base classes with a corresponding non-trivial constructor/operator/destructor
+      - no data members of class type with a corresponding non-trivial constructor/operator/destructor
+   - Notes
+      - Trivial Types can have different access modifiers
+      - The C++ Standard places no requirements on the layout between different class modifiers. Compilers can feel free to optimize these (e.g. move private members to lower memory address even though they are declared after public members)
+      - [Potential optimizations that can be done](https://stackoverflow.com/a/52745420)
 
-2. Standard layout types
-   1. no virtual functions or virtual base classes
-   2. all non-static data members have the same access control
-   3. all non-static members of class type are standard-layout
-   4. any base classes are standard-layout
-   5. has no base classes of the same type as the first non-static data member.
-   6. meets one of these conditions:
-      1. no non-static data member in the most-derived class and no more than one base class with non-static data members, or
-      2. has no base classes with non-static data members
+- Standard layout types
+   - no virtual functions or virtual base classes
+   - all non-static data members have the same access control
+   - all non-static members of class type are standard-layout
+   - any base classes are standard-layout
+   - has no base classes of the same type as the first non-static data member.
+   - meets one of these conditions:
+      - no non-static data member in the most-derived class and no more than one base class with non-static data members, or
+      - has no base classes with non-static data members
 
-3. POD
-   1. Both Trivial and Standard Layout
+- POD
+   - Both Trivial and Standard Layout
 
 
 ## Strict Aliasing
@@ -68,11 +68,11 @@ More about Strict Aliasing
 
 ## Trap Representation
 
-1. [What is a trap representation](https://stackoverflow.com/questions/6725809/trap-representation/6725981#6725981)
-2. [What happens if we read a trap based on its type](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2091.htm#problem)
-   1. This applies as C++ (at least after 17) uses C11 as its normative references [intro.refs]
-3. [Guarantee provided by C++ standard](https://en.cppreference.com/w/cpp/language/object#Object_representation_and_value_representation)
-   1. This is the best justification I can find: [basic.fundamental.7] Type char is a distinct type that has an implementation-defined choice of “signed char” or “unsigned char” as its underlying type. The values of type char can represent distinct codes for all members of the implementation’s basic character set. The three types char, signed char, and unsigned char are collectively called ordinary character types. The ordinary character types and `char8_t` are collectively called narrow character types. For narrow character types, each possible bit pattern of the object representation represents a distinct value.
+- [What is a trap representation](https://stackoverflow.com/questions/6725809/trap-representation/6725981#6725981)
+- [What happens if we read a trap based on its type](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2091.htm#problem)
+   - This applies as C++ (at least after 17) uses C11 as its normative references [intro.refs]
+- [Guarantee provided by C++ standard](https://en.cppreference.com/w/cpp/language/object#Object_representation_and_value_representation)
+   - This is the best justification I can find: [basic.fundamental.7] Type char is a distinct type that has an implementation-defined choice of “signed char” or “unsigned char” as its underlying type. The values of type char can represent distinct codes for all members of the implementation’s basic character set. The three types char, signed char, and unsigned char are collectively called ordinary character types. The ordinary character types and `char8_t` are collectively called narrow character types. For narrow character types, each possible bit pattern of the object representation represents a distinct value.
 
 
 ## Memcpy
@@ -130,8 +130,8 @@ Note-1: `memcpy` for Standard Layout Types:
 
 ## Some discussions about Union
 
-1. [Union is Undefined Behavior](https://adriann.github.io/undefined_behavior.html)
-2. [Accessing inactive union member and undefined behavior?](https://stackoverflow.com/questions/11373203/accessing-inactive-union-member-and-undefined-behavior)
+- [Union is Undefined Behavior](https://adriann.github.io/undefined_behavior.html)
+- [Accessing inactive union member and undefined behavior?](https://stackoverflow.com/questions/11373203/accessing-inactive-union-member-and-undefined-behavior)
 
 
 ## Open Questions

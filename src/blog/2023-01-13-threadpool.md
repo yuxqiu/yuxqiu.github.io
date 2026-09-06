@@ -8,13 +8,13 @@ taxonomies = { tags = ["cpp", "concurrency"] }
 ## Prerequisite
 
 Before reading this article, make sure you have basic understandings of the following concepts:
-1. `std::thread`: how to create a thread, how to deal with a running thread, how the parameters are used in thread constructor
-2. `std::mutex`, `std::lock_guard`, `std::unique_lock`: the differences between those three and the benefits of the later two
-3. `std::condition_variable`:
-4. `std::future`, `std::promise`: the relation between a `future` and a `promise`, how to construct them, can they be copied/moved constructed/assigned, the mechanisms behind `std::future` and `std::promise`
-5. `std::function`: what is it, mechanisms of type erasure
-6. `std::move`, `std::forward`: move semantics, universal reference, perfect forwarding
-7. meta-programming: understand `if constexpr`, have basic ideas of type_traits
+- `std::thread`: how to create a thread, how to deal with a running thread, how the parameters are used in thread constructor
+- `std::mutex`, `std::lock_guard`, `std::unique_lock`: the differences between those three and the benefits of the later two
+- `std::condition_variable`:
+- `std::future`, `std::promise`: the relation between a `future` and a `promise`, how to construct them, can they be copied/moved constructed/assigned, the mechanisms behind `std::future` and `std::promise`
+- `std::function`: what is it, mechanisms of type erasure
+- `std::move`, `std::forward`: move semantics, universal reference, perfect forwarding
+- meta-programming: understand `if constexpr`, have basic ideas of type_traits
 
 
 ## Overview
@@ -34,12 +34,12 @@ And, for the thread pool, it should at least support these APIs:
 - Cannot be copied/moved constructed/assigned
 
 My ideas about how to implement this thread pool:
-1. a thread pool with the specified number of threads is initialized
-2. these threads will wait (mutex, condition_variable) until a task appears in the queue
+- a thread pool with the specified number of threads is initialized
+- these threads will wait (mutex, condition_variable) until a task appears in the queue
    1. if notified, execute the task
    2. acquire a new task after finishing
    3. if there is no more task, wait
-3. users can enqueue task into the list (mutex, function, promise, future, lambda)
+- users can enqueue task into the list (mutex, function, promise, future, lambda)
    1. user's function will be encapsulated with parameters together to form a new callable
    2. the callable will be stored inside `std::function`
 
@@ -425,24 +425,24 @@ So, it's roughly 1.1 times faster than bs's implementation.
 
 There are certainly many rooms for improvements.
 
-1. One can argue that the API is far less than enough as it provides no way to inspect the number of tasks and threads. In addition, there is not enough customisability: the user cannot decide how to start the thread (in detached mode or joined mode).
+- One can argue that the API is far less than enough as it provides no way to inspect the number of tasks and threads. In addition, there is not enough customisability: the user cannot decide how to start the thread (in detached mode or joined mode).
 
-2. The task queue can be implemented via some lock-free mechanisms. To further reduce the contention, we can even create a queue for every thread and implement work-stealing mechanism.
+- The task queue can be implemented via some lock-free mechanisms. To further reduce the contention, we can even create a queue for every thread and implement work-stealing mechanism.
 
-3. Possible optimizations of `MoveOnlyFunction`. For `std::string`, we have something called Small String Optimization (SSO). The same solution exists for `std::function`, which is known as Small Function Optimization (SFO). We can apply this to `MoveOnlyFunction` to save us one dynamic memory allocation for small callable objects.
+- Possible optimizations of `MoveOnlyFunction`. For `std::string`, we have something called Small String Optimization (SSO). The same solution exists for `std::function`, which is known as Small Function Optimization (SFO). We can apply this to `MoveOnlyFunction` to save us one dynamic memory allocation for small callable objects.
 
-4. Exception guarantee. Currently, we neglect the exception guarantee provided by the user. We should take this into account when packaging user's callable and arguments into a task.
+- Exception guarantee. Currently, we neglect the exception guarantee provided by the user. We should take this into account when packaging user's callable and arguments into a task.
 
 
 ## What I learned
 
-1. `std::invoke_result`
-2. lambda that captures variadic arguments
-3. `std::move_only_function`
-4. more about lambda captures
-   1. [Lambda capture as const reference?](https://stackoverflow.com/questions/3772867/lambda-capture-as-const-reference)
-5. type-erased class in practice
-6. meta-programming in practice
-   1. perfect forwarding
-   2. `if constexpr`
-   3. type traits
+- `std::invoke_result`
+- lambda that captures variadic arguments
+- `std::move_only_function`
+- more about lambda captures
+   - [Lambda capture as const reference?](https://stackoverflow.com/questions/3772867/lambda-capture-as-const-reference)
+- type-erased class in practice
+- meta-programming in practice
+   - perfect forwarding
+   - `if constexpr`
+   - type traits
