@@ -68,7 +68,7 @@ url = "/pdf/..."
 - `partials/social-links.html` / `partials/home-links.html` — two deliberately different link lists, not a shared partial: `social-links.html` (GitHub, LinkedIn, Keybase, RSS) is included by `base.html`'s footer; `home-links.html` (CV, GitHub, LinkedIn, Email) is included by `index.html`'s homepage link row. Some links (Keybase, RSS) are intentionally footer-only and others (CV, Email) intentionally homepage-only — this is a curated split per page, not drift to fix by merging them into one list.
 - `index.html` — homepage with photo, name, tagline, bio.
 - `section.html` — blog/writings listing, grouped by year.
-- `blog-page.html` — individual blog/writing post. Note: `page.reading_time` is NOT used for meta — it's computed from post-KaTeX HTML, so math-heavy posts get wildly inflated word counts (one post showed "269 min read").
+- `blog-page.html` — individual blog/writing post.
 - `page.html` — generic page (More page).
 - `publications.html` — publications list.
 - `404.html` — error page.

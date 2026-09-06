@@ -400,7 +400,7 @@ auto main() -> int {
 
 I have plotted a graph for the benchmark results and it looks very good. (All the code are compiled with `-Ofast`).
 
-![benchmark](/img/blog/2023/01/threadpool-benchmark.svg)
+![Bar chart comparing runtime in milliseconds of this ThreadPool versus BS::thread_pool_light across 100 to 1,000,000 tasks, showing nearly identical performance at every scale](/img/blog/2023/01/threadpool-benchmark.svg)
 
 By using `hyperfine`, I am able to get the following result
 

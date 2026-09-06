@@ -20,7 +20,7 @@ Usually, allocated spaces are on the caller's stack. But this varies across ABI.
 1. Before C++11, xvalue and prvalue are similar: we could steal resources from both of them, and they could both bind by the rvalue reference.
     1. The famous diagram illustrates their differences
 
-        ![](/img/blog/2022/10/1667134809024.png)
+        ![Diagram of C++ value category taxonomy: a 2x2 grid crossing has-ID vs has-no-ID and can-steal-resources vs cannot-steal-resources, placing xvalue, prvalue, rvalue, lvalue, and glvalue](/img/blog/2022/10/1667134809024.png)
 
 2. Since C++17, we need to understand the differences between these two to understand how the standard enforces its rule of optimization (namely copy elision)
     1. Before C++17, some optimizations are not guaranteed, but most compilers will do them (implementation-defined).
