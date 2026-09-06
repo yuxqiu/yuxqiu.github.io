@@ -1,8 +1,8 @@
 use std::collections::HashMap;
 
 /// Extract the TOML front matter (between +++ lines) and the body from a Zola markdown file.
-/// Returns (front_matter_str, body_str). If no front matter, returns ("", full_content).
-pub(crate) fn split_front_matter(content: &str) -> (String, String) {
+/// Returns (`front_matter_str`, `body_str`). If no front matter, returns ("", `full_content`).
+pub fn split_front_matter(content: &str) -> (String, String) {
     let trimmed = content.trim_start();
     if let Some(rest) = trimmed.strip_prefix("+++\n") {
         if let Some(end) = rest.find("\n+++\n") {
@@ -33,12 +33,12 @@ struct Extra {
     katex_macros: HashMap<String, String>,
 }
 
-/// Parse katex_macros from the [extra] section of TOML front matter.
+/// Parse `katex_macros` from the [extra] section of TOML front matter.
 /// Supports both inline-table form (`katex_macros = { ... }`) and
 /// table form (`[extra.katex_macros]`), plus any other valid TOML the
 /// front matter may contain. Returns an empty map when there are no macros
 /// or when the front matter is empty/malformed (with a warning).
-pub(crate) fn parse_macros(front_matter: &str) -> HashMap<String, String> {
+pub fn parse_macros(front_matter: &str) -> HashMap<String, String> {
     if front_matter.is_empty() {
         return HashMap::new();
     }
@@ -117,7 +117,8 @@ year = 2024
 
     #[test]
     fn parse_macros_crlf() {
-        let fm = "title = \"Test\"\r\n[extra]\r\nkatex_macros = { \"\\\\R\" = \"\\\\mathbb{R}\" }\r\n";
+        let fm =
+            "title = \"Test\"\r\n[extra]\r\nkatex_macros = { \"\\\\R\" = \"\\\\mathbb{R}\" }\r\n";
         let macros = parse_macros(&fm.replace("\r\n", "\n"));
         assert_eq!(macros.get("\\R").unwrap(), "\\mathbb{R}");
     }

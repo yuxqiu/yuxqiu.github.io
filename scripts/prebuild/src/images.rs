@@ -1,4 +1,5 @@
 use std::collections::HashSet;
+use std::fmt::Write as _;
 use std::fs;
 use std::path::Path;
 
@@ -10,14 +11,17 @@ use walkdir::WalkDir;
 /// falling back to the last two numbers in `viewBox` (needed when
 /// width/height are percentages, e.g. "100%", or omitted and sizing is left
 /// to CSS — a plain numeric parse of "100%" would silently misread it as 100).
+// Image dimensions in pixels are always small non-negative numbers, nowhere
+// near u32::MAX or negative — the truncation/sign-loss these casts warn
+// about can't happen in practice for a real image file.
+#[allow(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
 fn svg_dimensions(path: &Path) -> Option<(u32, u32)> {
     let content = fs::read_to_string(path).ok()?;
     let doc = roxmltree::Document::parse(&content).ok()?;
     let root = doc.root_element();
 
-    let attr_px = |name: &str| -> Option<f64> {
-        root.attribute(name)?.trim_end_matches("px").parse().ok()
-    };
+    let attr_px =
+        |name: &str| -> Option<f64> { root.attribute(name)?.trim_end_matches("px").parse().ok() };
     if let (Some(w), Some(h)) = (attr_px("width"), attr_px("height")) {
         return Some((w.round() as u32, h.round() as u32));
     }
@@ -56,6 +60,8 @@ enum ImageDims {
 
 /// Resolve a markdown image's intrinsic pixel dimensions, for injecting
 /// `width`/`height` into the rendered `<img>` tag (prevents layout shift).
+// See the same-reasoned #[allow] on `svg_dimensions` above.
+#[allow(clippy::cast_possible_truncation)]
 fn image_dimensions(static_dir: &Path, dest_url: &str) -> ImageDims {
     let Some(rel) = dest_url.strip_prefix('/') else {
         return ImageDims::Skipped;
@@ -103,19 +109,19 @@ fn escape_html_attr(s: &str) -> String {
 /// way a bad KaTeX-opts config would (see `render_math`), rather than
 /// silently shipping a broken `<img>`. Missing dimensions for a file that
 /// *does* exist (unsupported/corrupt format) is not fatal — only a warning.
-pub(crate) fn rewrite_images(
+struct ImageSpan {
+    start: usize,
+    end: usize,
+    dest_url: String,
+    alt: String,
+}
+
+pub fn rewrite_images(
     body: &str,
     static_dir: &Path,
     referenced: &mut HashSet<String>,
 ) -> Result<String, String> {
     let parser = pulldown_cmark::Parser::new(body);
-
-    struct ImageSpan {
-        start: usize,
-        end: usize,
-        dest_url: String,
-        alt: String,
-    }
 
     let mut spans: Vec<ImageSpan> = Vec::new();
     let mut current: Option<ImageSpan> = None;
@@ -129,17 +135,13 @@ pub(crate) fn rewrite_images(
                     alt: String::new(),
                 });
             }
-            pulldown_cmark::Event::Text(t) => {
-                if let Some(span) = current.as_mut() {
-                    span.alt.push_str(&t);
-                }
-            }
             // Alt text containing `<...>` (e.g. `vector<int>`, `shared_ptr<T>`
-            // — common on a C++ blog) parses as inline HTML, not Text. It's
-            // not real HTML here (alt attributes don't render markup), so
-            // treat it as literal text too — otherwise it silently vanishes
-            // from the alt attribute instead of erroring or warning.
-            pulldown_cmark::Event::InlineHtml(t) => {
+            // — common on a C++ blog) parses as inline HTML (InlineHtml), not
+            // Text. It's not real HTML here (alt attributes don't render
+            // markup), so treat it as literal text too — otherwise it
+            // silently vanishes from the alt attribute instead of erroring
+            // or warning.
+            pulldown_cmark::Event::Text(t) | pulldown_cmark::Event::InlineHtml(t) => {
                 if let Some(span) = current.as_mut() {
                     span.alt.push_str(&t);
                 }
@@ -170,26 +172,29 @@ pub(crate) fn rewrite_images(
 
         match image_dimensions(static_dir, &span.dest_url) {
             ImageDims::Resolved(w, h) => {
-                result.push_str(&format!(
+                let _ = write!(
+                    result,
                     "<img src=\"{}\" alt=\"{}\" width=\"{}\" height=\"{}\" loading=\"lazy\" decoding=\"async\">",
                     src, alt, w, h
-                ));
+                );
             }
             ImageDims::Skipped => {
-                result.push_str(&format!(
+                let _ = write!(
+                    result,
                     "<img src=\"{}\" alt=\"{}\" loading=\"lazy\" decoding=\"async\">",
                     src, alt
-                ));
+                );
             }
             ImageDims::Unrecognized => {
                 eprintln!(
                     "  WARN: could not determine dimensions for {} (unsupported or corrupt image)",
                     span.dest_url
                 );
-                result.push_str(&format!(
+                let _ = write!(
+                    result,
                     "<img src=\"{}\" alt=\"{}\" loading=\"lazy\" decoding=\"async\">",
                     src, alt
-                ));
+                );
             }
             ImageDims::Missing => {
                 return Err(format!(
@@ -209,7 +214,7 @@ pub(crate) fn rewrite_images(
 /// the accumulated set from every `rewrite_images` call plus
 /// `collect_template_image_refs` (paths without the leading `/`, e.g.
 /// `img/blog/2022/10/x.png`).
-pub(crate) fn find_unused_images(static_dir: &Path, referenced: &HashSet<String>) -> Vec<String> {
+pub fn find_unused_images(static_dir: &Path, referenced: &HashSet<String>) -> Vec<String> {
     let img_dir = static_dir.join("img");
     if !img_dir.is_dir() {
         return Vec::new();
@@ -217,7 +222,7 @@ pub(crate) fn find_unused_images(static_dir: &Path, referenced: &HashSet<String>
 
     let mut unused: Vec<String> = WalkDir::new(&img_dir)
         .into_iter()
-        .filter_map(|e| e.ok())
+        .filter_map(std::result::Result::ok)
         .filter(|e| e.path().is_file())
         .filter_map(|e| {
             let rel = e
@@ -275,8 +280,11 @@ fn extract_path_args(content: &str, fn_name: &str) -> Vec<String> {
 /// variable or string concatenation is invisible to this scan. If that ever
 /// happens, this needs revisiting (or the false positive just needs a
 /// human to notice it's not actually unused).
-pub(crate) fn collect_template_image_refs(templates_dir: &Path, referenced: &mut HashSet<String>) {
-    for entry in WalkDir::new(templates_dir).into_iter().filter_map(|e| e.ok()) {
+pub fn collect_template_image_refs(templates_dir: &Path, referenced: &mut HashSet<String>) {
+    for entry in WalkDir::new(templates_dir)
+        .into_iter()
+        .filter_map(std::result::Result::ok)
+    {
         let path = entry.path();
         if !path.is_file() {
             continue;
@@ -352,7 +360,7 @@ mod tests {
 
     #[test]
     fn svg_dimensions_none_when_unresolvable() {
-        let path = write_temp("none.svg", r#"<svg></svg>"#);
+        let path = write_temp("none.svg", r"<svg></svg>");
         assert_eq!(svg_dimensions(&path), None);
         let _ = fs::remove_file(&path);
     }
@@ -512,14 +520,23 @@ mod tests {
     fn rewrite_images_tracks_referenced_local_paths_only() {
         let static_dir = temp_static_dir("tracked");
         fs::create_dir_all(static_dir.join("img")).unwrap();
-        fs::write(static_dir.join("img/x.svg"), r#"<svg width="1" height="1"></svg>"#).unwrap();
+        fs::write(
+            static_dir.join("img/x.svg"),
+            r#"<svg width="1" height="1"></svg>"#,
+        )
+        .unwrap();
 
         let body = "![a](/img/x.svg) ![b](https://example.com/y.png)\n";
         let mut referenced = HashSet::new();
         rewrite_images(body, &static_dir, &mut referenced).unwrap();
 
         assert!(referenced.contains("img/x.svg"), "{:?}", referenced);
-        assert_eq!(referenced.len(), 1, "external URLs must not be tracked: {:?}", referenced);
+        assert_eq!(
+            referenced.len(),
+            1,
+            "external URLs must not be tracked: {:?}",
+            referenced
+        );
 
         let _ = fs::remove_dir_all(&static_dir);
     }
@@ -559,7 +576,10 @@ mod tests {
         let mut referenced = HashSet::new();
         referenced.insert("img/used.png".to_string());
 
-        assert!(find_unused_images(&static_dir, &referenced).is_empty());
+        assert_eq!(
+            find_unused_images(&static_dir, &referenced),
+            [] as [std::string::String; 0]
+        );
 
         let _ = fs::remove_dir_all(&static_dir);
     }
@@ -567,7 +587,10 @@ mod tests {
     #[test]
     fn find_unused_images_empty_when_no_img_dir() {
         let static_dir = temp_static_dir("no-img-dir");
-        assert!(find_unused_images(&static_dir, &HashSet::new()).is_empty());
+        assert_eq!(
+            find_unused_images(&static_dir, &HashSet::new()),
+            [] as [std::string::String; 0]
+        );
     }
 
     // ---- extract_path_args ----
@@ -595,14 +618,20 @@ mod tests {
 
     #[test]
     fn extract_path_args_ignores_calls_without_path_arg() {
-        let content = r#"{{ some_other_fn(width=100) }}"#;
-        assert!(extract_path_args(content, "some_other_fn").is_empty());
+        let content = r"{{ some_other_fn(width=100) }}";
+        assert_eq!(
+            extract_path_args(content, "some_other_fn"),
+            [] as [std::string::String; 0]
+        );
     }
 
     #[test]
     fn extract_path_args_ignores_unrelated_function_names() {
         let content = r#"{{ get_url(path="img/a.png") }}"#;
-        assert!(extract_path_args(content, "resize_image").is_empty());
+        assert_eq!(
+            extract_path_args(content, "resize_image"),
+            [] as [std::string::String; 0]
+        );
     }
 
     // ---- collect_template_image_refs ----
@@ -636,11 +665,7 @@ mod tests {
 
         let mut referenced = HashSet::new();
         collect_template_image_refs(&templates_dir, &mut referenced);
-        assert!(
-            referenced.contains("img/blog/hero.png"),
-            "{:?}",
-            referenced
-        );
+        assert!(referenced.contains("img/blog/hero.png"), "{:?}", referenced);
 
         let _ = fs::remove_dir_all(&templates_dir);
     }
@@ -674,7 +699,11 @@ mod tests {
 
         let mut referenced = HashSet::new();
         collect_template_image_refs(&templates_dir, &mut referenced);
-        assert!(referenced.contains("img/deep/nested.png"), "{:?}", referenced);
+        assert!(
+            referenced.contains("img/deep/nested.png"),
+            "{:?}",
+            referenced
+        );
 
         let _ = fs::remove_dir_all(&templates_dir);
     }

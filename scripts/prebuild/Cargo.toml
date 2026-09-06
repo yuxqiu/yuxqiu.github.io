@@ -11,3 +11,12 @@ toml = "1"
 serde = { version = "1", features = ["derive"] }
 imagesize = "0.15.0"
 roxmltree = "0.21.1"
+
+[lints.clippy]
+pedantic = { level = "warn", priority = -1 }
+nursery = { level = "warn", priority = -1 }
+wildcard_imports = "allow"
+uninlined_format_args = "allow"
+similar_names = "allow"
+too_many_lines = "allow"
+many_single_char_names = "allow"

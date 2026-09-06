@@ -84,10 +84,13 @@ fn copy_file(src: &Path, dst: &Path) -> Result<bool, String> {
 /// so a live file watcher never sees its watched root disappear and only
 /// real changes trigger rebuilds.
 fn remove_orphans(dst_dir: &Path, keep: &[PathBuf]) {
-    let keep_set: HashSet<&Path> = keep.iter().map(|p| p.as_path()).collect();
+    let keep_set: HashSet<&Path> = keep.iter().map(std::path::PathBuf::as_path).collect();
 
     // Delete orphan files.
-    for entry in WalkDir::new(dst_dir).into_iter().filter_map(|e| e.ok()) {
+    for entry in WalkDir::new(dst_dir)
+        .into_iter()
+        .filter_map(std::result::Result::ok)
+    {
         let path = entry.path();
         if path == dst_dir || !path.is_file() {
             continue;
@@ -104,15 +107,13 @@ fn remove_orphans(dst_dir: &Path, keep: &[PathBuf]) {
     // Prune now-empty directories, deepest first so children go before parents.
     let mut dirs: Vec<PathBuf> = WalkDir::new(dst_dir)
         .into_iter()
-        .filter_map(|e| e.ok())
+        .filter_map(std::result::Result::ok)
         .filter(|e| e.path().is_dir() && e.path() != dst_dir)
         .map(|e| e.path().to_path_buf())
         .collect();
     dirs.sort_by_key(|d| std::cmp::Reverse(d.components().count()));
     for d in dirs {
-        let empty = fs::read_dir(&d)
-            .map(|mut r| r.next().is_none())
-            .unwrap_or(false);
+        let empty = fs::read_dir(&d).is_ok_and(|mut r| r.next().is_none());
         if empty {
             let _ = fs::remove_dir(&d);
         }
@@ -137,7 +138,10 @@ fn main() {
     let mut copied = 0;
     let mut referenced_images: HashSet<String> = HashSet::new();
 
-    for entry in WalkDir::new(&src_dir).into_iter().filter_map(|e| e.ok()) {
+    for entry in WalkDir::new(&src_dir)
+        .into_iter()
+        .filter_map(std::result::Result::ok)
+    {
         let path = entry.path();
         if !path.is_file() {
             continue;
@@ -147,22 +151,19 @@ fn main() {
         let dst = dst_dir.join(rel);
 
         let ext = path.extension().and_then(|e| e.to_str());
-        match ext {
-            Some("md") => {
-                eprintln!("processing: {}", rel.display());
-                if let Err(e) = process_file(path, &dst, &static_dir, &mut referenced_images) {
-                    eprintln!("ERROR: {}", e);
-                    process::exit(1);
-                }
-                processed += 1;
+        if ext == Some("md") {
+            eprintln!("processing: {}", rel.display());
+            if let Err(e) = process_file(path, &dst, &static_dir, &mut referenced_images) {
+                eprintln!("ERROR: {}", e);
+                process::exit(1);
             }
-            _ => {
-                if let Err(e) = copy_file(path, &dst) {
-                    eprintln!("ERROR: {}", e);
-                    process::exit(1);
-                }
-                copied += 1;
+            processed += 1;
+        } else {
+            if let Err(e) = copy_file(path, &dst) {
+                eprintln!("ERROR: {}", e);
+                process::exit(1);
             }
+            copied += 1;
         }
         written.push(dst);
     }

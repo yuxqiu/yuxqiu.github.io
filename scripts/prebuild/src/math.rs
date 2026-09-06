@@ -1,6 +1,7 @@
 use std::collections::HashMap;
+use std::fmt::Write as _;
 
-/// Build KaTeX `Opts` with the given macros. `display` selects display mode.
+/// Build `KaTeX` `Opts` with the given macros. `display` selects display mode.
 ///
 /// katex-rs uses `derive_builder`: `throw_on_error` / `display_mode` are
 /// `&mut self` setters, while `add_macro` consumes `self` and returns
@@ -19,16 +20,16 @@ fn build_opts(display: bool, macros: &HashMap<String, String>) -> Result<katex::
     b.build().map_err(|e| format!("katex opts: {}", e))
 }
 
-/// Render math expressions in the body to KaTeX HTML.
+/// Render math expressions in the body to `KaTeX` HTML.
 ///
 /// Recognized delimiters: `$$...$$` (display) and `$...$` (inline), located
 /// by `pulldown-cmark`'s `ENABLE_MATH` option. `\(...\)` and `\[...\]` are
 /// NOT recognized — use `$...$` / `$$...$$` instead. Use `\$` for a literal
-/// dollar sign in prose (CommonMark escape, handled by the parser).
+/// dollar sign in prose (`CommonMark` escape, handled by the parser).
 ///
 /// # Invariant: raw-HTML passthrough
 ///
-/// KaTeX renders to raw HTML (`<span>`, `<annotation>`, `&`-entities, `<`).
+/// `KaTeX` renders to raw HTML (`<span>`, `<annotation>`, `&`-entities, `<`).
 /// This function inserts that HTML directly into the markdown body, which
 /// Zola later converts to HTML. It relies on Zola passing raw inline/block
 /// HTML through markdown unchanged — it does not escape `<` inside HTML
@@ -49,11 +50,11 @@ fn build_opts(display: bool, macros: &HashMap<String, String>) -> Result<katex::
 ///
 /// # Fallback contract
 ///
-/// On KaTeX render error, the original source text (including `$...$`
+/// On `KaTeX` render error, the original source text (including `$...$`
 /// delimiters, since the range includes them) is emitted verbatim and a
 /// warning is printed. A misclassification therefore degrades to literal
 /// text, never garbage. The safety net is this fallback, not any heuristic.
-pub(crate) fn render_math(body: &str, macros: &HashMap<String, String>) -> Result<String, String> {
+pub fn render_math(body: &str, macros: &HashMap<String, String>) -> Result<String, String> {
     let opts = build_opts(false, macros)?;
     let opts_display = build_opts(true, macros)?;
 
@@ -103,7 +104,7 @@ pub(crate) fn render_math(body: &str, macros: &HashMap<String, String>) -> Resul
                 // are not semantically significant.
                 let html = html.replace('\n', "");
                 if *is_display {
-                    result.push_str(&format!("<div class=\"katex-display\">{}</div>", html));
+                    let _ = write!(result, "<div class=\"katex-display\">{}</div>", html);
                 } else {
                     result.push_str(&html);
                 }
@@ -268,11 +269,7 @@ mod tests {
         // \$ in prose is a CommonMark escape → literal $ in output, not math.
         let body = "price \\$5 here\n";
         let out = render_math(body, &no_macros()).unwrap();
-        assert!(
-            !out.contains("katex"),
-            "\\$ must not trigger math: {}",
-            out
-        );
+        assert!(!out.contains("katex"), "\\$ must not trigger math: {}", out);
         assert!(
             out.contains('$'),
             "literal $ must survive in output: {}",
@@ -356,6 +353,10 @@ mod tests {
         let out = render_math(body, &no_macros()).unwrap();
         // With a blank line, pulldown-cmark does NOT parse this as math.
         // The $$ delimiters survive as literal text.
-        assert!(out.contains("$$"), "blank line in $$...$$ prevents math parsing: {}", out);
+        assert!(
+            out.contains("$$"),
+            "blank line in $$...$$ prevents math parsing: {}",
+            out
+        );
     }
 }
