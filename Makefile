@@ -1,4 +1,4 @@
-.PHONY: build serve clean prebuild
+.PHONY: build serve clean prebuild lint fmt
 
 NIX = nix develop --command
 
@@ -21,6 +21,16 @@ serve: prebuild
 # Run the pre-build math rendering script
 prebuild:
 	$(NIX) cargo run --manifest-path scripts/prebuild/Cargo.toml
+
+# Lint everything: clippy on the prebuild script, markdownlint on content
+lint:
+	$(NIX) cargo clippy --manifest-path scripts/prebuild/Cargo.toml --all-targets -- -D warnings
+	$(NIX) markdownlint-cli2
+
+# Format everything: cargo fmt on the prebuild script, markdownlint --fix on content
+fmt:
+	$(NIX) cargo fmt --manifest-path scripts/prebuild/Cargo.toml
+	$(NIX) markdownlint-cli2 --fix
 
 # Clean build artifacts
 clean:

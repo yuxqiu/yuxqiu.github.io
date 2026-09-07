@@ -7,13 +7,13 @@ taxonomies = { tags = ["cpp"] }
 
 ## How does C++ return a class
 
-> Source: https://stackoverflow.com/questions/41910764/where-is-the-return-object-stored
+> Source: [Where is the return object stored?](https://stackoverflow.com/questions/41910764/where-is-the-return-object-stored)
 
 Usually, allocated spaces are on the caller's stack. But this varies across ABI. So, in C++, compiling using the same compiler is the only way to avoid the ABI problem. C has a relatively more consistent ABI across different compilers.
 
 ## Understanding xvalue and prvalue
 
-> Talk: https://www.youtube.com/watch?v=km3Urog_wzk
+> Talk: [\[CppDay20\] Understanding value categories in C++ (Kris van Rens)](https://www.youtube.com/watch?v=km3Urog_wzk)
 >
 > PPT: [Kris-van-Rens-Understanding-Value-Categories.pdf](http://becpp.org/blog/wp-content/uploads/2021/07/Kris-van-Rens-Understanding-Value-Categories.pdf)
 
@@ -95,7 +95,7 @@ Usually, allocated spaces are on the caller's stack. But this varies across ABI.
 
 ## Differences between xvalue and prvalue when using `auto`
 
-> Source: https://stackoverflow.com/questions/28641199/does-xvalue-prvalue-category-really-matter
+> Source: [Does xvalue/prvalue category really matter?](https://stackoverflow.com/questions/28641199/does-xvalue-prvalue-category-really-matter)
 
 xvalue and prvalue matter when using decltype deduction rules, for example. What cppreference says:
 a) if the value category of expression is xvalue, then decltype yields T&&;

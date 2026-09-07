@@ -1,0 +1,28 @@
+{
+    "config": {
+        "default": true,
+        // A hard tab mixed into otherwise space-indented markdown changes
+        // CommonMark's list-nesting math in ways that silently break rendering
+        // (this is the root cause of two real bugs already found and fixed in
+        // this repo) — worth keeping on with zero exceptions.
+        "MD010": true,
+        // Below: pure style/hygiene rules that reflect pervasive, deliberate
+        // choices in this blog's writing rather than mistakes. Disabled rather
+        // than forcing a rewrite of existing content to match a convention it
+        // never followed.
+        "MD007": {
+            "indent": 4
+        }, // ul-indent — nested lists indent 4 spaces per level, regardless of parent marker width
+        "MD012": false, // no-multiple-blanks — an extra blank line is sometimes used as a section separator
+        "MD013": false, // line-length — prose and citations aren't wrapped to a fixed width
+        "MD028": false, // no-blanks-blockquote — a blank line between two blockquotes is the correct way to keep them as separate elements, not an interrupted one
+        "MD031": false, // blanks-around-fences
+        "MD032": false, // blanks-around-lists — omitting the blank line is a deliberate way to visually tie a list to the sentence introducing it, when the two are directly related
+        "MD033": false, // no-inline-html — false-positives when a generic-looking name in prose (e.g. inside image alt text) parses as a tag; escaping around it would avoid the warning but hurts source readability for no rendering benefit
+        "MD036": false, // no-emphasis-as-heading — a standalone bold line is sometimes used as an inline label grouping a list, not meant as a real heading; CommonMark still splits it into its own paragraph regardless of blank-line placement, so there's no punctuation fix that satisfies this rule while keeping that structure
+        "MD047": false // single-trailing-newline
+    },
+    "globs": [
+        "src/**/*.md"
+    ]
+}

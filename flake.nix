@@ -19,6 +19,7 @@
             cargo
             clippy
             watchexec
+            markdownlint-cli2
           ];
         };
       });

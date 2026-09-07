@@ -93,7 +93,7 @@ is the probability that $x_i \sim q(x)$ was rejected.
 
 ## Simulation
 
-You can experiment with simulation and concrete probability calculations using the script [here](https://github.com/yuxqiu/garden/tree/main/2025-07-06-speculative-decoding) to verify that the algorithm is indeed correct.
+You can experiment with simulation and concrete probability calculations using [this simulation script](https://github.com/yuxqiu/garden/tree/main/2025-07-06-speculative-decoding) to verify that the algorithm is indeed correct.
 
 ## More
 

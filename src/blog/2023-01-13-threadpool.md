@@ -404,7 +404,7 @@ I have plotted a graph for the benchmark results and it looks very good. (All th
 
 By using `hyperfine`, I am able to get the following result
 
-```
+```text
 Benchmark 1: ./bench (my thread pool)
   Time (mean ± σ):     11.814 s ±  0.366 s    [User: 81.934 s, System: 1.862 s]
   Range (min … max):   11.410 s … 12.335 s    10 runs
@@ -440,9 +440,9 @@ There are certainly many rooms for improvements.
 - lambda that captures variadic arguments
 - `std::move_only_function`
 - more about lambda captures
-   - [Lambda capture as const reference?](https://stackoverflow.com/questions/3772867/lambda-capture-as-const-reference)
+    - [Lambda capture as const reference?](https://stackoverflow.com/questions/3772867/lambda-capture-as-const-reference)
 - type-erased class in practice
 - meta-programming in practice
-   - perfect forwarding
-   - `if constexpr`
-   - type traits
+    - perfect forwarding
+    - `if constexpr`
+    - type traits

@@ -69,8 +69,8 @@ $$
 To build such an algorithm $\mathcal{B}$, we rely on the fact that [RSA is multiplicatively homomorphic](https://en.wikipedia.org/wiki/Homomorphic_encryption#Partially_homomorphic_cryptosystems). With this in mind, one can devise an algorithm $\mathcal{B}(N, e, y)$ as follows:
 
 - **Repeat:**
-  - Sample $s \xleftarrow{\$} \mathbb{Z}_N$.
-  - Compute $x \leftarrow \mathcal{A}(N, e, ys^e \bmod N)$.
+    - Sample $s \xleftarrow{\$} \mathbb{Z}_N$.
+    - Compute $x \leftarrow \mathcal{A}(N, e, ys^e \bmod N)$.
 - **Until** $x^e = ys^e$.
 
 Then, by using the homomorphic property, recover $r$ as:

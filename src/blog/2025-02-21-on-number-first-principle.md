@@ -130,4 +130,4 @@ Now, let's prove the left identity element of all elements is the same.
 Consider a left identity element $E$ of $D$, and another arbitrary element $F$. By assumption, $E \cdot X = F$ has a unique solution. By idempotency, it follows that $E \cdot X = (E \cdot E) \cdot X$. By associativity, $(E \cdot E) \cdot X = E \cdot (E \cdot X) = F$. Plug in the value of $E \cdot X$, we get $E \cdot F = F$. So, $E$ is a left identity of $F$.
 {{ <proof_end/> }}
 
-## To be continued.
+## To be continued

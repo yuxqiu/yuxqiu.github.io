@@ -27,27 +27,27 @@ Before talking about the `memcpy`, it's necessary to understand
 > [Trivial, standard-layout, POD, and literal types](https://learn.microsoft.com/en-us/cpp/cpp/trivial-standard-layout-and-pod-types?view=msvc-170)
 
 - Trivial Types
-   - Definition
-      - no virtual functions or virtual base classes,
-      - no base classes with a corresponding non-trivial constructor/operator/destructor
-      - no data members of class type with a corresponding non-trivial constructor/operator/destructor
-   - Notes
-      - Trivial Types can have different access modifiers
-      - The C++ Standard places no requirements on the layout between different class modifiers. Compilers can feel free to optimize these (e.g. move private members to lower memory address even though they are declared after public members)
-      - [Potential optimizations that can be done](https://stackoverflow.com/a/52745420)
+    - Definition
+        - no virtual functions or virtual base classes,
+        - no base classes with a corresponding non-trivial constructor/operator/destructor
+        - no data members of class type with a corresponding non-trivial constructor/operator/destructor
+    - Notes
+        - Trivial Types can have different access modifiers
+        - The C++ Standard places no requirements on the layout between different class modifiers. Compilers can feel free to optimize these (e.g. move private members to lower memory address even though they are declared after public members)
+        - [Potential optimizations that can be done](https://stackoverflow.com/a/52745420)
 
 - Standard layout types
-   - no virtual functions or virtual base classes
-   - all non-static data members have the same access control
-   - all non-static members of class type are standard-layout
-   - any base classes are standard-layout
-   - has no base classes of the same type as the first non-static data member.
-   - meets one of these conditions:
-      - no non-static data member in the most-derived class and no more than one base class with non-static data members, or
-      - has no base classes with non-static data members
+    - no virtual functions or virtual base classes
+    - all non-static data members have the same access control
+    - all non-static members of class type are standard-layout
+    - any base classes are standard-layout
+    - has no base classes of the same type as the first non-static data member.
+    - meets one of these conditions:
+        - no non-static data member in the most-derived class and no more than one base class with non-static data members, or
+        - has no base classes with non-static data members
 
 - POD
-   - Both Trivial and Standard Layout
+    - Both Trivial and Standard Layout
 
 
 ## Strict Aliasing
@@ -70,9 +70,9 @@ More about Strict Aliasing
 
 - [What is a trap representation](https://stackoverflow.com/questions/6725809/trap-representation/6725981#6725981)
 - [What happens if we read a trap based on its type](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2091.htm#problem)
-   - This applies as C++ (at least after 17) uses C11 as its normative references [intro.refs]
+    - This applies as C++ (at least after 17) uses C11 as its normative references [intro.refs]
 - [Guarantee provided by C++ standard](https://en.cppreference.com/w/cpp/language/object#Object_representation_and_value_representation)
-   - This is the best justification I can find: [basic.fundamental.7] Type char is a distinct type that has an implementation-defined choice of “signed char” or “unsigned char” as its underlying type. The values of type char can represent distinct codes for all members of the implementation’s basic character set. The three types char, signed char, and unsigned char are collectively called ordinary character types. The ordinary character types and `char8_t` are collectively called narrow character types. For narrow character types, each possible bit pattern of the object representation represents a distinct value.
+    - This is the best justification I can find: [basic.fundamental.7] Type char is a distinct type that has an implementation-defined choice of “signed char” or “unsigned char” as its underlying type. The values of type char can represent distinct codes for all members of the implementation's basic character set. The three types char, signed char, and unsigned char are collectively called ordinary character types. The ordinary character types and `char8_t` are collectively called narrow character types. For narrow character types, each possible bit pattern of the object representation represents a distinct value.
 
 
 ## Memcpy
@@ -105,7 +105,7 @@ Here, the standard lists two ways that are perfectly defined: we can copy to buf
 However, this is the time we need to directly refer to the `memcpy`. The C++ standard states that
 - If the objects are potentially-overlapping or not TriviallyCopyable, the behavior of `memcpy` is not specified and may be undefined.[^1]
 - Plus all the things stated by C standard (My Point)
-  - Based on "[library.c]"
+    - Based on "[library.c]"
 
 [^1]: [std::memcpy](https://en.cppreference.com/w/cpp/string/byte/memcpy)
 

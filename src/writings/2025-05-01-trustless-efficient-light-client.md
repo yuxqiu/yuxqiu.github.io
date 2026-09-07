@@ -25,7 +25,7 @@ We evaluate our design on a simulated blockchain modelled after the checkpoint s
 
 ## Citation
 
-```
+```bibtex
 @misc{qiutrustless2025,
   author = {Yuxiang Qiu},
   title = {Trustless Efficient Light Clients},
