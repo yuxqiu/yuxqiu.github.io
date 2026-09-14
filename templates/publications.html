@@ -6,9 +6,7 @@
 {% block og_description %}{{ [p.title for p in page.extra.publications] | join(sep=" · ") | truncate(length=160) }}{% endblock og_description %}
 
 {% block content %}
-<div class="container">
-  {{ <page_header title={page.title}/> }}
-
+<div class="container container--headless">
   <ol class="pubs">
     {% for pub in page.extra.publications %}
     <li class="pub">

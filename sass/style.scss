@@ -244,6 +244,15 @@ a {
   padding: 0 var(--sp-4);
 }
 
+// Pages that skip .page-header entirely (their content is self-labeling)
+// still need the nav-to-content gap .page-header would have provided. That
+// gap isn't .page-header's own margin-top (sp-10) — it collapses with its
+// first child .page-title's inherited h1 margin-top (sp-12), and the larger
+// of the two wins — so sp-12 is what titled pages actually render at.
+.container--headless {
+  margin-top: var(--sp-12);
+}
+
 // ---------------------------------------------------------------------------
 // 5. Navigation
 // ---------------------------------------------------------------------------

@@ -44,7 +44,6 @@ cv = "/pdf/yuxiang_qiu_cv.pdf"
 # Navigation links (label → content path)
 nav = [
   { label = "Blog", path = "@/blog/_index.md", prefix = "/blog" },
-  { label = "Writings", path = "@/writings/_index.md", prefix = "/writings" },
   { label = "Publications", path = "@/publications.md", prefix = "/publications" },
-  { label = "More", path = "@/more.md", prefix = "/more" },
+  { label = "Misc", path = "@/misc.md", prefix = "/misc" },
 ]

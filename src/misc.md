@@ -1,10 +1,10 @@
 +++
-title = "More"
+title = "Misc"
 +++
 
 ## Witsky
 
-Small doses of wit.
+<p class="page-meta">Small doses of wit.</p>
 
 - Isn't it cool that there's a [frozen leopard](https://www.kilimanjaro-experience.com/amazing-story-kilimanjaros-frozen-leopard/) in Kilimanjaro?
 - [Youth](https://www.uab.edu/ullmanmuseum/) is not a time of life; it is a state of mind;
@@ -18,5 +18,7 @@ Small doses of wit.
 ---
 
 ## Traveling
+
+<p class="page-meta">Places I've been fortunate to visit or live in.</p>
 
 {{ <travel_map/> }}

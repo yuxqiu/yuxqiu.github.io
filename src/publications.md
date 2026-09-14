@@ -3,6 +3,12 @@ title = "Publications"
 template = "publications.html"
 
 [[extra.publications]]
+title = "Zippel: A Language, Compiler, Runtime, and Analyzer for ZK Proof Systems"
+authors = "Sebastian Angel, Sydnie-Shea Cohen, Eleftherios Ioannidis, Pratyush Mishra, Alex Ozdemir, <strong>Yuxiang Qiu</strong>, Alireza Shirzad"
+venue = "IEEE Symposium on Security and Privacy (S&P)"
+year = 2027
+
+[[extra.publications]]
 title = "A Toolbox for Modelling Engagement with Educational Videos"
 authors = "<strong>Yuxiang Qiu</strong>, Karim Djemili, Denis Elezi, Aaneel Shalman Srazali, María Pérez-Ortiz, Emine Yilmaz, John Shawe-Taylor, Sahan Bulathwela"
 venue = "AAAI Conference on Artificial Intelligence (EAAI)"

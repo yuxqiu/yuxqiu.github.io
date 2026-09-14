@@ -44,9 +44,6 @@ Both `content/` and `public/` are gitignored. Only `src/` is edited by hand.
 4. Math: use `$...$` for inline, `$$...$$` for display. The prebuild renders these to KaTeX HTML. Use `\$` for a literal dollar sign in prose. `\(...\)` and `\[...\]` are not supported. **No blank lines inside `$$...$$` blocks** — pulldown-cmark treats blank lines as paragraph breaks, which terminates the math block.
 5. Custom KaTeX macros: add `[extra]` section with `katex_macros = { "\\macro" = "\\definition" }`.
 
-### Writing
-Same as blog but in `src/writings/`. Uses the same `section.html` and `blog-page.html` templates.
-
 ### Publication
 Edit `src/publications.md`. Add entries to the `[[extra.publications]]` array:
 ```toml
@@ -67,9 +64,9 @@ url = "/pdf/..."
 - `partials/macros.html` — Tera macros. Currently exports `page_header(title, desc="", meta="", tags=[])`, the unified page title header used by all page templates via `{% import "partials/macros.html" as m %}`.
 - `partials/social-links.html` / `partials/home-links.html` — two deliberately different link lists, not a shared partial: `social-links.html` (GitHub, LinkedIn, Keybase, RSS) is included by `base.html`'s footer; `home-links.html` (CV, GitHub, LinkedIn, Email) is included by `index.html`'s homepage link row. Some links (Keybase, RSS) are intentionally footer-only and others (CV, Email) intentionally homepage-only — this is a curated split per page, not drift to fix by merging them into one list.
 - `index.html` — homepage with photo, name, tagline, bio.
-- `section.html` — blog/writings listing, grouped by year.
-- `blog-page.html` — individual blog/writing post.
-- `page.html` — generic page (More page).
+- `section.html` — blog listing, grouped by year.
+- `blog-page.html` — individual blog post.
+- `page.html` — generic page (Misc page).
 - `publications.html` — publications list.
 - `404.html` — error page.
 - `tags/list.html`, `tags/single.html` — tag index and tag detail.

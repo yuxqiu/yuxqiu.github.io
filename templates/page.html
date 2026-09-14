@@ -8,8 +8,7 @@
 ", to=" ") | trim | truncate(length=160) }}{% endblock og_description %}
 
 {% block content %}
-<div class="container">
-  {{ <page_header title={page.title}/> }}
+<div class="container container--headless">
   <div class="post__content">
     {{ page.content | safe }}
   </div>
