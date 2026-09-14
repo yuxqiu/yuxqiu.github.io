@@ -276,6 +276,8 @@ a {
   max-width: var(--max-wide);
   margin: 0 auto;
   padding: 0 var(--sp-4);
+  // Nav chrome shouldn't inherit body's 1.55 reading line-height.
+  line-height: 1;
   @include ultra-narrow-tight;
 
   // Sans-serif wordmark in small caps — harmonizes with the uppercase
@@ -283,11 +285,18 @@ a {
   &__brand {
     font-family: var(--font-sans);
     font-weight: var(--fw-sans-s);
-    font-size: var(--fs-tiny);
+    font-size: var(--fs-micro);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--accent);
     border-bottom: none;
+    // The brand is a direct flex child of .site-nav, while the nav links
+    // sit two levels deeper (ul > li > a) — even at identical font-size
+    // and line-height, that structural difference leaves the brand ~1.5px
+    // higher than the links after centering. Measured empirically; nudge
+    // it back down to true visual alignment.
+    position: relative;
+    top: 1.5px;
     transition: color 0.18s ease;
 
     &:hover {
@@ -346,34 +355,17 @@ a {
   }
 }
 
-// Mobile nav: collapse to breadcrumb-style row
+// Mobile nav: tighten the gap between links. With only three nav items
+// (Blog, Publications, Misc) the row fits at full size down to the
+// ultra-narrow breakpoint, where it stacks — so no font shrinking needed.
 @media (max-width: 600px) {
   .site-nav {
     &__brand {
-      font-size: var(--fs-micro);
       white-space: nowrap;
     }
 
     &__links {
-      gap: var(--sp-2);
-    }
-
-    &__link {
-      font-size: 0.625rem;
-      letter-spacing: 0.06em;
-    }
-  }
-}
-
-@media (max-width: 420px) {
-  .site-nav {
-    &__links {
-      gap: var(--sp-1);
-    }
-
-    &__link {
-      font-size: 0.5625rem;
-      letter-spacing: 0.04em;
+      gap: var(--sp-3);
     }
   }
 }
@@ -938,7 +930,7 @@ figcaption {
   &__title {
     font-family: var(--font-serif);
     font-weight: 600;
-    font-size: var(--fs-h3);
+    font-size: var(--fs-body);
     line-height: var(--lh-tight);
     color: var(--text);
     margin: 0;
