@@ -7,12 +7,13 @@
 
 {% block content %}
 <div class="container container--headless">
+  <h1 class="sr-only">{{ page.title }}</h1>
   <ol class="pubs">
     {% for pub in page.extra.publications %}
     <li class="pub">
-      <h3 class="pub__title">{{ pub.title }}</h3>
+      <h2 class="pub__title">{{ pub.title }}</h2>
       <p class="pub__authors">{{ pub.authors | safe }}</p>
-      <p class="pub__venue">{{ pub.venue }}{% if pub.year %} · {{ pub.year }}{% endif %}</p>
+      <p class="pub__venue">{{ pub.venue }}{% if pub.year %}&nbsp;· {{ pub.year }}{% endif %}</p>
       {% if pub.links %}
       <p class="pub__links">
         {% for l in pub.links %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.name }}</a>{% if not loop.last %}<span class="pub__sep">·</span>{% endif %}{% endfor %}

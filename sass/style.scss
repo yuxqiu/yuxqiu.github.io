@@ -20,7 +20,7 @@
   --warm-800: #3d3a33;
   --warm-700: #524e45;
   --warm-600: #6b665b;
-  --warm-500: #847f72;
+  --warm-500: #736e63; // ≥4.5:1 on parchment — lightest warm gray still AA for small text
   --warm-400: #a39d8e;
   --warm-300: #c4bdae;
   --warm-200: #d8d2c4;
@@ -172,6 +172,10 @@ body {
   // copy (a bare URL with no markdown link syntax, e.g. "Source: https://…"
   // in a blockquote) wraps instead of overflowing the page.
   overflow-wrap: break-word;
+  // Avoid one-word last lines (and a lone footnote "↩") in running text.
+  // Inherited; headings and short labels override with `balance` below.
+  // Unsupported browsers keep ordinary greedy wrapping.
+  text-wrap: pretty;
 
   // Sticky footer: body fills the viewport, main grows to push footer down.
   min-height: 100vh;
@@ -195,7 +199,9 @@ i {
 a {
   color: var(--accent);
   text-decoration: none;
-  border-bottom: 1px solid var(--warm-300);
+  // Link and body text differ in hue but barely in luminance (~1.1:1), so
+  // the underline is what marks a link — keep it at ≥3:1 against the page.
+  border-bottom: 1px solid var(--warm-500);
   transition: border-color 0.15s ease;
 
   &:hover {
@@ -452,6 +458,8 @@ h6 {
   font-weight: var(--fw-serif);
   line-height: var(--lh-tight);
   color: var(--text);
+  // Even out multi-line headings instead of leaving a short last line.
+  text-wrap: balance;
   // Offset anchor jumps so headings aren't hidden behind the sticky header.
   scroll-margin-top: calc(var(--nav-height) + var(--sp-2));
 }
@@ -541,10 +549,21 @@ p {
     // The one case that still needs real separation: multiple paragraphs
     // within a single item (e.g. a multi-paragraph proof step). Restore
     // it as a gap *before* each paragraph after the first, rather than
-    // undoing the flush above.
+    // undoing the flush above. Kept below a full paragraph gap so the
+    // paragraphs read as one item (see the item gap below).
     > p + p {
-      margin-top: var(--sp-4);
+      margin-top: var(--sp-3);
     }
+  }
+
+  // A list with any multi-paragraph item is a list of blocks, not of
+  // lines: separate its items by a block gap (same as a code block or
+  // equation ending an item gives) so the gap *between* items stays about
+  // twice the gap *within* one. Otherwise an item's last paragraph sits
+  // closer to the next item than to its own first line. `li + li` (not
+  // margin-bottom) leaves the space around the list itself unchanged.
+  :is(ul, ol):has(> li > p + p) > li + li {
+    margin-top: var(--sp-6);
   }
 }
 
@@ -605,6 +624,16 @@ pre {
     line-height: var(--lh-dense);
     color: var(--warm-700); // Kami "Olive" — readable but not heavy
   }
+
+  // Two github-light token colors fall short of 4.5:1 on the ivory code
+  // background (keyword red 4.34:1, variable orange 3.31:1). The
+  // highlighter inlines them per token, so darken just those two, same hue.
+  [style*="#D73A49" i] {
+    color: #d52f3f !important;
+  }
+  [style*="#E36209" i] {
+    color: #bc5107 !important;
+  }
 }
 
 // Horizontal rule — subtle warm divider
@@ -622,6 +651,9 @@ hr {
   border-top: 1px solid var(--border);
   background-color: var(--ivory);
   border-radius: 0 0 var(--sp-1) var(--sp-1);
+  // Keep the "↩" back-reference a text glyph — iOS otherwise draws it as a
+  // color emoji.
+  font-variant-emoji: text;
 
   .footnotes-list {
     padding-left: var(--sp-5);
@@ -642,14 +674,8 @@ hr {
       margin: 0;
     }
 
-    a {
-      color: var(--text-muted);
-      border-bottom: none;
-
-      &:hover {
-        color: var(--accent);
-      }
-    }
+    // Links (including the "↩" back-reference) keep the global accent +
+    // underline, so they stay distinguishable from the muted footnote text.
   }
 }
 
@@ -788,6 +814,11 @@ figcaption {
     font-size: var(--fs-display);
     line-height: var(--lh-tight);
     margin: 0;
+    // Optical alignment: the display-size "Y" touches the left edge only
+    // with a thin serif tip, so its visible mass sits right of the small
+    // tagline below even though their ink starts at the same x. Hang it
+    // slightly left (em, so it scales with the fluid size).
+    margin-left: -0.04em;
   }
 
   &__tagline {
@@ -798,6 +829,20 @@ figcaption {
     line-height: var(--lh-label);
     margin: var(--sp-2) 0 0 0;
     letter-spacing: 0.01em;
+
+    // Narrow phones: one topic per line instead of wrapping mid-list and
+    // leaving a dangling "·" at a line end. The one-line tagline (~268px in
+    // Inter) stops fitting beside the 88px photo below ~410px viewport;
+    // 430px leaves headroom for wider fallback fonts.
+    @media (max-width: 430px) {
+      &-item {
+        display: block;
+      }
+
+      &-sep {
+        display: none;
+      }
+    }
   }
 
   &__bio {

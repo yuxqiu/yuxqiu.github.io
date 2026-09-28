@@ -5,6 +5,7 @@
 
 {% block content %}
 <div class="container container--headless">
+  <h1 class="sr-only">{{ section.title }}</h1>
   {% set pages = section.pages | sort(attribute="date") | reverse %}
 
   {# Tera's `group_by` filter buckets into a HashMap, whose iteration order

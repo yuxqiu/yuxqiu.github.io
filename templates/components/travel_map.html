@@ -1,10 +1,16 @@
 {% component travel_map() %}
-<figure class="travel-map" role="img" aria-label="World map with visited places highlighted">
-  {% set visited = load_data(path="data/visited.toml", format="toml") %}
+{% set visited = load_data(path="data/visited.toml", format="toml") %}
+<figure class="travel-map">
   <style>
-    {% for c in visited.places %}#{{ c }}, #{{ c }} path{% if not loop.last %}, {% endif %}{% endfor %} { fill: var(--accent); }
+    {% for p in visited.places %}#{{ p.code }}, #{{ p.code }} path{% if not loop.last %}, {% endif %}{% endfor %} { fill: var(--accent); }
   </style>
-  {{ load_data(path="data/world-map.svg", format="plain") | safe }}
-  <figcaption>Map by <a href="https://github.com/flekschas/simple-world-map" target="_blank" rel="noopener">flekschas</a> — CC BY-SA 3.0</figcaption>
+  {# role="img" goes on the <svg>, not the <figure>: on the figure it would
+     hide the caption (and its attribution link) from assistive tech. The
+     SVG's own <title> is dropped so it doesn't pop up as a hover tooltip. #}
+  {{ load_data(path="data/world-map.svg", format="plain")
+     | replace(from="<svg ", to='<svg role="img" aria-label="World map with visited places highlighted" ')
+     | replace(from="<title>Simple World Map</title>", to="")
+     | safe }}
+  <figcaption><span class="sr-only">Places visited: {% for p in visited.places %}{{ p.name }}{% if not loop.last %}, {% endif %}{% endfor %}. </span>Map by <a href="https://github.com/flekschas/simple-world-map" target="_blank" rel="noopener">flekschas</a> — CC BY-SA 3.0</figcaption>
 </figure>
 {% endcomponent travel_map %}

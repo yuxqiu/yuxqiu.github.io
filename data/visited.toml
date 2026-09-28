@@ -1,6 +1,24 @@
-# ISO 3166-1 alpha-2 codes of visited places, rendered ink blue on the
-# travel map. Consumed by templates/components/travel_map.html.
+# Visited places, rendered ink blue on the travel map. `code` is the
+# ISO 3166-1 alpha-2 id of the places's shape in world-map.svg;
+# `name` is read out to screen readers in the map's caption.
+# Consumed by templates/components/travel_map.html.
 places = [
-  "cn", "sg", "tw", "jp", "us", "gb", "do", "ch", "it", "es", "th",
-  "my", "fr", "is", "no", "fi", "se", "dk",
+  { code = "cn", name = "China" },
+  { code = "sg", name = "Singapore" },
+  { code = "tw", name = "Taiwan" },
+  { code = "jp", name = "Japan" },
+  { code = "us", name = "United States" },
+  { code = "gb", name = "United Kingdom" },
+  { code = "do", name = "Dominican Republic" },
+  { code = "ch", name = "Switzerland" },
+  { code = "it", name = "Italy" },
+  { code = "es", name = "Spain" },
+  { code = "th", name = "Thailand" },
+  { code = "my", name = "Malaysia" },
+  { code = "fr", name = "France" },
+  { code = "is", name = "Iceland" },
+  { code = "no", name = "Norway" },
+  { code = "fi", name = "Finland" },
+  { code = "se", name = "Sweden" },
+  { code = "dk", name = "Denmark" },
 ]

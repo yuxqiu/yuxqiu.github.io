@@ -34,7 +34,8 @@ dark_theme = "github-dark"
 [extra]
 # Site-level metadata, available to all templates
 author = "Yuxiang Qiu"
-tagline = "Verifiable Computation · Proof Systems"
+# Joined with " · " on one line; stacked one per line on small screens.
+tagline = ["Verifiable Computation", "Proof Systems"]
 email = "yuxqiu@proton.me"
 github = "yuxqiu"
 linkedin = "yuxqiu"

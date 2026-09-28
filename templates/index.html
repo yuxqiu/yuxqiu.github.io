@@ -13,7 +13,7 @@
     <div class="home__intro">
       <h1 class="home__name">{{ section.title }}</h1>
       {% if config.extra.tagline %}
-      <p class="home__tagline">{{ config.extra.tagline }}</p>
+      <p class="home__tagline">{% for t in config.extra.tagline %}<span class="home__tagline-item">{{ t }}</span>{% if not loop.last %}<span class="home__tagline-sep"> <span aria-hidden="true">·</span> </span>{% endif %}{% endfor %}</p>
       {% endif %}
     </div>
   </header>

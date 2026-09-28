@@ -36,6 +36,8 @@ fn build_opts(display: bool, macros: &HashMap<String, String>) -> Result<katex::
 /// spans. If Zola's markdown backend ever re-escaped raw HTML, math would
 /// render as visible `<span ...>` text. There is no automated build guard
 /// for this; a regression would be visible immediately on any math page.
+/// The text *between* the tags is still parsed as markdown, though, which
+/// `escape_markdown_in_text` neutralizes.
 ///
 /// # Math location
 ///
@@ -148,6 +150,7 @@ pub fn render_math(body: &str, macros: &HashMap<String, String>) -> Result<Strin
                 // HTML on a single line — safe because newlines in HTML
                 // are not semantically significant.
                 let html = html.replace('\n', "");
+                let html = escape_markdown_in_text(&html);
                 // Zola 0.23+ renders every content file as a Tera template,
                 // so a literal `{{`, `{%` or `{#` breaks the build. The
                 // `<annotation>` element KaTeX emits embeds the original
@@ -196,6 +199,38 @@ pub fn render_math(body: &str, macros: &HashMap<String, String>) -> Result<Strin
     }
     result.push_str(&body[cursor..]);
     Ok(result)
+}
+
+/// Characters that `CommonMark`, its GFM extensions or smart punctuation
+/// would reinterpret if they appeared literally in text.
+const MARKDOWN_SIGNIFICANT: &[char] = &['\\', '`', '*', '_', '[', ']', '~', '!', '-', '.'];
+
+/// Replace markdown-significant characters in the text between `KaTeX`'s
+/// tags with numeric character references.
+///
+/// Zola passes the tags of inline HTML through untouched, but still parses
+/// the text between them as markdown. `KaTeX`'s `<annotation>` holds the
+/// TeX source verbatim, so without this two `^*` in one paragraph pair up
+/// into `<em>` across the math (corrupting the HTML between them), `\|`
+/// loses its backslash, and `--` becomes an en dash. A character reference
+/// renders identically but is never markdown syntax. Tag contents
+/// (attributes) and existing `&...;` references are left alone.
+fn escape_markdown_in_text(html: &str) -> String {
+    let mut out = String::with_capacity(html.len());
+    let mut in_tag = false;
+    for c in html.chars() {
+        match c {
+            '<' => in_tag = true,
+            '>' => in_tag = false,
+            _ if !in_tag && MARKDOWN_SIGNIFICANT.contains(&c) => {
+                let _ = write!(out, "&#{};", u32::from(c));
+                continue;
+            }
+            _ => {}
+        }
+        out.push(c);
+    }
+    out
 }
 
 struct MathSpan {
@@ -481,5 +516,45 @@ mod tests {
         let body = "prose $a$\n*not a caption*\n";
         let out = render_math(body, &no_macros()).unwrap();
         assert!(!out.contains("<figure>"), "{}", out);
+    }
+
+    // ---- render_math: output survives Zola's markdown pass ----
+
+    /// Run prebuild output through `pulldown-cmark` the way Zola does
+    /// (smart punctuation, strikethrough, tables), after dropping the
+    /// `{% raw %}` markers that Tera would consume first.
+    fn zola_html(prebuilt: &str) -> String {
+        let src = prebuilt
+            .replace("{% raw %}", "")
+            .replace("{% endraw %}", "");
+        let mut o = pulldown_cmark::Options::empty();
+        o.insert(pulldown_cmark::Options::ENABLE_SMART_PUNCTUATION);
+        o.insert(pulldown_cmark::Options::ENABLE_STRIKETHROUGH);
+        o.insert(pulldown_cmark::Options::ENABLE_TABLES);
+        let mut html = String::new();
+        pulldown_cmark::html::push_html(&mut html, pulldown_cmark::Parser::new_ext(&src, o));
+        html
+    }
+
+    #[test]
+    fn render_markdown_punctuation_in_katex_text_is_inert() {
+        // Two `*` in one paragraph used to pair up into <em> across the
+        // two annotations, corrupting the KaTeX HTML between them.
+        let body = "$\\mathbb{Z}_p^*$ and $e \\in \\mathbb{Z}_p^*$, $\\|C\\|$, $a_1 ~ b_2 ~ c$, $a -- b$\n";
+        let html = zola_html(&render_math(body, &no_macros()).unwrap());
+        assert!(!html.contains("<em>"), "{}", html);
+        assert!(!html.contains("<del>"), "{}", html);
+        for tex in [
+            "\\mathbb{Z}_p^*",
+            "e \\in \\mathbb{Z}_p^*",
+            "\\|C\\|",
+            "a_1 ~ b_2 ~ c",
+            "a -- b",
+        ] {
+            assert!(
+                html.contains(&format!("x-tex\">{tex}</annotation>")),
+                "annotation for {tex:?} altered: {html}"
+            );
+        }
     }
 }
