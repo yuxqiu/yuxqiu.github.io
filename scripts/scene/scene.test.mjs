@@ -1,9 +1,9 @@
 // Tests for the footer scene's layer model (static/js/scene/scene.js).
-// Run: node --test scripts/scene/
+// Run: node --test scripts/scene/scene.test.mjs
 
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { fallbacks, H, layersFor, paint } from "../../static/js/scene/scene.js";
+import { fallbacks, GROUND, H, layersFor, paint, recolor } from "../../static/js/scene/scene.js";
 import { raster } from "./raster.mjs";
 
 // Composite each layer's frame-0 cut-out the way scene.css stacks the PNGs.
@@ -40,4 +40,14 @@ test("a page's scene is the same every time, and pages differ", () => {
   const frames = paths.map((p) => raster(427, H, (fill) => paint(fill, layersFor(p), 427, 7)));
   paths.forEach((p, i) => assert.ok(frames[i].equals(raster(427, H, (fill) => paint(fill, layersFor(p), 427, 7))), p));
   assert.equal(new Set(frames.map((f) => f.toString("base64"))).size, paths.length);
+});
+
+test("under a dark-mode recolor, the scene's ground meets the footer and details flip", () => {
+  assert.equal(recolor(GROUND), null);
+  assert.equal(recolor("#fafafa"), null); // recolored but still light: leave it
+  const tint = recolor("#2b2a26");
+  assert.equal(tint(GROUND), "#2b2a26");
+  const light = (hex) => Number.parseInt(hex.slice(1, 3), 16) + Number.parseInt(hex.slice(3, 5), 16) + Number.parseInt(hex.slice(5, 7), 16);
+  assert.ok(light(tint("#2d2a24")) > light("#2b2a26") * 3, "dark ink becomes light");
+  assert.ok(light(tint("#faf9f5")) < light("#2b2a26"), "near-white becomes darker than the ground");
 });

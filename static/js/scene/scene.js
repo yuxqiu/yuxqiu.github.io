@@ -16,9 +16,9 @@
 // Used by canvas.js (the live scene) and scripts/scene/render.mjs (the no-JS
 // fallback). No DOM here.
 
-import { BASES, H, hash, ITEMS, PERIOD, pen, rng } from "./kit.js";
+import { BASES, GROUND, H, hash, ITEMS, PERIOD, pen, rng } from "./kit.js";
 
-export { H };
+export { GROUND, H };
 export const SCALE = 3; // CSS px per scene pixel
 export const NARROW_SCALE = 2; // … at viewport widths up to NARROW_MAX
 export const NARROW_MAX = 560;
@@ -96,4 +96,55 @@ export function fallbacks() {
 // Paints frame t of `layers` on a scene W pixels wide.
 export function paint(fill, layers, W, t) {
   for (const L of layers) L.paint(fill, W, L.tile ? 0 : Math.round(L.at * (W - L.w)), t);
+}
+
+// Dark-mode extensions (Dark Reader and the like) recolor a page's CSS but
+// not canvas pixels, which leaves a light scene above a darkened footer.
+// Given the footer's actual color ("#rrggbb"; GROUND unless something
+// recolored it), returns a function mapping the scene's colors to match: null
+// when no change is needed, otherwise one that flips lightness around the new
+// ground, so GROUND lands exactly on it and dark details turn light.
+export function recolor(ground) {
+  const [gh, gs, gl] = toHsl(ground);
+  if (ground === GROUND || gl >= 0.5) return null;
+  const sandL = toHsl(GROUND)[2];
+  const k = (0.8 - gl) / (sandL - 0.2); // the darkest inks end up near 80% lightness
+  const memo = new Map([[GROUND, ground]]);
+  return (c) => {
+    if (!memo.has(c)) {
+      const [h, s, l] = toHsl(c);
+      const L = Math.min(1, Math.max(0, gl + (sandL - l) * k));
+      // Near-neutral warm grays take the new ground's tint, so hills and
+      // water match the footer; real colors keep their own hue.
+      memo.set(c, chroma(c) < 0.095 ? fromHsl(gh, gs, L) : fromHsl(h, s * 0.85, L));
+    }
+    return memo.get(c);
+  };
+}
+
+// Distance from gray, 0..1: the kit's warm grays measure up to 0.086, its
+// lightest sage 0.102, wood and the accents more.
+function chroma(hex) {
+  const v = [1, 3, 5].map((i) => Number.parseInt(hex.slice(i, i + 2), 16) / 255);
+  return Math.max(...v) - Math.min(...v);
+}
+
+function toHsl(hex) {
+  const [r, g, b] = [1, 3, 5].map((i) => Number.parseInt(hex.slice(i, i + 2), 16) / 255);
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  const l = (max + min) / 2;
+  if (max === min) return [0, 0, l];
+  const d = max - min;
+  const s = d / (1 - Math.abs(2 * l - 1));
+  const h = max === r ? ((g - b) / d + 6) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
+  return [h * 60, s, l];
+}
+
+function fromHsl(h, s, l) {
+  const c = (1 - Math.abs(2 * l - 1)) * s;
+  const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+  const m = l - c / 2;
+  const [r, g, b] = h < 60 ? [c, x, 0] : h < 120 ? [x, c, 0] : h < 180 ? [0, c, x] : h < 240 ? [0, x, c] : h < 300 ? [x, 0, c] : [c, 0, x];
+  return `#${[r, g, b].map((v) => Math.round((v + m) * 255).toString(16).padStart(2, "0")).join("")}`;
 }

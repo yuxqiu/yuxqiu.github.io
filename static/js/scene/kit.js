@@ -46,6 +46,9 @@ const K = {
   woodDark: "#75624f",
 };
 
+// The bases' ground, which the footer continues (--warm-sand).
+export const GROUND = K.sand;
+
 // ---------- sprites ----------
 
 const HEAD = ["..hhh..", ".hhhhh.", "hhhhhhh", "..sss..", "..ssk..", "..jjj.."];
