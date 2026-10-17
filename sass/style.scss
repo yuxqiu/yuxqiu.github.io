@@ -400,8 +400,17 @@ a {
 // 6. Footer
 // ---------------------------------------------------------------------------
 
+// The footer continues the pixel scene's sandy ground (K.sand in
+// static/js/scene/kit.js); the scene itself is styled by the generated
+// static/scene/scene.css.
 .site-footer {
-  border-top: 1px solid var(--border);
+  background-color: var(--warm-sand);
+  // On long pages the scene can end at a fractional y; at fractional pixel
+  // ratios (browser zoom, scaled displays) that leaves a partly covered
+  // device-pixel row where parchment shows through as a light hairline.
+  // Overlap the scene's bottom row (sand on sand) and paint above its canvas.
+  position: relative;
+  margin-top: -1px;
   padding: var(--sp-6) 0;
   // No margin-top: main (flex: 1) already pushes the footer to the bottom,
   // and content containers carry their own bottom spacing on long pages.
@@ -421,7 +430,7 @@ a {
   &__text {
     font-family: var(--font-sans);
     font-size: var(--fs-micro);
-    color: var(--text-faint);
+    color: var(--text-muted); // --text-faint is under 4.5:1 on sand
     margin: 0; // cancel global <p> bottom margin so it aligns with social row
   }
 
@@ -438,7 +447,7 @@ a {
     a {
       font-family: var(--font-sans);
       font-size: var(--fs-micro);
-      color: var(--text-faint);
+      color: var(--text-muted);
       @include link-reset;
     }
   }

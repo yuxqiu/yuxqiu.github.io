@@ -1,9 +1,9 @@
-.PHONY: build serve clean prebuild lint fmt
+.PHONY: build serve clean prebuild scene lint fmt
 
 NIX = nix develop --command
 
 # Build the site: run pre-build math script, then zola build
-build: prebuild
+build: prebuild scene
 	$(NIX) zola build
 
 # Serve the site locally with live reload.
@@ -13,7 +13,7 @@ build: prebuild
 # src/, and it cannot run the prebuild itself). The EXIT trap tears down
 # watchexec when zola exits (including on Ctrl-C); errors are suppressed in
 # case watchexec already died.
-serve: prebuild
+serve: prebuild scene
 	@$(NIX) sh -c 'trap "kill $$! 2>/dev/null || true" EXIT; \
 		watchexec -w src --postpone --debounce 500 --shell none -- cargo run --manifest-path scripts/prebuild/Cargo.toml & \
 		zola serve'
@@ -21,6 +21,12 @@ serve: prebuild
 # Run the pre-build math rendering script
 prebuild:
 	$(NIX) cargo run --manifest-path scripts/prebuild/Cargo.toml
+
+# Draw the footer scene's no-JS fallback (PNGs and scene.css in
+# static/scene/) from static/js/scene/. Re-run (or restart `make serve`)
+# after editing the scene.
+scene:
+	$(NIX) node scripts/scene/render.mjs
 
 # Lint everything: clippy on the prebuild script, markdownlint on content
 lint:

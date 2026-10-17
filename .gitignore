@@ -6,6 +6,8 @@ content/
 .caches/
 # Zola processed images (resize_image output)
 static/processed_images/
+# Footer scene fallback, drawn by `make scene` from static/js/scene.js
+static/scene/
 
 # Pre-build script build artifacts
 scripts/prebuild/target/

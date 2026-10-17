@@ -20,6 +20,7 @@
             clippy
             watchexec
             markdownlint-cli2
+            nodejs
           ];
         };
       });

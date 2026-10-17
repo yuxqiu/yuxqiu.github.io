@@ -12,7 +12,11 @@
   <link rel="icon" href="{{ get_url(path="favicon.svg") }}" type="image/svg+xml">
   <link rel="icon" href="{{ get_url(path="favicon.ico") }}" sizes="32x32">
   <link rel="apple-touch-icon" href="{{ get_url(path="apple-touch-icon.png") }}">
+  {# Marks JS as on before first paint, so scene.css hides the no-JS scene
+     fallback instead of flashing it before canvas.js draws. #}
+  <script>document.documentElement.classList.add("js")</script>
   <link rel="stylesheet" href="{{ get_url(path="style.css") }}">
+  <link rel="stylesheet" href="{{ get_url(path="scene/scene.css") }}">
   <link rel="stylesheet" href="{{ get_url(path="katex.min.css") }}">
   <link rel="alternate" type="application/atom+xml" title="{{ config.title }}" href="{{ get_url(path="atom.xml", trailing_slash=false) }}">
 
@@ -42,6 +46,12 @@
     {% block content %}{% endblock content %}
   </main>
 
+  {# Pixel scene above the footer: static/js/scene/canvas.js draws this page's
+     scene (pinned, or seeded by its path), and static/scene/scene.css
+     (generated from the same code at build time) sizes it and is the no-JS
+     fallback. #}
+  <div class="scene" data-path="{{ cur }}" aria-hidden="true"><canvas hidden></canvas></div>
+
   <footer class="site-footer">
     <div class="site-footer__inner">
       <p class="site-footer__text">{{ config.title }}</p>
@@ -50,5 +60,6 @@
       </ul>
     </div>
   </footer>
+  <script type="module" src="{{ get_url(path="js/scene/canvas.js") }}"></script>
 </body>
 </html>
