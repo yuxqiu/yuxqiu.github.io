@@ -5,7 +5,7 @@ taxonomies = { tags = ["cryptography"] }
 +++
 
 
-[PDF](/pdf/writings/2025/trustless-efficient-light-client.pdf) · [Code](https://github.com/yuxqiu/mim)
+[PDF](/pdf/writings/2025-trustless-efficient-light-client/trustless-efficient-light-client-2025.pdf) · [Code](https://github.com/yuxqiu/mim)
 
 ## TL;DR
 
@@ -30,7 +30,7 @@ We evaluate our design on a simulated blockchain modelled after the checkpoint s
   author = {Yuxiang Qiu},
   title = {Trustless Efficient Light Clients},
   year = {2025},
-  url = {https://yuxqiu.github.io/pdf/writings/2025/trustless-efficient-light-client.pdf},
+  url = {https://yuxqiu.github.io/pdf/writings/2025-trustless-efficient-light-client/trustless-efficient-light-client-2025.pdf},
   note = {Preprint}
 }
 ```

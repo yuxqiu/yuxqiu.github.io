@@ -7,6 +7,10 @@ title = "Zippel: A Language, Compiler, Runtime, and Analyzer for ZK Proof System
 authors = "Sebastian Angel, Sydnie-Shea Cohen, Eleftherios Ioannidis, Pratyush Mishra, Alex Ozdemir, <strong>Yuxiang Qiu</strong>, Alireza Shirzad"
 venue = "IEEE Symposium on Security and Privacy (S&P)"
 year = 2027
+links = [
+  { name = "Paper", url = "/pdf/papers/2027-zippel/zippel-sp27.pdf" },
+  { name = "Code", url = "https://github.com/eniac/zippel" },
+]
 
 [[extra.publications]]
 title = "A Toolbox for Modelling Engagement with Educational Videos"
@@ -14,7 +18,7 @@ authors = "<strong>Yuxiang Qiu</strong>, Karim Djemili, Denis Elezi, Aaneel Shal
 venue = "AAAI Conference on Artificial Intelligence (EAAI)"
 year = 2024
 links = [
-  { name = "Paper", url = "https://discovery.ucl.ac.uk/id/eprint/10191341/1/30358-Article%20Text-34412-1-2-20240324.pdf" },
+  { name = "Paper", url = "/pdf/papers/2024-truelearn-toolbox/truelearn-toolbox-eaai24.pdf" },
   { name = "Code", url = "https://github.com/TrueLearnAI/truelearn" },
 ]
 
@@ -24,8 +28,8 @@ authors = "<strong>Yuxiang Qiu</strong>, Karim Djemili, Denis Elezi, Aaneel Shal
 venue = "CEUR Workshop Proceedings (RecSys ORSUM)"
 year = 2023
 links = [
-  { name = "Paper", url = "https://discovery.ucl.ac.uk/id/eprint/10184727/1/paper3.pdf" },
+  { name = "Paper", url = "/pdf/papers/2023-truelearn/truelearn-orsum23.pdf" },
   { name = "Code", url = "https://github.com/TrueLearnAI/truelearn" },
-  { name = "Slides", url = "https://github.com/yuxqiu/garden/blob/main/2023-09-19-acm-recsys-orsum/acm-recsys-orsum-2023.pdf" },
+  { name = "Slides", url = "/pdf/papers/2023-truelearn/truelearn-orsum23-slides.pdf" },
 ]
 +++

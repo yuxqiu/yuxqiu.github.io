@@ -55,8 +55,10 @@ year = 2024
 
 [[extra.publications.links]]
 name = "PDF"
-url = "/pdf/..."
+url = "/pdf/papers/<yyyy>-<slug>/<slug>-<venue><yy>.pdf"
 ```
+
+Paper assets are vendored into `static/pdf/papers/<yyyy>-<slug>/` (one directory per publication) and linked by absolute path rather than to external hosts. Filenames are self-describing, because browsers save a PDF under its URL's last segment: `<slug>-<venue><yy>.pdf`, with a suffix for extras (e.g. `2023-truelearn/truelearn-orsum23.pdf`, `truelearn-orsum23-slides.pdf`). PDFs linked from blog posts follow the same scheme under `static/pdf/writings/`, using the four-digit year in place of the venue (e.g. `2025-dlbf/dlbf-2025.pdf`).
 
 ## Template Architecture
 
