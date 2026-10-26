@@ -15,9 +15,10 @@
   {# Marks JS as on before first paint, so scene.css hides the no-JS scene
      fallback instead of flashing it before canvas.js draws. #}
   <script>document.documentElement.classList.add("js")</script>
+  {# KaTeX's stylesheet first, so the site's rules win ties with it. #}
+  <link rel="stylesheet" href="{{ get_url(path="katex.min.css") }}">
   <link rel="stylesheet" href="{{ get_url(path="style.css") }}">
   <link rel="stylesheet" href="{{ get_url(path="scene/scene.css") }}">
-  <link rel="stylesheet" href="{{ get_url(path="katex.min.css") }}">
   <link rel="alternate" type="application/atom+xml" title="{{ config.title }}" href="{{ get_url(path="atom.xml", trailing_slash=false) }}">
 
   <meta property="og:site_name" content="{{ config.title }}">

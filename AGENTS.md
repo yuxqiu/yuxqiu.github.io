@@ -91,7 +91,7 @@ Paper assets are vendored into `static/pdf/papers/<yyyy>-<slug>/` (one directory
 
 `sass/style.scss` — single file, ~1030 lines, organized in numbered sections:
 
-1. **Design tokens** (`:root`) — colors, fonts, type scale, spacing, layout. All values flow through semantic mappings (`--text`, `--accent`, `--border`, etc.).
+1. **Design tokens** (`:root`) — colors, fonts, type scale, spacing, layout. All values flow through semantic mappings (`--text`, `--accent`, `--border`, etc.). Heading sizes, and the space around headings in prose (see Prose flow), come from one modular scale: `--s-3`…`--s3` = body × `--ratio`^n (h1–h3 = s3–s1, h4 = body × √ratio). Change `--ratio` to retune them all; page chrome (`.page-title`, `.list__year`) keeps its own `--sp-*` margins.
 2. **Mixins** — `link-reset`, `last-child-flush`, `callout-base` for repeated patterns.
 3. **Reset & base** — universal reset, body defaults.
 4. **Layout** — `.container` (680px reading width), `.container--wide` (820px).
@@ -100,9 +100,11 @@ Paper assets are vendored into `static/pdf/papers/<yyyy>-<slug>/` (one directory
 7. **Typography elements** — headings, code, blockquotes, tables, footnotes, images.
 8. **Page-specific** — `.page-header`/`.page-title` (unified), `.home__*`, `.post__*`, `.pubs`/`.pub__*`, `.list__*`.
 9. **GitHub alert styles** — `.markdown-alert-{note,tip,important,warning,caution}`, proof-end, sidenote.
-10. **KaTeX adjustments** — math display spacing.
+10. **KaTeX adjustments** — display-math overflow, colors. `base.html` loads `katex.min.css` before `style.css`, so the site's rules win ties with KaTeX's.
 11. **Travel map** — SVG world map styling.
 12. **Utility** — `.sr-only`.
+13. **Reduced motion** — `prefers-reduced-motion` overrides.
+14. **Prose flow** — all vertical spacing in rendered markdown (`.post__content`, `.home__bio`, `.page-desc`). Element rules (p, lists, pre, blockquote, hr, img, figure, table, alerts) set no vertical margins; instead each flow context — the prose roots and every `blockquote`/`ul`/`ol`/`li`/`figure` inside them — puts a gap above each block child that has content before it, read from that child's `--flow-space` (body size by default; scale steps around headings; list, figure-caption and footnote gaps set in this section). Only block elements (`$flow-blocks`) get gaps, since a tight list item's inline `<code>`/math are children too. Known limit: CSS can't see bare text nodes, so a block after only plain text in a tight list item gets no gap. Must stay last so it wins ties with element margins (e.g. `.page-meta`).
 
 ### Kami Design Constraints
 

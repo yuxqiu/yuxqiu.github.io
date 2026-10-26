@@ -48,13 +48,21 @@
 
   // Fluid type scale (mobile → desktop)
   --fs-display: clamp(1.75rem, 1.3rem + 2.2vw, 2.5rem);
-  --fs-h1: clamp(1.5rem, 1.2rem + 1.5vw, 1.875rem);
-  --fs-h2: clamp(1.25rem, 1.05rem + 1vw, 1.5rem);
-  --fs-h3: clamp(1.125rem, 1rem + 0.6vw, 1.25rem);
   --fs-body: clamp(1rem, 0.95rem + 0.25vw, 1.0625rem);
   --fs-small: 0.875rem;
   --fs-tiny: 0.8125rem;
   --fs-micro: 0.75rem;
+
+  // Modular scale for headings: their sizes and the space around them in
+  // prose are steps of one ratio from the body size, s(n) = body × ratio^n.
+  // 1.25 is the largest ratio that keeps a mobile h2 below the page title.
+  --ratio: 1.25;
+  --s1: calc(var(--fs-body) * var(--ratio));
+  --s2: calc(var(--s1) * var(--ratio));
+  --s3: calc(var(--s2) * var(--ratio));
+  --s-1: calc(var(--fs-body) / var(--ratio));
+  --s-2: calc(var(--s-1) / var(--ratio));
+  --s-3: calc(var(--s-2) / var(--ratio));
 
   // Line heights (Kami three-tier system)
   --lh-tight: 1.2; // headings
@@ -89,8 +97,16 @@
   // reading column grows a little on common laptop/desktop viewports
   // instead of just floating, tiny, in a sea of margin on a 1440px+ screen,
   // while still capping out well short of a full-bleed "dashboard" measure.
-  --max-width: clamp(680px, 58vw, 760px); // reading width — every page's content column
-  --max-wide: clamp(820px, 68vw, 920px); // nav/footer chrome only — deliberately wider than the content column it frames
+  --max-width: clamp(
+    680px,
+    58vw,
+    760px
+  ); // reading width — every page's content column
+  --max-wide: clamp(
+    820px,
+    68vw,
+    920px
+  ); // nav/footer chrome only — deliberately wider than the content column it frames
   --nav-height: 3.5rem;
 
   // No dark mode is designed — pin native UI (scrollbars, form controls)
@@ -253,7 +269,7 @@ a {
 // Pages that skip .page-header entirely (their content is self-labeling)
 // still need the nav-to-content gap .page-header would have provided. That
 // gap isn't .page-header's own margin-top (sp-10) — it collapses with its
-// first child .page-title's inherited h1 margin-top (sp-12), and the larger
+// first child .page-title's margin-top (sp-12), and the larger
 // of the two wins — so sp-12 is what titled pages actually render at.
 .container--headless {
   margin-top: var(--sp-12);
@@ -474,32 +490,25 @@ h6 {
 }
 
 h1 {
-  font-size: var(--fs-h1);
-  margin-top: var(--sp-12);
-  margin-bottom: var(--sp-4);
+  font-size: var(--s3);
 }
 h2 {
-  font-size: var(--fs-h2);
-  margin-top: var(--sp-10);
-  margin-bottom: var(--sp-3);
+  font-size: var(--s2);
 }
 h3 {
-  font-size: var(--fs-h3);
-  margin-top: var(--sp-8);
-  margin-bottom: var(--sp-2);
+  font-size: var(--s1);
 }
+// Half a step up, so h4 never matches body text.
 h4 {
+  font-size: calc(var(--fs-body) * sqrt(var(--ratio)));
+}
+h5,
+h6 {
   font-size: var(--fs-body);
-  margin-top: var(--sp-6);
-  margin-bottom: var(--sp-2);
 }
 
-p {
-  margin-bottom: var(--sp-4);
-}
-
-// Prose lists — scoped to content containers so list spacing never leaks
-// into UI lists (nav, footer, link rows), which the universal reset zeroes.
+// Prose lists — scoped to content containers so list indentation never
+// leaks into UI lists (nav, footer, link rows). Spacing: see Prose flow.
 .post__content,
 .home__bio,
 .page-desc,
@@ -510,69 +519,7 @@ p {
 .markdown-alert-caution {
   ul,
   ol {
-    margin-bottom: var(--sp-4);
     padding-left: var(--sp-5);
-  }
-
-  li {
-    margin-bottom: var(--sp-1);
-
-    // Spacing rhythm belongs to the outermost list only. A nested list's
-    // items are all one group of detail on a single top-level point (the
-    // Gestalt proximity principle: less space between elements reads as
-    // "these belong together") — giving them the same margin-bottom as
-    // top-level items makes them read as loose, separate siblings instead
-    // of a single tight sublist under their parent bullet. This overrides
-    // the rule above for any <li> at any depth below the first, via
-    // specificity (li li beats li), not by targeting a particular level.
-    li {
-      margin-bottom: 0;
-    }
-
-    // A list nested inside an <li> is part of that item's content, not a
-    // new top-level block. Without this override, the unconditional
-    // margin-bottom above still applies to it, which — since it has no
-    // margin-top to match — leaves a visibly bigger gap after a nested
-    // list than before one, and a bigger gap than between plain <li>s.
-    ul,
-    ol {
-      margin-bottom: 0;
-    }
-
-    // A "loose" list (CommonMark: any blank line anywhere between its
-    // items, e.g. to fence off a code block or image elsewhere in the
-    // same list) wraps every item's text in a <p>, even items with no
-    // blank line of their own right around them — an implementation
-    // detail of that item's own markup, not a signal that it needs
-    // visual separation from whatever follows. Flushing it here means a
-    // loose list renders identically to a tight one: no bigger gap
-    // before a nested list/code block within the item, and — since an
-    // <li> has no border/padding of its own to stop it — no leaking
-    // through the <li> to inflate the gap to the next sibling item
-    // (this <p>'s margin would otherwise collapse with, and dominate
-    // over, the smaller li margin-bottom above).
-    > p {
-      margin-bottom: 0;
-    }
-
-    // The one case that still needs real separation: multiple paragraphs
-    // within a single item (e.g. a multi-paragraph proof step). Restore
-    // it as a gap *before* each paragraph after the first, rather than
-    // undoing the flush above. Kept below a full paragraph gap so the
-    // paragraphs read as one item (see the item gap below).
-    > p + p {
-      margin-top: var(--sp-3);
-    }
-  }
-
-  // A list with any multi-paragraph item is a list of blocks, not of
-  // lines: separate its items by a block gap (same as a code block or
-  // equation ending an item gives) so the gap *between* items stays about
-  // twice the gap *within* one. Otherwise an item's last paragraph sits
-  // closer to the next item than to its own first line. `li + li` (not
-  // margin-bottom) leaves the space around the list itself unchanged.
-  :is(ul, ol):has(> li > p + p) > li + li {
-    margin-top: var(--sp-6);
   }
 }
 
@@ -580,20 +527,8 @@ p {
 blockquote {
   border-left: 3px solid var(--warm-300);
   padding: var(--sp-2) var(--sp-4);
-  margin: var(--sp-6) 0;
   color: var(--text-muted);
   @include callout-base;
-
-  // Flush whichever element actually ends the blockquote — a paragraph,
-  // or a list (e.g. a blockquote whose content is an ordered list of
-  // steps). Without covering ul/ol too, a list-terminated blockquote
-  // keeps the list's own margin-bottom stacked on this padding-bottom,
-  // making the bottom gap bigger than the (padding-only) top gap.
-  p,
-  ul,
-  ol {
-    @include last-child-flush;
-  }
 }
 
 // Code — inline and block
@@ -618,7 +553,6 @@ code {
 // non-important declaration) makes every light-dark() in this subtree
 // resolve to its light branch, regardless of OS preference.
 pre {
-  margin: var(--sp-6) 0;
   padding: var(--sp-4);
   background-color: var(--ivory) !important;
   color-scheme: light !important;
@@ -649,13 +583,11 @@ pre {
 hr {
   border: none;
   border-top: 1px solid var(--border);
-  margin: var(--sp-8) 0;
 }
 
 // Footnotes — visually separated from the main content as a distinct
 // reference section. Smaller text, warm-sand panel, top border.
 .footnotes {
-  margin-top: var(--sp-12);
   padding: var(--sp-5) var(--sp-5);
   border-top: 1px solid var(--border);
   background-color: var(--ivory);
@@ -666,7 +598,6 @@ hr {
 
   .footnotes-list {
     padding-left: var(--sp-5);
-    margin: 0;
   }
 
   li {
@@ -674,14 +605,8 @@ hr {
     font-size: var(--fs-small);
     line-height: var(--lh-label);
     color: var(--text-muted);
-    margin-bottom: var(--sp-2);
     // Offset anchor jumps so the target isn't hidden behind the sticky header.
     scroll-margin-top: calc(var(--nav-height) + var(--sp-2));
-    @include last-child-flush;
-
-    p {
-      margin: 0;
-    }
 
     // Links (including the "↩" back-reference) keep the global accent +
     // underline, so they stay distinguishable from the muted footnote text.
@@ -719,7 +644,6 @@ table {
   overflow-x: auto;
   width: 100%;
   border-collapse: collapse;
-  margin: var(--sp-6) 0;
   font-size: var(--fs-small);
 
   th,
@@ -742,26 +666,14 @@ img {
   height: auto;
   border-radius: var(--sp-1);
   display: block;
-  margin: var(--sp-4) auto;
+  margin-inline: auto;
 }
 
 // Captioned images (`![alt](src)` immediately followed by a line of
 // `*italic text*` — see rewrite_images in the prebuild script, which turns
 // this into <figure>/<figcaption>).
 figure {
-  margin: var(--sp-4) auto;
-
-  img {
-    margin: 0 auto;
-  }
-
-  // A captioned equation (see render_math's caption convention) wraps a
-  // .katex-display, whose own margin would otherwise stack with
-  // figcaption's margin-top, doubling the gap to the caption compared to
-  // an image's (already zeroed above).
-  .katex-display {
-    margin: 0;
-  }
+  margin-inline: auto;
 }
 
 figcaption {
@@ -769,7 +681,6 @@ figcaption {
   font-size: var(--fs-small);
   color: var(--text-muted);
   text-align: center;
-  margin-top: var(--sp-2);
 }
 
 // ---------------------------------------------------------------------------
@@ -854,13 +765,6 @@ figcaption {
     }
   }
 
-  &__bio {
-    // slightly roomier reading measure for the intro prose
-    p:last-child {
-      margin-bottom: 0;
-    }
-  }
-
   // Link row with middot separators (Kami-style "·").
   &__links {
     display: flex;
@@ -909,6 +813,7 @@ figcaption {
   font-size: var(--fs-display);
   line-height: var(--lh-tight);
   color: var(--accent);
+  margin-top: var(--sp-12);
   margin-bottom: var(--sp-1);
 }
 
@@ -942,7 +847,7 @@ figcaption {
   display: flex;
   gap: var(--sp-2);
   flex-wrap: wrap;
-  margin-top: var(--sp-3);
+  margin-top: var(--sp-4);
   list-style: none;
   padding: 0;
 }
@@ -964,10 +869,6 @@ figcaption {
 
 .post__content {
   margin-bottom: var(--sp-12);
-
-  > *:first-child {
-    margin-top: 0;
-  }
 }
 
 // Publications — compact, editorial list (title / authors / venue / links)
@@ -1038,6 +939,7 @@ figcaption {
     font-weight: var(--fw-sans-m);
     font-size: var(--fs-small);
     color: var(--text-faint);
+    margin-top: var(--sp-10);
     margin-bottom: var(--sp-3);
     padding-bottom: var(--sp-1);
     border-bottom: 1px solid var(--border);
@@ -1098,16 +1000,7 @@ figcaption {
   border-radius: 0;
   background: none;
   padding: var(--sp-1) var(--sp-4);
-  margin: var(--sp-4) 0;
   color: var(--text-body);
-
-  // See the plain `blockquote` rule above — same reasoning: flush
-  // whichever element (paragraph or list) actually ends the alert.
-  p,
-  ul,
-  ol {
-    @include last-child-flush;
-  }
 }
 
 .markdown-alert-note {
@@ -1138,7 +1031,6 @@ figcaption {
 // ---------------------------------------------------------------------------
 
 .katex-display {
-  margin: var(--sp-6) 0;
   overflow-x: auto;
   overflow-y: hidden;
   padding: var(--sp-1) 0;
@@ -1154,7 +1046,6 @@ figcaption {
 // ---------------------------------------------------------------------------
 
 .travel-map {
-  margin: var(--sp-6) 0 0;
   text-align: center;
 
   svg {
@@ -1168,7 +1059,6 @@ figcaption {
     font-family: var(--font-sans);
     font-size: var(--fs-micro);
     color: var(--text-faint);
-    margin-top: var(--sp-2);
 
     a {
       border-bottom: none;
@@ -1230,5 +1120,113 @@ figcaption {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 14. Prose flow
+// ---------------------------------------------------------------------------
+
+// Vertical rhythm of rendered markdown. No element in it has margins of
+// its own: every container that holds blocks is a flow context, and the
+// space above each of its children (none above the first) is that child's
+// --flow-space — one body size unless a rule below says otherwise. Space
+// only ever goes above, so margins never collapse or leak out of a
+// container, and every gap is exactly the value set here. Kept last in the
+// file so it wins ties with element margins (e.g. .page-meta's).
+
+// The block elements rendered markdown produces (img is display: block).
+$flow-blocks: "p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, pre, blockquote, figure, figcaption, table, hr, img, div, section, details";
+// The ones that aren't text or lists (div: display math).
+$flow-solid-blocks: "pre, blockquote, figure, table, hr, img, div, details";
+
+// Flow contexts: the prose roots, and every block in them that holds blocks.
+:is(.post__content, .home__bio, .page-desc),
+:is(.post__content, .home__bio, .page-desc) :is(blockquote, ul, ol, li, figure) {
+  // Each context sets its children's default, so a value never leaks into
+  // an inner context (e.g. an h2's small after-gap into the items of the
+  // list it introduces). margin-block, not margin: images and figures
+  // center with auto inline margins.
+  > * {
+    --flow-space: var(--fs-body);
+    margin-block: 0;
+  }
+
+  // A gap goes above a *block* with any rendered content before it. Only
+  // blocks: a tight list item holds its text inline (no <p>), so its
+  // <code>/<a>/math are children too and must not get one. `~`, not `+`:
+  // the travel map starts with a <style>, which isn't content above.
+  > :not(style, script) ~ :is(#{$flow-blocks}) {
+    margin-block-start: var(--flow-space);
+  }
+}
+
+// Headings: a big step above, a small one below, so each heading sits with
+// its own section.
+:is(.post__content, .home__bio, .page-desc) {
+  > :is(h1, h2) {
+    --flow-space: var(--s3);
+  }
+  > :is(h3, h4) {
+    --flow-space: var(--s2);
+  }
+  > :is(h5, h6) {
+    --flow-space: var(--s1);
+  }
+
+  > :is(h2, h3, h4) + * {
+    --flow-space: var(--s-1);
+  }
+  > h5 + * {
+    --flow-space: var(--s-2);
+  }
+  > h6 + * {
+    --flow-space: var(--s-3);
+  }
+}
+
+:is(.post__content, .home__bio, .page-desc) {
+  // List items, at every level, sit just apart: lines of one list, not
+  // blocks (~0.25em, as GitHub's and Docusaurus's markdown styles).
+  :is(ul, ol) > li {
+    --flow-space: var(--sp-1);
+  }
+
+  // A sublist belongs to its parent item's text (the Gestalt proximity
+  // principle: less space reads as "these belong together"), so no gap
+  // before it. After a code block or equation, a sublist keeps the
+  // default block gap.
+  li > :is(ul, ol) {
+    --flow-space: 0;
+  }
+  li > :is(#{$flow-solid-blocks}) + :is(ul, ol) {
+    --flow-space: var(--fs-body);
+  }
+
+  // Paragraphs within one item (e.g. a multi-paragraph proof step) sit
+  // closer than paragraphs of body text, so they read as one item.
+  li > p + p {
+    --flow-space: var(--sp-3);
+  }
+
+  // An item holding a code block, equation, quote… or several paragraphs,
+  // at any depth, is a block among lines: set it off from its neighbours by
+  // more than the gaps within it, or its last block would sit closer to the
+  // next item than to its own start. Plain items around it stay close.
+  :is(ul, ol) > li:has(:is(#{$flow-solid-blocks}), p + p) + li,
+  :is(ul, ol) > li + li:has(:is(#{$flow-solid-blocks}), p + p) {
+    --flow-space: var(--sp-6);
+  }
+  // A sublist opening with such an item is set off from its item's text too.
+  li > :is(ul, ol):has(> li:first-child :is(#{$flow-solid-blocks}), > li:first-child p + p) {
+    --flow-space: var(--fs-body);
+  }
+
+  figure > figcaption {
+    --flow-space: var(--sp-2);
+  }
+
+  .footnotes-list > li {
+    --flow-space: var(--sp-2);
   }
 }
